@@ -1,0 +1,35 @@
+<div class="container" bindonce bo-class="state.current.name | stateClass">
+    <subview data="'partials/header'"></subview>
+
+    <section class="content" bindonce="post">
+        <header>
+            <h1 class="title" bo-text="post.title"></h1>
+            <time datetime="{{post.updated | date:'yyyy-MM-dd'}}" bo-text="post.updated | date: 'd MMMM yyyy'"></time>
+        </header>
+
+        <section class="short-text" bo-if="post.shortText" bo-text="post.shortText"></section>
+        <section class="full-text" bo-if="post.fullText" bo-text="post.fullText"></section>
+
+        <div class="page-footer">
+            <div class="topics">
+                <h4>Темы</h4>
+                <ul>
+                    <li bindonce ng-repeat="topic in post.topics">
+                        <a ui-sref="topic({ topic: topic })" bo-text="topic"></a><span bo-if="!$last">,</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="social">
+                <a bo-href="twitterShareUrl(post)" target="_blank" rel="nofollow" class="fa fa-twitter"></a>
+                <a bo-href="googleShareUrl(post)" target="_blank" rel="nofollow" class="fa fa-google-plus"></a>
+                <a bo-href="facebookShareUrl(post)" target="_blank" rel="nofollow" class="fa fa-facebook"></a>
+            </div>
+        </div>
+
+        <div id="comments">
+            <div class="comments" id="hypercomments_widget"></div>
+        </div>
+    </section>
+
+    <subview data="'partials/footer'"></subview>
+</div>

@@ -1,0 +1,37 @@
+{
+  "name": "HoursOfCode",
+  "description": "Personal blog & Portfolio",
+  "version": "0.0.1",
+  "keywords": [
+    "blog",
+    "portfolio"
+  ],
+  "maintainers": [
+    {
+      "name": "Ryabov Boris",
+      "email": "rbs@anontalk.org",
+      "web": "http://hoursofcode.ru"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "WTFPL",
+      "url": "http://www.wtfpl.net/"
+    }
+  ],
+  "dependencies": {
+    "koa": "~0.2.1",
+    "koa-router": "~2.3.0",
+    "co": "~3.0.2",
+    "co-body": "0.0.1",
+    "lodash": "~2.4.1",
+    "thunkify": "0.0.1",
+    "koa-static": "~1.4.2",
+    "optimist": "~0.6.0",
+    "co-easymongo": "~0.2.0",
+    "moment": "~2.5.1"
+  },
+  "devDependencies": {
+    "Faker": "~0.5.11"
+  }
+}

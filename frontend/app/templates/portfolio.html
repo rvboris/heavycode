@@ -1,0 +1,250 @@
+<div class="container" bindonce bo-class="state.current.name | stateClass">
+    <header>
+        <h1>Портфолио</h1>
+
+        <h2>Ryabov Boris / Front-end developer</h2>
+    </header>
+
+    <section class="skills">
+        <div>
+            <h1>JS</h1>
+            <ul class="js">
+                <li data-hover="Angular">Angular</li>
+                <li data-hover="Knockout">Knockout</li>
+                <li data-hover="jQuery">jQuery</li>
+                <li data-hover="AMD Modules, Require.js">AMD Modules, Require.js</li>
+                <li data-hover="Deploy systems Grunt, Gulp, Bower">Deploy systems Grunt, Gulp, Bower</li>
+                <li data-hover="Yeoman, Lineman">Yeoman, Lineman</li>
+                <li data-hover="Node.js (async, fibers, yield)">Node.js (async, fibers, yield)</li>
+                <li data-hover="Express, Koa">Express, Koa</li>
+                <li data-hover="WebSockets, ES6">WebSockets, ES6</li>
+            </ul>
+        </div>
+        <div>
+            <h1>HTML/CSS</h1>
+            <ul class="html">
+                <li data-hover="HTML5, Jade, Handlebars">HTML5, Jade, Handlebars</li>
+                <li data-hover="CSS3, Stylus, LESS">CSS3, Stylus, LESS</li>
+                <li data-hover="Bootstrap">Bootstrap</li>
+                <li data-hover="Responsive design">Responsive design</li>
+                <li data-hover="Fluid grids">Fluid grids</li>
+            </ul>
+        </div>
+        <div>
+            <h1>DB</h1>
+            <ul class="db">
+                <li data-hover="MySQL">MySQL</li>
+                <li data-hover="PostgreSQL">PostgreSQL</li>
+                <li data-hover="Redis">Redis</li>
+                <li data-hover="MongoDB">MongoDB</li>
+            </ul>
+        </div>
+        <div>
+            <h1>VCS</h1>
+            <ul class="vcs">
+                <li data-hover="Mercurial">Mercurial</li>
+                <li data-hover="GIT">GIT</li>
+            </ul>
+        </div>
+        <div>
+            <h1>misc</h1>
+            <ul class="need">
+                <li data-hover="C# (WPF, DevExpress)">C# (WPF, DevExpress)</li>
+                <li data-hover="PHP (Zend, Yii, Doctrine)">PHP (Zend, Yii, Doctrine)</li>
+                <li data-hover="Java, android">Java, android</li>
+            </ul>
+        </div>
+        <div>
+            <h1>etc</h1>
+            <ul class="use">
+                <li data-hover="Ubuntu, Windows">Ubuntu, Windows</li>
+                <li data-hover="Nginx, Apache">Nginx, Apache</li>
+                <li data-hover="Sphinx, ElasticSearch">Sphinx, ElasticSearch</li>
+                <li data-hover="Sublime Text, WebStorm, VS">Sublime Text, WebStorm, VS</li>
+                <li data-hover="Adobe Fireworks">Adobe Fireworks</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="works">
+        <ul opt-kind ok-key="filter" ok-publish="my-iso-opts" class="filters g-buttons">
+            <li><button type="button" ok-sel="*" class="left g-button selected">Показать все</button></li>
+            <li><button type="button" ok-sel=".site" class="middle g-button">Сайты</button></li>
+            <li><button type="button" ok-sel=".app" class="middle g-button">Приложения</button></li>
+            <li><button type="button" ok-sel=".misc" class="right g-button">Другое</button></li>
+        </ul>
+
+        <ul class="works-container" id="isotopeContainer" isotope-container iso-options-subscribe="my-iso-opts" iso-method-subscribe="my-iso-method" fancybox>
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/arka/arka1.png" data-fancybox-group="arka" class="fancybox">
+                    <div class="work-item arka">
+                        <div class="work-item-info">
+                            <h3>Арка</h3>
+                        </div>
+                    </div>
+                </a>
+                <a href="/img/portfolio/arka/arka2.png" data-fancybox-group="arka" class="fancybox"></a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/lookwish/lookwish1.png" data-fancybox-group="lookwish" class="fancybox">
+                    <div class="work-item lookwish">
+                        <div class="work-item-info">
+                            <h3>Lookwish</h3>
+                        </div>
+                    </div>
+                </a>
+                <a href="/img/portfolio/lookwish/lookwish2.png" data-fancybox-group="lookwish" class="fancybox"></a>
+                <a href="/img/portfolio/lookwish/lookwish3.png" data-fancybox-group="lookwish" class="fancybox"></a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/hotel-sever/hotel-sever.png" class="fancybox">
+                    <div class="work-item hotel-sever">
+                        <div class="work-item-info">
+                            <h3>Отель &laquo;Север&raquo;</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="misc" isotope-item>
+                <a href="/img/portfolio/taksor-cards/taxi-card1.png" data-fancybox-group="taksor" class="fancybox">
+                    <div class="work-item taksor-cards">
+                        <div class="work-item-info">
+                            <h3>Таксор.рф визитки</h3>
+                        </div>
+                    </div>
+                </a>
+                <a href="/img/portfolio/taksor-cards/taxi-card2.png" data-fancybox-group="taksor" class="fancybox"></a>
+                <a href="/img/portfolio/taksor-cards/taxi-card3.png" data-fancybox-group="taksor" class="fancybox"></a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/rbs-creative4/rbs-creative4.png" class="fancybox">
+                    <div class="work-item rbs-creative4">
+                        <div class="work-item-info">
+                            <h3>rbs-creative v4</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/rnames/rnames.png" class="fancybox">
+                    <div class="work-item rnames">
+                        <div class="work-item-info">
+                            <h3>RNames</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="app" isotope-item>
+                <a href="/img/portfolio/womansecrets/womansecrets.png" class="fancybox">
+                    <div class="work-item womansecrets">
+                        <div class="work-item-info">
+                            <h3>Woman Secrets</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/rbs-creative3/rbs-creative3.png" class="fancybox">
+                    <div class="work-item rbs-creative3">
+                        <div class="work-item-info">
+                            <h3>rbs-creative v3</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="app" isotope-item>
+                <a href="/img/portfolio/octanis/octanis1.png" data-fancybox-group="octanis" class="fancybox">
+                    <div class="work-item octanis">
+                        <div class="work-item-info">
+                            <h3>Octanis</h3>
+                        </div>
+                    </div>
+                </a>
+                <a href="/img/portfolio/octanis/octanis2.png" data-fancybox-group="octanis" class="fancybox"></a>
+                <a href="/img/portfolio/octanis/octanis3.png" data-fancybox-group="octanis" class="fancybox"></a>
+                <a href="/img/portfolio/octanis/octanis4.png" data-fancybox-group="octanis" class="fancybox"></a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/taksor/taksor.png" class="fancybox">
+                    <div class="work-item taksor">
+                        <div class="work-item-info">
+                            <h3>Таксор.рф</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="app" isotope-item>
+                <a href="/img/portfolio/gibdd/gibdd1.png" data-fancybox-group="gibdd" class="fancybox">
+                    <div class="work-item gibdd">
+                        <div class="work-item-info">
+                            <h3>База ГИБДД</h3>
+                        </div>
+                    </div>
+                </a>
+                <a href="/img/portfolio/gibdd/gibdd2.png" data-fancybox-group="gibdd" class="fancybox"></a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/rbs-creative1/rbs-creative1.png" class="fancybox">
+                    <div class="work-item rbs-creative1">
+                        <div class="work-item-info">
+                            <h3>rbs-creative v1</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/rbs-creative2/rbs-creative2.png" class="fancybox">
+                    <div class="work-item rbs-creative2">
+                        <div class="work-item-info">
+                            <h3>rbs-creative v2</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/oasis/oasis.png" class="fancybox">
+                    <div class="work-item oasis">
+                        <div class="work-item-info">
+                            <h3>Oasis</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="app" isotope-item>
+                <a href="/img/portfolio/engec-reader/engec-reader.png" class="fancybox">
+                    <div class="work-item e-reader">
+                        <div class="work-item-info">
+                            <h3>E-Reader</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="site" isotope-item>
+                <a href="/img/portfolio/iluck/iluck.png" class="fancybox">
+                    <div class="work-item iluck">
+                        <div class="work-item-info">
+                            <h3>iLuck</h3>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <span bindonce bo-if="!directAccess" class="back fa fa-arrow-circle-left" ng-click="goBack()"></span>
+</div>

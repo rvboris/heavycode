@@ -1,0 +1,52 @@
+<div class="container" bindonce bo-class="state.current.name | stateClass">
+    <subview data="'partials/header'"></subview>
+
+    <section class="content" bindonce="postsCount">
+        <div bindonce ng-repeat="post in posts track by post._id">
+            <article class="row">
+                <div class="col-d-4-5 col-t-2-3 col-p-5-5 left">
+                    <div class="wrap">
+                        <a ui-sref="post({ id: post._id })" bo-if="post.fullText"><h1 bo-text="post.title"></h1></a>
+                        <h1 bo-text="post.title" bo-if="!post.fullText"></h1>
+                        <div class="text">
+                            <div bo-text="post.shortText"></div>
+                            <a ui-sref="post({ id: post._id })" bo-if="post.fullText">Подробнее...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-d-1-5 col-t-1-3 right">
+                    <div class="wrap">
+                        <time datetime="{{post.updated | date:'yyyy-MM-dd'}}">
+                            <div class="day" bo-text="post.updated | date:'dd'"></div>
+                            <div class="month" bo-text="(post.updated | date:'MMM').replace('.', '')"></div>
+                            <div class="year-wrap">
+                                <div class="year" bo-text="post.updated | date:'yyyy'"></div>
+                            </div>
+                        </time>
+                        <div class="comments"><a ui-sref="post({ id: post._id, comments: true })" data-xid="{{post._id}}" class="comments-count">Комментарии</a></div>
+                        <div class="topics" bo-if="post.topics">
+                            <h4>Темы</h4>
+                            <ul>
+                                <li bindonce ng-repeat="topic in post.topics track by $index">
+                                    <a ui-sref="topic({ topic: topic })" bo-text="topic"></a><span bo-if="!$last">,</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="social">
+                            <h4>Поделиться</h4>
+                            <a bo-href="twitterShareUrl(post)" target="_blank" rel="nofollow" class="fa fa-twitter"></a>
+                            <a bo-href="googleShareUrl(post)" target="_blank" rel="nofollow" class="fa fa-google-plus"></a>
+                            <a bo-href="facebookShareUrl(post)" target="_blank" rel="nofollow" class="fa fa-facebook"></a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <hr class="separator" bo-if="!$last" />
+        </div>
+
+        <paginator page="currentPage" total="postsCount" limit="postsLimit" state-name="state.current.name" bo-if="postsCount"></paginator>
+    </section>
+
+    <subview data="'partials/footer'"></subview>
+</div>

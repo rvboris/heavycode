@@ -1,0 +1,780 @@
+@import grid
+@import g-buttons
+@import isotope
+@import fancybox
+@import nib
+
+@font-face
+  font-family 'Pragmatic'
+  src url('../webfonts/pragmatic.eot')
+  src url('../webfonts/pragmatic.eot?#iefix') format('embedded-opentype'), url('../webfonts/pragmatic.svg#Pragmatic') format('svg'), url('../webfonts/pragmatic.woff') format('woff'), url('../webfonts/pragmatic.ttf') format('truetype')
+  font-weight normal
+  font-style normal
+
+@font-face
+  font-family 'Barnaul-Regular'
+  src url('../webfonts/barnaul-regular.eot')
+  src url('../webfonts/barnaul-regular.eot?#iefix') format('embedded-opentype'), url('../webfonts/barnaul-regular.svg#Barnaul-Regular') format('svg'), url('../webfonts/barnaul-regular.woff') format('woff'), url('../webfonts/barnaul-regular.ttf') format('truetype')
+  font-weight normal
+  font-style normal
+
+@font-face
+  font-family 'Barnaul-Italic'
+  src url('../webfonts/barnaul-italic.eot')
+  src url('../webfonts/barnaul-italic.eot?#iefix') format('embedded-opentype'), url('../webfonts/barnaul-italic.svg#Barnaul-Italic') format('svg'), url('../webfonts/barnaul-italic.woff') format('woff'), url('../webfonts/barnaul-italic.ttf') format('truetype')
+  font-weight normal
+  font-style normal
+
+h1, h2, h3, h4, h5
+  font-weight normal
+  margin 0
+
+border-box()
+  -webkit-box-sizing border-box
+  -moz-box-sizing border-box
+  box-sizing border-box
+
+link-transition()
+  -webkit-transition color 300ms ease-in-out
+  -moz-transition color 300ms ease-in-out
+  -ms-transition color 300ms ease-in-out
+  -o-transition color 300ms ease-in-out
+  transition color 300ms ease-in-out
+
+.slabtexted .slabtext
+  display -moz-inline-box
+  display inline-block
+  white-space nowrap
+
+.slabtextinactive .slabtext
+  display inline
+  white-space normal
+  font-size 1em !important
+  letter-spacing inherit !important
+  word-spacing inherit !important
+  *letter-spacing 0 !important
+  *word-spacing 0 !important
+
+.slabtextdone .slabtext
+  display block
+
+.comments
+  .hc_footer
+    display none !important
+
+body, html, .root
+  height 100%
+
+body
+  overflow hidden
+  background #FAFAFA url('../img/main-bg.png')
+
+  .container
+    border-box()
+    border 3px solid #444
+    width 100%
+    height 100%
+    overflow auto
+
+    @media media-grid
+      grid()
+
+    @media media-phone
+      grid('p')
+      padding 10px
+
+    @media media-tablet
+      grid('t')
+      padding 15px
+
+    @media media-desktop
+      grid('d')
+      padding 20px
+
+  .blog-section, .post-section, .archive-section, .topic-section
+    background url('../img/blog-bg.jpg')
+
+    header
+      max-width 1140px
+      margin 0 auto
+
+      .headline, .subline
+        overflow hidden
+        h1, h2
+          margin 0
+          padding 0
+          display inline-block
+          border-box()
+          font-family 'Pragmatic'
+
+        .icon-social-rss
+          color #141413
+          text-decoration none
+          font-size 1.8em
+          padding 0 10px
+          link-transition()
+          &:hover
+            color #9F2BD7
+
+        h1
+          background #141413
+          color #E3DED8
+          padding 10px 20px
+
+          @media media-phone
+            font-size 40px
+
+          @media media-tablet
+            font-size 50px
+
+          @media media-desktop
+            font-size 60px
+        h2
+          background #FFF
+          color #141413
+          padding 5px 20px
+
+          @media media-phone
+            font-size 30px
+
+          @media media-tablet
+            font-size 40px
+
+          @media media-desktop
+            font-size 50px
+
+    section.content
+      background #FFF
+      max-width 1140px
+      min-height 100px
+      margin 0 auto
+      border-bottom 3px solid #141413
+      margin-bottom 30px
+
+      hr.separator
+        padding 0
+        border none
+        border-top medium double #777
+        color #141413
+        text-align center
+        margin 0
+        &:after
+          content "§"
+          display inline-block
+          position relative
+          top -0.7em
+          font-size 1.5em
+          padding 0 0.25em
+          background white
+
+      article
+        margin 20px 0
+        &:first-child
+          margin-top 0
+
+        .left .wrap
+          > a
+            text-decoration none
+            color #000
+            &:hover h1
+              color #F33
+          h1
+            font-family 'Barnaul-Italic'
+            margin 10px 20px
+            font-size 1.85em
+            display inline-block
+          .text
+            margin 10px 20px 20px 20px
+            font-family 'Barnaul-Regular'
+            font-size 1.21em
+            line-height 1.5em
+            p:first-line
+              text-indent 20px
+            a
+              color #000
+              font-family 'Barnaul-Italic'
+              &:hover
+                color #FF3333
+                text-decoration none
+        .right
+          @media media-phone
+            display none
+
+          .wrap
+            padding 2%
+
+            time
+              display block
+              background #F3F4F4
+              width 100%
+              max-width 200px
+              height 150px
+              position relative
+              font-family 'Pragmatic'
+
+              .day
+                position absolute
+                top 10%
+                left 10%
+                height 75px
+                width 50%
+                font-size 500%
+                line-height 75px
+                text-align center
+                text-indent -10px
+              .month
+                left 10%
+                bottom 5%
+                position absolute
+
+                width 50%
+                font-size 290%
+                text-align center
+
+              .year-wrap
+                right 0
+                top 0
+                bottom 0
+                position absolute
+                width 50%
+
+                .year
+                  display block
+                  width 100%
+                  height 50%
+                  font-size 2.8em
+                  position absolute
+                  line-height 50%
+                  top 25%
+                  right 25%
+                  -webkit-transform: rotate(90deg)
+                  -moz-transform: rotate(90deg);
+                  -ms-transform: rotate(90deg);
+                  -o-transform: rotate(90deg);
+                  transform: rotate(90deg);
+
+            .comments
+              margin 20px 0
+              a
+                font-family 'Barnaul-Italic'
+                color #000
+                font-size 1.05em
+                &:visited
+                  color #000
+                &:hover
+                  color #FF3333
+                  text-decoration none
+
+            .topics
+              h4
+                font-size 17px
+                margin 10px 0
+                font-family 'Pragmatic'
+              ul
+                list-style none
+                padding 0
+                margin 0
+                margin-left 10px
+                display block
+                li
+                  display inline-block
+                  margin-right 5px
+                  &:last-child
+                    margin 0
+                  a
+                    color #000
+                    font-family 'Barnaul-Italic'
+                    font-size 1.05em
+                    &:visited
+                      color #000
+                    &:hover
+                      color #FF3333
+                      text-decoration none
+
+            .social
+              margin-top 30px
+              h4
+                font-family 'Pragmatic'
+                font-size 17px
+                margin 10px 0
+              a
+                text-align center
+                color #000
+                text-decoration none
+                font-size 1.7em
+                display inline-block
+                width 25%
+                max-width 40px
+                &:hover
+                  color #FF3333
+      .pagination-wrap
+        text-align center
+        .paginator
+          text-align center
+          height 25px
+          line-height 25px
+          margin-bottom 20px
+          list-style none
+          display inline-block
+          padding 0
+          li
+            float left
+            span, a
+              display inline-block
+              margin 0 1px
+              padding 0 8px
+              font-family 'Barnaul-Italic'
+            span.active
+              color #FF3333
+            a
+              text-decoration none
+              color #000
+              &:hover
+                color #FF3333
+
+    footer
+      background #141413
+      max-width 1140px
+      margin 0 auto !important
+      height 50px
+      line-height 50px
+
+      .blog-nav
+        @media media-tablet
+          display none
+        @media media-phone
+          display none
+        button, a
+          color #FFF
+          background transparent
+          border 0
+          text-decoration none
+          font-size 17px
+          font-family 'Pragmatic'
+          &:hover
+            color #FF3333
+          i
+            padding-right 10px
+
+        button
+          margin-right 20px
+          outline 0
+      .menu menu
+        list-style none
+        padding 0
+        margin 0
+        clearfix()
+        @media media-phone
+          display none
+        @media media-tablet
+          display none
+        li
+          display block
+          float left
+          color #FFF
+          height 50px
+          background #FF3333
+          &.first
+            padding-left 20px
+          &.last
+            padding-right 20px
+          a
+            text-decoration none
+            color #FFF
+            font-family 'Pragmatic'
+            font-size 17px
+            margin 0 10px
+            &:hover
+              color #00
+            i
+              padding-right 5px
+
+      .copyrights
+        color #FFF
+        text-align right
+        padding-right 20px
+        font-family 'Pragmatic'
+        font-size 17px
+
+    .subfooter
+      list-style none
+      padding 0
+      margin 0
+      text-align center
+      background #FF3333
+      clearfix()
+
+      @media media-desktop
+        display none
+
+      li
+        display inline-block
+        color #FFF
+        height 50px
+        line-height 50px
+
+        a
+          text-decoration none
+          color #FFF
+          font-family 'Pragmatic'
+          font-size 17px
+          margin 0 10px
+          &:hover
+            color #000
+          i
+            padding-right 5px
+
+  .post-section
+    .content
+      padding 10px 0
+      header
+        h1.title
+          margin 0
+          padding 0 20px
+          font-size 2.1em
+          font-family 'Barnaul-Italic'
+        time
+          color #8C8C8C
+          padding 0 20px
+          font-size 17px
+          font-family 'Pragmatic'
+      section.short-text, section.full-text
+        padding 15px 20px
+        font-family 'Barnaul-Regular'
+        font-size 1.21em
+        line-height 1.5em
+        p:first-line
+          text-indent 20px
+        a
+          color #000
+          font-family 'Barnaul-Italic'
+          &:hover
+            color #FF3333
+            text-decoration none
+      .page-footer
+        text-align right
+        padding 0 20px
+        @media media-tablet
+          text-align left
+        @media media-phone
+          text-align left
+        clearfix()
+        .social
+          float right
+          width 205px
+          @media media-tablet
+            float none
+            margin-top 10px
+            text-align right
+          @media media-phone
+            float none
+            margin-top 10px
+            text-align right
+          h4
+            font-family 'Pragmatic'
+            font-size 1.05em
+            display inline-block
+            float left
+            margin 0
+            line-height 24px
+          a
+            color #000
+            text-decoration none
+            font-size 1.5em
+            display inline-block
+            height 24px
+            padding 0 5px
+            &:hover
+              color #FF3333
+        .topics
+          float left
+
+          @media media-tablet
+            float none
+          @media media-phone
+            float none
+
+          h4
+            font-family 'Pragmatic'
+            font-size 1.05em
+            display inline
+            padding-right 10px
+          ul
+            display inline-block
+            list-style none
+            padding 0
+            margin 0
+            li
+              display inline-block
+              margin-right 5px
+              &:last-child
+                margin 0
+              a
+                color #000
+                font-family 'Barnaul-Italic'
+                font-size 1.2em
+
+                &:visited
+                  color #000
+                &:hover
+                  color #FF3333
+                  text-decoration none
+      .comments
+        margin 20px
+  .archive-section
+    ol, ul
+      list-style none
+      padding 0
+      margin 0
+      h1, h2
+        margin 0
+        font-family 'Barnaul-Italic'
+    ol.years
+      padding 20px
+    ol.months
+      padding-left 20px
+      li.month
+        margin 15px 0
+        h2
+          text-transform capitalize
+    ol.posts
+      padding-left 20px
+      li.post
+        line-height 1.5em
+        font-size 1.21em
+        a
+          color #000
+          font-family 'Barnaul-Italic'
+          &:hover
+            color #FF3333
+        ul.topics
+          display inline
+          padding-left 10px
+          li
+            display inline
+
+  .portfolio-section
+    header
+      h1, h2
+        font-family 'Barnaul-Italic'
+      h1
+        display inline-block
+        background #D6F233
+        color #000
+        padding 20px
+        font-size 3.1em
+      h2
+        display inline-block
+        font-size 1.5em
+        padding-left 20px
+
+        @media media-phone
+          padding 20px 0 0 0
+
+        @media media-tablet
+          padding 20px 0 0 20px
+
+    section.skills
+      margin 20px 0
+      h1
+        font-family 'Pragmatic'
+        font-size 4em
+        display inline-block
+      ul, li
+        display inline-block
+        list-style none
+        margin 0
+      li
+        padding 5px 9px
+        margin 5px
+        font-size 1.3em
+        font-family 'Barnaul-Regular'
+        color #000
+        cursor default
+        position relative
+        &::before
+          color #F13349
+          content attr(data-hover)
+          position absolute
+          opacity 0
+          text-shadow 0 0 1px rgba(255,255,255,0.3)
+          -webkit-transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
+          -moz-transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
+          transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
+          -webkit-transition -webkit-transform 0.3s, opacity 0.3s
+          -moz-transition -moz-transform 0.3s, opacity 0.3s
+          transition transform 0.3s, opacity 0.3s
+          pointer-events none
+          border-bottom 2px solid #F13349
+        &:hover, &:focus
+          &::before
+            -webkit-transform scale(1) translateX(0px) translateY(0px) rotate(0deg)
+            -moz-transform scale(1) translateX(0px) translateY(0px) rotate(0deg)
+            transform scale(1) translateX(0px) translateY(0px) rotate(0deg)
+            opacity 1
+    section.works
+      min-height 600px
+      .g-buttons
+        clearfix()
+        padding 0
+        width 460px
+        margin 40px auto 20px auto
+        list-style none
+        li
+          float left
+
+      .works-container
+        clearfix()
+        margin 20px 0 0 0
+        padding 0
+        list-style none
+        display block
+        width 100%
+        clear both
+        li
+          width 200px
+          height 200px
+          display inline-block
+          margin 20px
+          .work-item
+            cursor pointer
+            width 100%
+            height 100%
+            border-radius 50%
+            position relative
+            box-shadow inset 0 0 0 0 rgba(241, 51, 73, 0.8), inset 0 0 0 16px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.1)
+            transition all 0.4s ease-in-out
+            &:hover
+              box-shadow inset 0 0 0 110px rgba(241, 51, 73, 0.8), inset 0 0 0 16px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.1)
+              .work-item-info
+                opacity 1
+                transform scale(1)
+            .work-item-info
+              display table
+              position absolute
+              top 25px
+              bottom 25px
+              left 25px
+              right 25px
+              border-radius 50%
+              overflow hidden
+              opacity 0
+              transition all 0.4s ease-in-out
+              transform scale(0)
+              backface-visibility hidden
+            h3
+              display table-cell
+              color #fff
+              text-transform uppercase
+              letter-spacing 2px
+              font-size 17px
+              vertical-align middle
+              text-align center
+              font-family 'Pragmatic'
+              text-shadow 0 0 1px #fff, 0 1px 2px rgba(0, 0, 0, 0.3)
+              height 150px
+              width 150px
+            &.arka
+              background url('../img/portfolio/arka/thumbs/arka.png') no-repeat
+            &.lookwish
+              background url('../img/portfolio/lookwish/thumbs/lookwish.png') no-repeat
+            &.hotel-sever
+              background url('../img/portfolio/hotel-sever/thumbs/hotel-sever.png') no-repeat
+            &.rbs-creative4
+              background url('../img/portfolio/rbs-creative4/thumbs/rbs-creative4.png') no-repeat
+            &.rnames
+              background url('../img/portfolio/rnames/thumbs/rnames.png') no-repeat
+            &.rbs-creative3
+              background url('../img/portfolio/rbs-creative3/thumbs/rbs-creative3.png') no-repeat
+            &.taksor
+              background url('../img/portfolio/taksor/thumbs/taksor.png') no-repeat
+            &.rbs-creative1
+              background url('../img/portfolio/rbs-creative1/thumbs/rbs-creative1.png') no-repeat
+            &.rbs-creative2
+              background url('../img/portfolio/rbs-creative2/thumbs/rbs-creative2.png') no-repeat
+            &.oasis
+              background url('../img/portfolio/oasis/thumbs/oasis.png') no-repeat
+            &.iluck
+              background url('../img/portfolio/iluck/thumbs/iluck.png') no-repeat
+            &.octanis
+              background url('../img/portfolio/octanis/thumbs/octanis.png') no-repeat
+            &.womansecrets
+              background url('../img/portfolio/womansecrets/thumbs/womansecrets.png') no-repeat
+            &.gibdd
+              background url('../img/portfolio/gibdd/thumbs/gibdd.png') no-repeat
+            &.e-reader
+              background url('../img/portfolio/engec-reader/thumbs/engec-reader.png') no-repeat
+            &.taksor-cards
+              background url('../img/portfolio/taksor-cards/thumbs/taxi-card.png') no-repeat
+    .back
+      position absolute
+      bottom 3px
+      left 3px
+      display block
+      cursor pointer
+      font-size 32px
+      padding 10px;
+      background #000
+      color #FFF
+      z-index 10
+      &:hover
+        color #d6f233
+
+  .contact-section
+    header
+      h1, h2
+        font-family 'Barnaul-Italic'
+      h1
+        display inline-block
+        background #D6F233
+        color #000
+        padding 20px
+        font-size 3.1em
+      h2
+        display inline-block
+        font-size 1.5em
+        padding-left 20px
+
+        @media media-phone
+          padding 20px 0 0 0
+        @media media-tablet
+          padding 20px 0 0 20px
+
+    .contact-icons
+      margin 100px auto 0 auto !important
+      text-align center
+      max-width 900px
+
+      @media media-phone
+        margin 50px auto 0 auto !important
+        max-width 200px
+      @media media-tablet
+        margin 50px auto 0 auto !important
+        max-width 500px
+      a
+        text-decoration none
+        color #000
+        &:hover
+          color #F13349
+
+        @media media-phone
+          font-size 70px
+
+        @media media-tablet
+          font-size 90px
+
+        @media media-desktop
+          font-size 120px
+    .back
+      position absolute
+      bottom 3px
+      left 3px
+      display block
+      cursor pointer
+      font-size 32px
+      padding 10px;
+      background #000
+      color #FFF
+      z-index 10
+      &:hover
+        color #d6f233

@@ -1,0 +1,169 @@
+/*
+ * grid.styl
+ *
+ * https://github.com/melchior-b/grid.styl
+ */
+
+// class names
+row-class     ?= 'row'
+column-class  ?= 'col'
+offset-class  ?= 'off'
+
+// grid settings
+gutter-size   ?= 20px
+
+// create media query with min and/or max size
+media-query(min, max = null)
+  if min && max
+    "only screen and (min-width: " + min + ") and (max-width: " + max + ")"
+  else if max
+    "only screen and (max-width: " + max + ")"
+  else
+    "only screen and (min-width: " + min + ")"
+
+// standard media queries
+media-phone                 ?= media-query(0px, 480px)
+
+media-tablet                ?= media-query(481px, 1024px)
+
+media-tablet-portrait       ?= media-query(481px, 768px)
+media-min-tablet-portrait   ?= media-query(481px)
+media-max-tablet-portrait   ?= media-query(0px, 768px)
+
+media-tablet-landscape      ?= media-query(769px, 1024px)
+media-min-tablet-landscape  ?= media-query(769px)
+media-max-tablet-landscape  ?= media-query(0px, 1024px)
+
+media-desktop               ?= media-query(1025px)
+media-min-desktop           ?= media-query(1025px)
+media-max-desktop           ?= media-query(1599px)
+media-large-desktop         ?= media-query(1600px)
+
+media-grid                  ?= media-min-tablet-portrait
+
+// clear fix
+clearfix()
+  &:after
+    content ""
+    display table
+    clear both
+
+// grid gutter for rows & columns
+gutter(size)
+  // margin correction for row
+  &
+    margin-left -(size)
+
+    // gutter for columns
+    [class*={'"' + column-class + '"'}]
+      padding-left size
+
+/*
+ * add row styles to selector
+ * use in selectors to turn elements into rows
+ */
+row()
+  clearfix()
+  gutter(gutter-size)
+
+  &.half-gutter
+    gutter(gutter-size / 2)
+
+  &.no-gutter
+    gutter(0)
+
+/*
+ * add column styles to selector
+ * use in selectors to turn elements into columns
+ */
+column(a, b, setup = true)
+  width (a / b * 100)%
+
+  if setup
+    // correct sizing to include gutter padding
+    padding-left gutter-size
+    -webkit-box-sizing border-box
+    -moz-box-sizing border-box
+    box-sizing border-box
+    
+    float left
+
+/*
+ * adds offset to column elements
+ * use in selectors to add offset to column elements
+ */
+offset(a, b)
+  margin-left (a / b * 100)%
+
+/*
+ * setup one column size and utility classes
+ */
+setup-column(a, b, name = '')
+  // width
+  value = (a / b * 100)% 
+
+  // named screen size
+  if name
+    // column class
+    .{column-class}-{name}-{a}-{b}
+      column(a, b, false)
+
+    // offset class
+    if a < b
+      .{offset-class}-{name}-{a}-{b}
+        margin-left value
+  else
+    // column class
+    .{column-class}-{a}-{b}
+      column(a, b, false)
+
+    // offset class
+    if a < b
+      .{offset-class}-{a}-{b}
+        margin-left value
+
+/*
+ * setup all column sizes and utility classes
+ * use in selectors to create columns for one screen size
+ */
+grid(name = false, fractions = 2 3 4 5)
+  // row
+  .{row-class}
+    row()
+
+  // columns
+  [class*={'"' + column-class + '"'}]
+    -webkit-box-sizing border-box
+    -moz-box-sizing border-box
+    box-sizing border-box
+    float left
+
+  // full width columns
+  if name
+    .{column-class}-{name}
+      width 100%
+  else
+    .{column-class}
+      width 100%
+
+  // 1/2,3,4,5 fraction sizes
+  for a in fractions
+    // columns
+    for n in 1..a
+      setup-column(n, a, name)
+
+    // row sizes
+    if name
+      .{row-class}-{name}-{a} .{column-class}
+        column(1, a, false)
+    else
+      .{row-class}-{a} .{column-class}
+        column(1, a, false)
+
+  // visibility helpers
+  if name
+    .show-{name}
+      display block
+
+    .hide-{name}
+      display none

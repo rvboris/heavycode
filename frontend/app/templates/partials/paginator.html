@@ -1,0 +1,15 @@
+<div class="pagination-wrap">
+    <ul class="paginator" ng-if="pages.length > 1">
+        <li class="prev">
+            <a ng-if="!prevPage.disabled" ui-sref="{{stateName}}({ page: prevPage.number })">&larr;</a>
+        </li>
+        <li ng-repeat="page in pages">
+            <a ng-if="!page.active && page.number" ui-sref="{{stateName}}({ page: page.number })">{{page.number}}</a>
+            <span ng-if="page.active && page.number" ng-class="{ active: page.active }">{{page.number}}</span>
+            <span ng-if="page.number === false">...</span>
+        </li>
+        <li class="next">
+            <a ng-if="!nextPage.disabled" ui-sref="{{stateName}}({ page: nextPage.number })">&rarr;</a>
+        </li>
+    </ul>
+</div>

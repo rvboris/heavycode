@@ -1,0 +1,23 @@
+<div class="container" bindonce bo-class="state.current.name | stateClass">
+    <header>
+        <h1>Контакты</h1>
+        <h2>Борис Рябов / Front-end developer</h2>
+    </header>
+
+    <div class="row contact-icons">
+        <div class="col-d-1-4">
+            <a class="foundicon-skype" href="skype:R0ksar"></a>
+        </div>
+        <div class="col-d-1-4">
+            <a class="foundicon-twitter" href="http://twitter.com/rvboris"></a>
+        </div>
+        <div class="col-d-1-4">
+            <a class="foundicon-linkedin" href="http://ru.linkedin.com/in/rvboris/"></a>
+        </div>
+        <div class="col-d-1-4">
+            <a class="foundicon-github" href="http://github.com/rvboris"></a>
+        </div>
+    </div>
+
+    <span bindonce bo-if="!directAccess" class="back fa fa-arrow-circle-left" ng-click="goBack()"></span>
+</div>

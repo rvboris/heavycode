@@ -1,0 +1,26 @@
+<div class="container" bindonce bo-class="state.current.name | stateClass">
+    <subview data="'partials/header'"></subview>
+
+    <section class="content">
+        <ol class="years">
+            <li class="year" bindonce ng-repeat="(year, months) in archive track by year">
+                <h1 bo-text="year"></h1>
+                <ol class="months">
+                    <li class="month" bindonce ng-repeat="(month, posts) in months track by month">
+                        <h2 bo-text="month"></h2>
+                        <ol class="posts">
+                            <li class="post" bindonce ng-repeat="post in posts track by post._id">
+                                <a ui-sref="post({ id: post._id })" bo-text="post.title"></a>
+                                <ul class="topics">
+                                    <span>(</span><li class="topic" bindonce ng-repeat="topic in post.topics track by $index"><a ui-sref="topic({ topic: topic })" bo-text="topic"></a><span bo-if="!$last">, </span></li><span>)</span>
+                                </ul>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </section>
+
+    <subview data="'partials/footer'"></subview>
+</div>
