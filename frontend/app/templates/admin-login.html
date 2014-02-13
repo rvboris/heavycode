@@ -1,0 +1,26 @@
+<div class="unit-centered unit-20">
+    <div class="text-centered">
+        <h2>Авторизация</h2>
+    </div>
+
+    <form class="forms" name="form" ng-submit="login()" novalidate>
+        <fieldset>
+            <label>
+                Логин <span class="error" ng-show="form.uName.$dirty && form.uName.$invalid"><span ng-show="form.uName.$error.required">Поле обязательно для заполнения</span></span>
+                <input type="text" class="width-100" ng-class="{ 'input-error': form.uName.$dirty && form.uName.$invalid, 'input-success': form.uName.$dirty && !form.uName.$invalid }" ng-model="user.username" name="uName" required/>
+            </label>
+
+            <label>
+                Пароль <span class="error" ng-show="form.uPassword.$dirty && form.uPassword.$invalid"><span ng-show="form.uPassword.$error.required">Поле обязательно для заполнения</span></span>
+                <input type="password" class="width-100" ng-class="{ 'input-error': form.uPassword.$dirty && form.uPassword.$invalid, 'input-success': form.uPassword.$dirty && !form.uPassword.$invalid }" ng-model="user.password" name="uPassword" required/>
+            </label>
+        </fieldset>
+
+        <div class="message message-error" ng-show="error === 'user not found'">Ошибка, пользователь не найден</div>
+        <div class="message message-error" ng-show="error === 'auth failed'">Ошибка, пароль не верный</div>
+
+        <div class="text-right">
+            <input type="submit" class="btn" value="Войти" ng-disabled="form.$invalid"/>
+        </div>
+    </form>
+</div>

@@ -25,10 +25,6 @@
   font-weight normal
   font-style normal
 
-h1, h2, h3, h4, h5
-  font-weight normal
-  margin 0
-
 border-box()
   -webkit-box-sizing border-box
   -moz-box-sizing border-box
@@ -62,12 +58,18 @@ link-transition()
   .hc_footer
     display none !important
 
-body, html, .root
+html.site, html.site body, html.site .root
   height 100%
 
-body
+html.site body
   overflow hidden
   background #FAFAFA url('../img/main-bg.png')
+  color #000
+  font-size 1em
+
+  h1, h2, h3, h4, h5
+    font-weight normal
+    margin 0
 
   .container
     border-box()
@@ -190,6 +192,9 @@ body
             line-height 1.5em
             p:first-line
               text-indent 20px
+            > a
+              display inline-block
+              margin-top 10px
             a
               color #000
               font-family 'Barnaul-Italic'
@@ -211,6 +216,7 @@ body
               height 150px
               position relative
               font-family 'Pragmatic'
+              line-height normal
 
               .day
                 position absolute
@@ -522,7 +528,7 @@ body
       .comments
         margin 20px
   .archive-section
-    ol, ul
+    ol, ul, li
       list-style none
       padding 0
       margin 0
@@ -778,3 +784,7 @@ body
       z-index 10
       &:hover
         color #d6f233
+
+html.admin
+  .admin-login-section .unit-centered
+    margin-top 100px !important

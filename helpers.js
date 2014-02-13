@@ -1,4 +1,7 @@
-var crypto = require('crypto');
+var crypto = require('crypto'),
+    moment = require('moment'),
+    _ = require('lodash'),
+    co = require('co');
 
 module.exports.createHash = function(src) {
     var password = crypto.createHash('sha512WithRSAEncryption').update(src);
@@ -43,8 +46,39 @@ module.exports.validatePost = function(post, ctx) {
     return true;
 };
 
-module.exports.simpleAuth = function *(next) {
-    // TODO: check token
+module.exports.Auth = function(app) {
+    this.isValidToken = co(function *(tokenId) {
+        (yield app.tokens.find({ $lt: moment().subtract('days', 1).toDate() })).forEach(co(function *(token) {
+            yield app.tokens.removeById(token._id);
+        }));
 
-    yield next;
+        var token = yield app.tokens.findById(tokenId);
+
+        if (_.isEmpty(token)) {
+            return false;
+        }
+
+        var isValid = moment().diff(moment(token.updated)) <= (24 * 60 * 60 * 1000);
+
+        if (isValid) {
+            token.updated = new Date();
+            yield app.tokens.save(token);
+        }
+
+        return isValid;
+    });
+
+    this.check = function *(next) {
+        if (_.isUndefined(this.query.token)) {
+            this.status = 403;
+        }
+
+        if (!(yield this.isValidToken(this.query.token))) {
+            this.status = 403;
+            return;
+        }
+
+        yield next;
+    };
 };
+

@@ -1,5 +1,6 @@
 angular.module('app', ['ui.router', 'ngResource', 'pasvaz.bindonce', 'iso.directives']).run(function($rootScope, $state, $location, $anchorScroll, meta) {
     $rootScope.state = $state;
+    $rootScope.token = false;
 
     $rootScope.goAnchor = function(anchor) {
         $location.hash(anchor);
@@ -9,6 +10,23 @@ angular.module('app', ['ui.router', 'ngResource', 'pasvaz.bindonce', 'iso.direct
     $rootScope.goBack = function() {
         history.back();
     };
+
+    $rootScope.isAdminPage = function() {
+        return _.size($state.current.name.match('admin')) > 0;
+    };
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+        if (toState.name.match('admin') && toState.name !== 'admin.login' && !$rootScope.token) {
+            event.preventDefault();
+            $state.go('admin.login');
+            return;
+        }
+
+        if (toState.name === 'admin.login' && $rootScope.token) {
+            event.preventDefault();
+            $state.go('admin.posts.list');
+        }
+    });
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
         $rootScope.directAccess = _.isEmpty(fromState.name) && fromState.url === '^' && fromState.abstract;

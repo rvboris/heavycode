@@ -1,6 +1,7 @@
 angular.module('app').controller('blogCtrl', function($scope, $state, $stateParams, postsFactory, $timeout, $log, $window) {
     $scope.currentPage = _.parseInt($stateParams.page || 1);
     $scope.currentTopic = $stateParams.topic;
+    $scope.commentsIsReady = false;
 
     $scope.pageName = 'Блог' + ($scope.currentTopic ? (' - ' + $scope.currentTopic) : '');
 
@@ -20,6 +21,7 @@ angular.module('app').controller('blogCtrl', function($scope, $state, $statePara
                     $log.error(e);
                 }
 
+                $scope.commentsIsReady = true;
                 $timeout.cancel(cancelRefresh);
             }
         }, 1000);

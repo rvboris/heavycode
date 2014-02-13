@@ -14,13 +14,11 @@ var mongo = require('co-easymongo')({
 
 app.posts = mongo.collection('posts');
 app.users = mongo.collection('users');
+app.tokens = mongo.collection('tokens');
 
 co(function *() {
     app.postsNative = yield mongo.open('posts');
-    app.usersNative = yield mongo.open('users');
-
     app.postsNative.find = thunkify(app.postsNative.find);
-    app.usersNative.find = thunkify(app.usersNative.find);
 })();
 
 if (argv.fake) {

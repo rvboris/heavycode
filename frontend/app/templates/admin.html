@@ -1,0 +1,13 @@
+<div bindonce bo-class="state.current.name | stateClass" class="units-row">
+    <div class="unit-100" bindonce bo-if="token">
+        <h1>Админка</h1>
+        <nav class="nav-tabs">
+            <ul>
+                <li><a ui-sref="admin.posts.list">Записи</a></li>
+                <li><a ui-sref="admin.users.list">Пользователи</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="unit-100" ui-view></div>
+</div>

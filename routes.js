@@ -3,12 +3,14 @@ var parse = require('co-body'),
     thunkify = require('thunkify'),
     moment = require('moment'),
     helpers = require('./helpers.js'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    co = require('co');
 
 moment.lang('ru');
 crypto.randomBytes = thunkify(crypto.randomBytes);
 
 module.exports = function(app) {
+    var auth = new helpers.Auth(app);
 
     app.post('/api/login', function *() {
         var auth = yield parse.json(this, { limit: '1kb' });
@@ -23,7 +25,7 @@ module.exports = function(app) {
 
         if (_.size(user) === 0) {
             this.status = 401;
-            this.body = { error: 'user no found' };
+            this.body = { error: 'user not found' };
             return;
         }
 
@@ -35,13 +37,25 @@ module.exports = function(app) {
             return;
         }
 
-        // TODO: save token
+        (yield app.tokens.find({ $lt: moment().subtract('days', 1).toDate() })).forEach(co(function *(token) {
+            yield app.tokens.removeById(token._id);
+        }));
 
-        this.status = 200;
+        var tokens = yield app.tokens.find({ userId: user._id });
+
+        if (_.size(tokens) > 0) {
+            var token = tokens[0];
+            token.updated = new Date();
+            token = yield app.tokens.save(token);
+            this.body = { token: token._id };
+            return;
+        }
+
+        this.body = { token: (yield app.tokens.save({ created: new Date(), updated: new Date(), userId: user._id }))._id };
     });
 
-    app.get('/api/logout', helpers.simpleAuth, function *() {
-        // TODO: delete token
+    app.get('/api/logout', auth.check, function *() {
+        yield app.tokens.removeById(this.query.token);
         this.redirect('/');
         this.status = 301;
     });
@@ -82,7 +96,7 @@ module.exports = function(app) {
         this.body = posts;
     });
 
-    app.post('/api/posts', helpers.simpleAuth, function *() {
+    app.post('/api/posts', auth.check, function *() {
         var post = yield parse(this, { limit: '15kb' });
 
         if (!helpers.validatePost(post, this)) {
@@ -107,10 +121,10 @@ module.exports = function(app) {
         this.body = post;
     });
 
-    app.put('/api/posts/:post', helpers.simpleAuth, function *() {
+    app.put('/api/posts/:post', auth.check, function *() {
         var post = yield app.posts.findById(this.params.post);
 
-        if (!post) {
+        if (_.isEmpty(post)) {
             this.status = 404;
             return;
         }
@@ -129,10 +143,10 @@ module.exports = function(app) {
         this.body = yield app.posts.save(post);
     });
 
-    app.delete('/api/posts/:post', helpers.simpleAuth, function *() {
+    app.delete('/api/posts/:post', auth.check, function *() {
         var post = yield app.posts.removeById(this.params.post);
 
-        if (!post) {
+        if (_.isEmpty(post)) {
             this.status = 404;
             return;
         }

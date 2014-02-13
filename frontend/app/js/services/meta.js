@@ -63,6 +63,19 @@ angular.module('app').factory('meta', function($filter, $location) {
             };
         };
 
+        metaData.admin = function() {
+            return {
+                title: 'Панель управления',
+                description: defaultDescription,
+                keywords: defaultKeywords,
+                ogType: 'website'
+            };
+        };
+
+        if (_.isUndefined(metaData[stateName]) && stateName.match('admin')) {
+            stateName = 'admin';
+        }
+
         var meta = metaData[stateName](stateParams);
 
         meta.location = $location.absUrl();

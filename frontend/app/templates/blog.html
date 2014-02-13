@@ -23,7 +23,7 @@
                                 <div class="year" bo-text="post.updated | date:'yyyy'"></div>
                             </div>
                         </time>
-                        <div class="comments"><a ui-sref="post({ id: post._id, comments: true })" data-xid="{{post._id}}" class="comments-count">Комментарии</a></div>
+                        <div class="comments"><a ng-show="commentsIsReady" ui-sref="post({ id: post._id, comments: true })" data-xid="{{post._id}}" class="comments-count">Комментарии</a></div>
                         <div class="topics" bo-if="post.topics">
                             <h4>Темы</h4>
                             <ul>
