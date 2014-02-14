@@ -1,2 +1,2 @@
-angular.module('app').controller('adminCtrl', function($scope) {
+angular.module('app').controller('adminCtrl', function ($scope) {
 });

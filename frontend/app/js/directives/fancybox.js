@@ -1,10 +1,10 @@
 angular.module('app')
-    .directive('fancybox', function() {
+    .directive('fancybox', function () {
         return {
             restrict: 'A',
-            link: function(scope, elm) {
+            link: function (scope, elm) {
                 $(elm).find('.fancybox').fancybox();
-                $(elm).find('a').on('click', function(e) {
+                $(elm).find('a').on('click', function (e) {
                     e.preventDefault();
                 });
             }

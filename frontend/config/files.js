@@ -11,7 +11,8 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/angular-ui-router/release/angular-ui-router.js",
             "vendor/bower/angular-resource/angular-resource.js",
             "vendor/bower/angular-bindonce/bindonce.js",
-            "vendor/bower/angular-isotope/dist/angular-isotope.js"
+            "vendor/bower/angular-isotope/dist/angular-isotope.js",
+            "vendor/bower/angular-local-storage/angular-local-storage.js"
         ],
         app: [
             "app/js/app.js",

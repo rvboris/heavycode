@@ -1,12 +1,12 @@
-angular.module('app').factory('meta', function($filter, $location) {
-    return function(stateName, stateParams) {
+angular.module('app').factory('meta', function ($filter, $location) {
+    return function (stateName, stateParams) {
         var metaData = {};
 
         var defaultTitle = 'HoursOfCode: личный блог и портфолио - Борис Рябов';
         var defaultDescription = 'Делюсь мыслями о фронтенд разработке и технологиях';
         var defaultKeywords = ['nodejs', 'node', 'javascript', 'js', 'angular', 'angularjs', 'grunt', 'gulp', 'lineman', 'css3', 'html5', 'frontend', 'front-end', 'разработка', 'веб-разработка', 'веб разработка'];
 
-        metaData.blog = function() {
+        metaData.blog = function () {
             return {
                 title: defaultTitle,
                 description: defaultDescription,
@@ -15,7 +15,7 @@ angular.module('app').factory('meta', function($filter, $location) {
             };
         };
 
-        metaData.topic = function(stateParams) {
+        metaData.topic = function (stateParams) {
             return {
                 title: stateParams.topic + ' - записи по теме | HoursOfCode',
                 description: 'Делюсь мыслями о ' + stateParams.topic,
@@ -24,7 +24,7 @@ angular.module('app').factory('meta', function($filter, $location) {
             };
         };
 
-        metaData.post = function(post) {
+        metaData.post = function (post) {
             return {
                 title: post.title + ' | HoursOfCode',
                 description: $filter('limitTo')(post.shortText.replace(/<(?:.|\n)*?>/gm, ''), 190) + '...',
@@ -36,7 +36,7 @@ angular.module('app').factory('meta', function($filter, $location) {
             };
         };
 
-        metaData.archive = function() {
+        metaData.archive = function () {
             return {
                 title: 'Архив | HoursOfCode',
                 description: defaultDescription,
@@ -45,7 +45,7 @@ angular.module('app').factory('meta', function($filter, $location) {
             };
         };
 
-        metaData.contact = function() {
+        metaData.contact = function () {
             return {
                 title: 'Борис Рябов - Контакты | HoursOfCode',
                 description: defaultDescription,
@@ -54,7 +54,7 @@ angular.module('app').factory('meta', function($filter, $location) {
             };
         };
 
-        metaData.portfolio = function() {
+        metaData.portfolio = function () {
             return {
                 title: 'Борис Рябов - Портфолио | HoursOfCode',
                 description: defaultDescription,
@@ -63,7 +63,7 @@ angular.module('app').factory('meta', function($filter, $location) {
             };
         };
 
-        metaData.admin = function() {
+        metaData.admin = function () {
             return {
                 title: 'Панель управления',
                 description: defaultDescription,

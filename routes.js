@@ -9,7 +9,7 @@ var parse = require('co-body'),
 moment.lang('ru');
 crypto.randomBytes = thunkify(crypto.randomBytes);
 
-module.exports = function(app) {
+module.exports = function (app) {
     var auth = new helpers.Auth(app);
 
     app.post('/api/login', function *() {
@@ -37,9 +37,7 @@ module.exports = function(app) {
             return;
         }
 
-        (yield app.tokens.find({ $lt: moment().subtract('days', 1).toDate() })).forEach(co(function *(token) {
-            yield app.tokens.removeById(token._id);
-        }));
+        yield auth.removeOldTokens();
 
         var tokens = yield app.tokens.find({ userId: user._id });
 
@@ -55,7 +53,7 @@ module.exports = function(app) {
     });
 
     app.get('/api/logout', auth.check, function *() {
-        yield app.tokens.removeById(this.query.token);
+        yield app.tokens.removeById(this.req.headers.token);
         this.redirect('/');
         this.status = 301;
     });
@@ -65,6 +63,10 @@ module.exports = function(app) {
 
         if (!_.isUndefined(this.query.topic)) {
             find.topics = { $all: this.query.topic.split(',') };
+        }
+
+        if (!(yield auth.checkToken(this.req.headers.token))) {
+            find.draft = false;
         }
 
         this.body = yield app.posts.find(find, { limit: 10, skip: (this.query.page - 1 || 0) * 10, sort: { updated: -1 } });
@@ -77,18 +79,28 @@ module.exports = function(app) {
             find.topics = { $all: this.query.topic.split(',') };
         }
 
+        if (!(yield auth.checkToken(this.req.headers.token))) {
+            find.draft = false;
+        }
+
         this.body = { count: (yield app.posts.count(find)) };
     });
 
     app.get('/api/posts/archive', function *() {
-        var posts = yield thunkify((yield app.postsNative.find({}, { shortText: 0, fullText: 0, created: 0, draft: 0 })).toArray)();
+        var find = {};
 
-        posts = _.groupBy(posts, function(post) {
+        if (!(yield auth.checkToken(this.req.headers.token))) {
+            find.draft = false;
+        }
+
+        var posts = yield thunkify((yield app.postsNative.find(find, { shortText: 0, fullText: 0, created: 0, draft: 0 })).toArray)();
+
+        posts = _.groupBy(posts, function (post) {
             return moment(post.updated).format('YYYY');
         });
 
-        _.forEach(posts, function(postsByYear, year) {
-            posts[year] = _.groupBy(postsByYear, function(post) {
+        _.forEach(posts, function (postsByYear, year) {
+            posts[year] = _.groupBy(postsByYear, function (post) {
                 return moment(post.updated).format('MMMM');
             });
         });
@@ -113,8 +125,13 @@ module.exports = function(app) {
     app.get('/api/posts/:post', function *() {
         var post = yield app.posts.findById(this.params.post);
 
-        if (!post) {
+        if (_.isEmpty(post)) {
             this.status = 404;
+            return;
+        }
+
+        if (!(yield auth.checkToken(this.req.headers.token)) && post.draft) {
+            this.status = 403;
             return;
         }
 

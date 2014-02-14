@@ -1,4 +1,4 @@
-angular.module('app').config(function($locationProvider, $stateProvider, $urlRouterProvider) {
+angular.module('app').config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider
@@ -61,7 +61,7 @@ angular.module('app').config(function($locationProvider, $stateProvider, $urlRou
             abstact: true
         })
         .state('admin.posts.list', {
-            url: '/list/',
+            url: '/list/?page&topic',
             templateUrl: 'admin-posts-list.html',
             controller: 'adminPostsListCtrl'
         })

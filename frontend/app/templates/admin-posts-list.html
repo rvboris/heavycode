@@ -1,0 +1,21 @@
+<table class="width-100 table-hovered">
+    <thead>
+    <tr>
+        <th>Дата</th>
+        <th>Название</th>
+        <th>Черновик</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="post in posts track by post._id">
+        <td class="width-20" bo-text="post.updated | date: 'fullDate'"></td>
+        <td class="width-50" bo-text="post.title"></td>
+        <td class="width-10" bo-text="post.draft"></td>
+        <td class="width-20">
+            <button class="btn btn-red"><i class="fa fa-trash-o"></i> Удалить</button>
+            <a ui-sref="post({ id: post._id })" target="_blank" class="btn btn-blue"> Перейти</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

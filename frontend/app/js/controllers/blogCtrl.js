@@ -1,4 +1,4 @@
-angular.module('app').controller('blogCtrl', function($scope, $state, $stateParams, postsFactory, $timeout, $log, $window) {
+angular.module('app').controller('blogCtrl', function ($scope, $state, $stateParams, postsFactory, $timeout, $log, $window) {
     $scope.currentPage = _.parseInt($stateParams.page || 1);
     $scope.currentTopic = $stateParams.topic;
     $scope.commentsIsReady = false;
@@ -7,7 +7,7 @@ angular.module('app').controller('blogCtrl', function($scope, $state, $statePara
 
     $scope.posts = postsFactory.query({ page: $scope.currentPage, topic: $scope.currentTopic });
 
-    $scope.posts.$promise.then(function() {
+    $scope.posts.$promise.then(function () {
         var cancelRefresh = $timeout(function checkHC() {
             if (_.isUndefined($window.HC)) {
                 cancelRefresh = $timeout(checkHC, 1000);
@@ -27,7 +27,7 @@ angular.module('app').controller('blogCtrl', function($scope, $state, $statePara
         }, 1000);
     });
 
-    postsFactory.count({ topic: $scope.currentTopic }).$promise.then(function(result) {
+    postsFactory.count({ topic: $scope.currentTopic }).$promise.then(function (result) {
         $scope.postsCount = result.count;
     });
 

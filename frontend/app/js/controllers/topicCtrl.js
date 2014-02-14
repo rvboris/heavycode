@@ -1,3 +1,3 @@
-angular.module('app').controller('topicCtrl', function() {
+angular.module('app').controller('topicCtrl', function () {
 
 });

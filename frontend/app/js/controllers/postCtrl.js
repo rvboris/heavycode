@@ -1,7 +1,7 @@
-angular.module('app').controller('postCtrl', function($rootScope, $scope, $stateParams, postsFactory, $timeout, $log, $location, $anchorScroll, $window, meta) {
+angular.module('app').controller('postCtrl', function ($rootScope, $scope, $stateParams, postsFactory, $timeout, $log, $location, $anchorScroll, $window, meta) {
     $scope.pageName = 'Блог';
 
-    postsFactory.get({ id: $stateParams.id }).$promise.then(function(post) {
+    postsFactory.get({ id: $stateParams.id }).$promise.then(function (post) {
         $scope.post = post;
 
         $rootScope.meta = meta('post', post);

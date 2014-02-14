@@ -1,5 +1,5 @@
 angular.module('app')
-    .directive('paginator', function() {
+    .directive('paginator', function () {
         return {
             restrict: 'EA',
             replace: true,
@@ -10,29 +10,29 @@ angular.module('app')
                 limit: '=',
                 stateName: '='
             },
-            link: function(scope) {
-                var createPage = function(page) {
+            link: function (scope) {
+                var createPage = function (page) {
                     return {
                         number: page,
                         active: page === scope.page
                     };
                 };
 
-                var createPrevPage = function() {
+                var createPrevPage = function () {
                     return _.assign(createPage(scope.page - 1), {
                         disabled: scope.page <= 1,
                         isPrev: true
                     });
                 };
 
-                var createNextPage = function() {
+                var createNextPage = function () {
                     return _.assign(createPage(scope.page + 1), {
                         disabled: scope.page >= scope.totalPages,
                         isNext: true
                     });
                 };
 
-                var calcPages = _.throttle(function() {
+                var calcPages = _.throttle(function () {
                     if (_.isUndefined(scope.total)) {
                         return;
                     }

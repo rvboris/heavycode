@@ -3,7 +3,7 @@ var crypto = require('crypto'),
     _ = require('lodash'),
     co = require('co');
 
-module.exports.createHash = function(src) {
+module.exports.createHash = function (src) {
     var password = crypto.createHash('sha512WithRSAEncryption').update(src);
 
     for (var i = 0; i <= 100; i++) {
@@ -13,11 +13,11 @@ module.exports.createHash = function(src) {
     return password.digest('hex');
 };
 
-module.exports.randomDate = function(start, end) {
+module.exports.randomDate = function (start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 };
 
-module.exports.validatePost = function(post, ctx) {
+module.exports.validatePost = function (post, ctx) {
     if (_.isEmpty(post.title)) {
         ctx.body = { error: 'title is empty' };
         return false;
@@ -46,11 +46,15 @@ module.exports.validatePost = function(post, ctx) {
     return true;
 };
 
-module.exports.Auth = function(app) {
-    this.isValidToken = co(function *(tokenId) {
+module.exports.Auth = function (app) {
+    this.removeOldTokens = function *() {
         (yield app.tokens.find({ $lt: moment().subtract('days', 1).toDate() })).forEach(co(function *(token) {
             yield app.tokens.removeById(token._id);
         }));
+    };
+
+    this.isValidToken = function *(tokenId) {
+        this.removeOldTokens();
 
         var token = yield app.tokens.findById(tokenId);
 
@@ -58,7 +62,7 @@ module.exports.Auth = function(app) {
             return false;
         }
 
-        var isValid = moment().diff(moment(token.updated)) <= (24 * 60 * 60 * 1000);
+        var isValid = moment().diff(moment(token.updated)) <= (24 * 3600 * 1000);
 
         if (isValid) {
             token.updated = new Date();
@@ -66,14 +70,18 @@ module.exports.Auth = function(app) {
         }
 
         return isValid;
-    });
+    };
 
-    this.check = function *(next) {
-        if (_.isUndefined(this.query.token)) {
-            this.status = 403;
+    this.checkToken = function *(token) {
+        if (_.isUndefined(token)) {
+            return false;
         }
 
-        if (!(yield this.isValidToken(this.query.token))) {
+        return yield this.isValidToken(token);
+    };
+
+    this.check = function *(next) {
+        if (!this.checkToken(this.req.headers.token)) {
             this.status = 403;
             return;
         }
