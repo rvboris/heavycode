@@ -10,5 +10,9 @@ angular.module('app').controller('adminPostsListCtrl', function ($scope, $stateP
         $scope.postsCount = result.count;
     });
 
+    $scope.updatePost = function(post) {
+        postsFactory.update({ id: post._id}, _.omit(post, '_id', 'created', 'updated'));
+    };
+
     $scope.postsLimit = 10;
 });

@@ -1,6 +1,5 @@
 angular.module('app', ['ui.router', 'ngResource', 'pasvaz.bindonce', 'iso.directives', 'LocalStorageModule']).run(function ($rootScope, $state, $location, $anchorScroll, meta, localStorageService, $http) {
     $rootScope.state = $state;
-    $rootScope.token = false;
 
     if (localStorageService.isSupported) {
         (function () {
@@ -22,11 +21,14 @@ angular.module('app', ['ui.router', 'ngResource', 'pasvaz.bindonce', 'iso.direct
 
             localStorageService.remove('token');
         })();
+    } else {
+        $rootScope.token = false;
     }
 
     var tokenTransformRequest = function(data, headersGetter) {
         var headers = headersGetter();
         headers['token'] = $rootScope.token;
+        return data;
     };
 
     $rootScope.$watch('token', function(token) {

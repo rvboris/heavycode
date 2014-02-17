@@ -13,15 +13,15 @@ module.exports = function (app) {
     var auth = new helpers.Auth(app);
 
     app.post('/api/login', function *() {
-        var auth = yield parse.json(this, { limit: '1kb' });
+        var authData = yield parse.json(this, { limit: '1kb' });
 
-        if (_.isEmpty(auth.username) || _.isEmpty(auth.password)) {
+        if (_.isEmpty(authData.username) || _.isEmpty(authData.password)) {
             this.status = 400;
             this.body = { error: 'username and password is required' };
             return;
         }
 
-        var user = yield app.users.find({ username: auth.username });
+        var user = yield app.users.find({ username: authData.username });
 
         if (_.size(user) === 0) {
             this.status = 401;
@@ -31,7 +31,7 @@ module.exports = function (app) {
 
         user = user[0];
 
-        if (helpers.createHash(auth.password) !== user.password) {
+        if (helpers.createHash(authData.password) !== user.password) {
             this.status = 401;
             this.body = { error: 'auth failed' };
             return;
@@ -146,7 +146,7 @@ module.exports = function (app) {
             return;
         }
 
-        var newData = parse(this, { limit: '15kb' });
+        var newData = yield parse(this, { limit: '15kb' });
 
         if (!helpers.validatePost(newData, this)) {
             this.status = 400;

@@ -29,7 +29,7 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
     css: {
         vendor: [
             "vendor/bower/normalize-css/normalize.css",
-            "vendor/uikit.almost-flat.css"
+            "vendor/bower/bootstrap/dist/css/bootstrap.css"
         ]
     }
 });

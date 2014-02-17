@@ -33,11 +33,6 @@ module.exports.validatePost = function (post, ctx) {
         return false;
     }
 
-    if (_.isArray(post.topics)) {
-        ctx.body = { error: 'topics must be array' };
-        return false;
-    }
-
     if (_.size(post.topics) < 1) {
         ctx.body = { error: 'required one or more topics' };
         return false;
@@ -47,6 +42,8 @@ module.exports.validatePost = function (post, ctx) {
 };
 
 module.exports.Auth = function (app) {
+    var self = this;
+
     this.removeOldTokens = function *() {
         (yield app.tokens.find({ $lt: moment().subtract('days', 1).toDate() })).forEach(co(function *(token) {
             yield app.tokens.removeById(token._id);
@@ -81,7 +78,7 @@ module.exports.Auth = function (app) {
     };
 
     this.check = function *(next) {
-        if (!this.checkToken(this.req.headers.token)) {
+        if (!(yield self.checkToken(this.req.headers.token))) {
             this.status = 403;
             return;
         }

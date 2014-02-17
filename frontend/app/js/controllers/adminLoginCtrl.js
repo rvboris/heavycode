@@ -5,7 +5,7 @@ angular.module('app').controller('adminLoginCtrl', function ($rootScope, $state,
             .success(function (result) {
                 $rootScope.token = result.token;
 
-                if (!localStorageService.isSupported) {
+                if (localStorageService.isSupported) {
                     localStorageService.add('token', {
                         token: $rootScope.token,
                         time: new Date()

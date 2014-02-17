@@ -1,19 +1,18 @@
-<div bindonce bo-class="state.current.name | stateClass" class="units-row">
-    <div class="unit-80 unit-centered" bindonce bo-if="token">
-        <h1>Админка</h1>
-        <nav class="nav-tabs">
-            <ul>
-                <li bindonce>
-                    <a ui-sref="admin.posts.list" bo-if="!state.includes('admin.posts')">Записи</a>
-                    <span bo-if="state.includes('admin.posts')">Записи</span>
-                </li>
-                <li bindonce>
-                    <a ui-sref="admin.users.list" bo-if="!state.includes('admin.users')">Пользователи</a>
-                    <span bo-if="state.includes('admin.users')">Пользователи</span>
-                </li>
-            </ul>
-        </nav>
-    </div>
+<div bindonce bo-class="state.current.name | stateClass" class="container-fluid">
+    <nav class="navbar navbar-inverse" role="navigation" bindonce bo-if="token">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="admin.posts.list">Панель управления</a>
+            </div>
 
-    <div class="unit-80 unit-centered" ui-view></div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active><a ui-sref="admin.posts.list">Записи</a></li>
+                    <li ui-sref-active><a ui-sref="admin.users.list">Пользователи</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="col-lg-12" ui-view></div>
 </div>
