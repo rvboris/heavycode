@@ -160,15 +160,9 @@ module.exports = function (app) {
         this.body = yield app.posts.save(post);
     });
 
-    app.delete('/api/posts/:post', auth.check, function *() {
-        var post = yield app.posts.removeById(this.params.post);
-
-        if (_.isEmpty(post)) {
-            this.status = 404;
-            return;
-        }
-
-        this.body = post;
+    app.del('/api/posts/:post', auth.check, function *() {
+        yield app.posts.removeById(this.params.post);
+        this.status = 200;
     });
 
     app.get('*', function *() {

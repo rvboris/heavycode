@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngResource', 'pasvaz.bindonce', 'iso.directives', 'LocalStorageModule']).run(function ($rootScope, $state, $location, $anchorScroll, meta, localStorageService, $http) {
+angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'pasvaz.bindonce', 'iso.directives', 'LocalStorageModule', 'toaster']).run(function ($rootScope, $state, $location, $anchorScroll, meta, localStorageService, $http) {
     $rootScope.state = $state;
 
     if (localStorageService.isSupported) {

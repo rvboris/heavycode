@@ -8,7 +8,8 @@ angular.module('app')
                 page: '=',
                 total: '=',
                 limit: '=',
-                stateName: '='
+                stateName: '=',
+                bootstrapMode: '='
             },
             link: function (scope) {
                 var createPage = function (page) {

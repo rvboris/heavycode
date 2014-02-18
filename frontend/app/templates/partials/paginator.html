@@ -1,9 +1,9 @@
 <div class="pagination-wrap">
-    <ul class="paginator" ng-if="pages.length > 1">
+    <ul class="paginator" ng-if="pages.length > 1" ng-class="{ pagination: bootstrapMode }">
         <li class="prev">
             <a ng-if="!prevPage.disabled" ui-sref="{{stateName}}({ page: prevPage.number })">&larr;</a>
         </li>
-        <li ng-repeat="page in pages">
+        <li ng-repeat="page in pages" ng-class="{ active: page.active }">
             <a ng-if="!page.active && page.number" ui-sref="{{stateName}}({ page: page.number })">{{page.number}}</a>
             <span ng-if="page.active && page.number" ng-class="{ active: page.active }">{{page.number}}</span>
             <span ng-if="page.number === false">...</span>

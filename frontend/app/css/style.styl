@@ -61,11 +61,13 @@ link-transition()
 html.site, html.site body, html.site .root
   height 100%
 
-html.site body
-  overflow hidden
-  background #FAFAFA url('../img/main-bg.png')
-  color #000
+html.site
   font-size 1em
+  body
+    overflow hidden
+    background #FAFAFA url('../img/main-bg.png')
+    color #000
+    font-size 100%
 
   h1, h2, h3, h4, h5
     font-weight normal
@@ -786,5 +788,5 @@ html.site body
         color #d6f233
 
 html.admin
-  .admin-login-section .unit-centered
-    margin-top 100px !important
+  .navbar.navbar-default
+    margin-top 15px

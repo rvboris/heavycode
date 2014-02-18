@@ -12,7 +12,9 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/angular-resource/angular-resource.js",
             "vendor/bower/angular-bindonce/bindonce.js",
             "vendor/bower/angular-isotope/dist/angular-isotope.js",
-            "vendor/bower/angular-local-storage/angular-local-storage.js"
+            "vendor/bower/angular-local-storage/angular-local-storage.js",
+            "vendor/bower/angular-animate/angular-animate.js",
+            "vendor/bower/angular-notify-toaster/toaster.js"
         ],
         app: [
             "app/js/app.js",
@@ -29,7 +31,8 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
     css: {
         vendor: [
             "vendor/bower/normalize-css/normalize.css",
-            "vendor/bower/bootstrap/dist/css/bootstrap.css"
+            "vendor/bower/bootstrap/dist/css/bootstrap.css",
+            "vendor/bower/angular-notify-toaster/toaster.css"
         ]
     }
 });

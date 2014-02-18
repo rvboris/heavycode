@@ -37,6 +37,7 @@
   </head>
   <body>
     <div class="root" ui-view></div>
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
     <script type="text/javascript" src="/js/app.js"></script>
     <script type="text/javascript" src="//w.hypercomments.com/widget/hc/6177/ru/widget.js" async></script>
   </body>

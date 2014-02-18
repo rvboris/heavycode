@@ -1,3 +1,5 @@
+<h3>Список записей <a ui-sref="admin.posts.create" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Создать новую</a></h3>
+
 <table class="table table-hover">
     <thead>
     <tr>
@@ -8,17 +10,22 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="post in posts track by post._id">
-        <td bo-text="post.updated | date: 'fullDate'"></td>
-        <td bo-text="post.title"></td>
+    <tr ng-repeat="post in posts">
+        <td>{{post.updated | date: 'fullDate'}}</td>
+        <td>{{post.title}}</td>
         <td class="text-center">
             <input type="checkbox" ng-model="post.draft" ng-change="updatePost(post)">
         </td>
         <td>
             <a ui-sref="admin.posts.edit({ id: post._id })" target="_blank" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> Редактировать</a>
             <a ui-sref="post({ id: post._id })" target="_blank" class="btn btn-sm btn-default"><i class="fa fa-share"></i> Перейти</a>
-            <button class="btn btn-sm btn-default"><i class="fa fa-trash-o"></i> Удалить</button>
+            <button class="btn btn-sm btn-default" ng-click="deletePost(post)"><i class="fa fa-trash-o"></i> Удалить</button>
         </td>
     </tr>
     </tbody>
 </table>
+
+<div class="text-center">
+    <paginator page="currentPage" total="postsCount" limit="postsLimit" state-name="state.current.name" bootstrap-mode="true" ng-if="postsCount"></paginator>
+</div>
+

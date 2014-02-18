@@ -1,4 +1,14 @@
-angular.module('app').config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
+angular.module('app').config(function ($provide, $locationProvider, $stateProvider, $urlRouterProvider) {
+    $provide.decorator('$exceptionHandler', function ($delegate, $injector) {
+        var toaster;
+
+        return function (exception, cause) {
+            toaster = toaster || $injector.get('toaster');
+            toaster.pop('error', 'Ошибка', exception.message);
+            $delegate(exception, cause);
+        };
+    });
+
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider
