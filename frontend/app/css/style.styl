@@ -790,3 +790,18 @@ html.site
 html.admin
   .navbar.navbar-default
     margin-top 15px
+  .admin-posts-create-section
+    #postShortText ~ .CodeMirror
+      height 200px
+      &:-webkit-full-screen
+        height 100%
+    #postFullText ~ .CodeMirror
+      height 400px
+      &:-webkit-full-screen
+        height 100%
+    .CodeMirror
+      .editor-preview
+        left 100%
+        background #ffffff
+      .editor-preview-active
+        left 0

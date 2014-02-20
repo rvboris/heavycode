@@ -18,7 +18,7 @@
                     <div class="wrap">
                         <time datetime="{{post.updated | date:'yyyy-MM-dd'}}">
                             <div class="day" bo-text="post.updated | date:'dd'"></div>
-                            <div class="month" bo-text="(post.updated | date:'MMM').replace('.', '')"></div>
+                            <div class="month" bo-text="post.updated | monthFormat"></div>
                             <div class="year-wrap">
                                 <div class="year" bo-text="post.updated | date:'yyyy'"></div>
                             </div>
