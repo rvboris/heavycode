@@ -15,6 +15,7 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/angular-local-storage/angular-local-storage.js",
             "vendor/bower/angular-animate/angular-animate.js",
             "vendor/bower/angular-notify-toaster/toaster.js",
+            "vendor/bower/ng-tags-input/ng-tags-input.js",
             "vendor/bower/marked//lib/marked.js",
             "vendor/leptureeditor/editor.js"
         ],
@@ -35,6 +36,7 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/normalize-css/normalize.css",
             "vendor/bower/bootstrap/dist/css/bootstrap.css",
             "vendor/bower/angular-notify-toaster/toaster.css",
+            "vendor/bower/ng-tags-input/ng-tags-input.css",
             "vendor/leptureeditor/editor.css"
         ]
     }

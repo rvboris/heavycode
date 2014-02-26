@@ -13,10 +13,10 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
 
     $urlRouterProvider
         .otherwise('/')
-        .when('/blog/', '/')
-        .when('/login/', '/admin/login/')
-        .when('/admin/', '/admin/posts/list/')
-        .when('/admin/posts/', '/admin/posts/list/');
+        .when('/blog', '/')
+        .when('/login', '/admin/login/')
+        .when('/admin', '/admin/posts/list/')
+        .when('/admin/posts', '/admin/posts/list/');
 
     $stateProvider
         // Blog states

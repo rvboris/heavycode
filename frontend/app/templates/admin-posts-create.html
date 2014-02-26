@@ -17,15 +17,27 @@
             </div>
 
             <div class="form-group">
-                <label>
-                    <input type="checkbox"> Черновик
-                </label>
+                <tags-input
+                        ng-model="tags"
+                        allowedTagsPattern="^[а-яА-Яa-zA-Z0-9\s]+$*"
+                        minLength="2"
+                        custom-class="bootstrap"
+                        placeholder="Добавить тему">
+                    <auto-complete source="loadTopics($query)"
+                                   min-length="2"
+                                   max-results-to-show="5">
+                </tags-input>
             </div>
 
             <hr/>
 
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-            <button type="submit" class="btn btn-success">Опубликовать</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Создать</button>
+
+                <label>
+                    <input type="checkbox"> черновик
+                </label>
+            </div>
         </form>
     </div>
 </div>

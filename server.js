@@ -19,6 +19,7 @@ app.tokens = mongo.collection('tokens');
 co(function *() {
     app.postsNative = yield mongo.open('posts');
     app.postsNative.find = thunkify(app.postsNative.find);
+    app.postsNative.distinct = thunkify(app.postsNative.distinct);
 })();
 
 if (argv.fake) {

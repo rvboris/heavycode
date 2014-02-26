@@ -86,6 +86,19 @@ module.exports = function (app) {
         this.body = { count: (yield app.posts.count(find)) };
     });
 
+    app.get('/api/posts/topics', function *() {
+        if (_.isUndefined(this.query.query) || _.size(this.query.query) < 2) {
+            this.status = 400;
+            return;
+        }
+
+        this.body = {
+            topics: _.filter((yield app.postsNative.distinct('topics')), function(topic) {
+                return topic.match(new RegExp('^' + this.query.query + '.+'));
+            }, this)
+        };
+    });
+
     app.get('/api/posts/archive', function *() {
         var find = {};
 
