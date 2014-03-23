@@ -4,10 +4,14 @@ var parse = require('co-body'),
     moment = require('moment'),
     helpers = require('./helpers.js'),
     _ = require('lodash'),
-    co = require('co');
+    co = require('co'),
+    formidable = require('koa-formidable'),
+    fs = require('fs');
 
 moment.lang('ru');
 crypto.randomBytes = thunkify(crypto.randomBytes);
+fs.readFile = thunkify(fs.readFile);
+fs.unlink = thunkify(fs.unlink);
 
 module.exports = function (app) {
     var auth = new helpers.Auth(app);
@@ -54,8 +58,7 @@ module.exports = function (app) {
 
     app.get('/api/logout', auth.check, function *() {
         yield app.tokens.removeById(this.req.headers.token);
-        this.redirect('/');
-        this.status = 301;
+        this.status = 200;
     });
 
     app.get('/api/posts', function *() {
@@ -93,7 +96,7 @@ module.exports = function (app) {
         }
 
         this.body = {
-            topics: _.filter((yield app.postsNative.distinct('topics')), function(topic) {
+            topics: _.filter((yield app.postsNative.distinct('topics')), function (topic) {
                 return topic.match(new RegExp('^' + this.query.query + '.+'));
             }, this)
         };
@@ -132,10 +135,22 @@ module.exports = function (app) {
         post.created = new Date();
         post.updated = post.created;
 
-        this.body = yield app.posts.save(post);
+        post = yield app.posts.save(post);
+
+        this.body = post;
+
+        (yield app.images.find({ postId: { $exists: false } })).forEach(co(function *(image) {
+            image.postId = post._id;
+            yield app.images.save(image);
+        }));
     });
 
     app.get('/api/posts/:post', function *() {
+        if (_.isEmpty(this.params.post)) {
+            this.status = 400;
+            return;
+        }
+
         var post = yield app.posts.findById(this.params.post);
 
         if (_.isEmpty(post)) {
@@ -170,11 +185,57 @@ module.exports = function (app) {
 
         post.updated = new Date();
 
-        this.body = yield app.posts.save(post);
+        post = yield app.posts.save(post);
+
+        (yield app.images.find({ postId: { $exists: false } })).forEach(co(function *(image) {
+            image.postId = post._id;
+            yield app.images.save(image);
+        }));
+
+        this.status = 200;
     });
 
     app.del('/api/posts/:post', auth.check, function *() {
         yield app.posts.removeById(this.params.post);
+        this.status = 200;
+    });
+
+    app.post('/api/images', auth.check, function *() {
+        var image = (yield formidable.parse(this)).files.file;
+        app.images.save({ data: (yield fs.readFile(image.path)), type: image.type });
+        yield fs.unlink(image.path);
+        this.status = 200;
+    });
+
+    app.get('/api/images', auth.check, function *() {
+        this.body = yield thunkify((yield app.imagesNative.find({ postId: { $exists: false } }, { data: 0, type: 0 })).toArray)();
+    });
+
+    app.get('/api/images/:image', function *() {
+        if (_.isEmpty(this.params.image)) {
+            this.status = 404;
+            return;
+        }
+
+        var image = yield app.images.findById(this.params.image);
+
+        if (_.isEmpty(image)) {
+            this.status = 404;
+            return;
+        }
+
+        this.body = image.data.buffer;
+        this.type = image.type;
+    });
+
+    app.del('/api/images/:image', auth.check, function *() {
+        if (_.isEmpty(this.params.image)) {
+            this.status = 404;
+            return;
+        }
+
+        yield app.images.removeById(this.params.image);
+
         this.status = 200;
     });
 

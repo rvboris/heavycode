@@ -15,8 +15,8 @@
     "lineman-angular": ">= 0.1.0",
     "coffee-script": "~1.6.3",
     "grunt-contrib-stylus": "~0.12.0",
-    "lineman-bower": "0.0.3",
-    "lineman-stylus": "0.0.2"
+    "lineman-bower": "~0.0.3",
+    "lineman-stylus": "~0.0.2"
   },
   "engines": {
     "node": "~>0.10.5",

@@ -1,5 +1,5 @@
-<div bindonce bo-class="state.current.name | stateClass" class="container-fluid">
-    <nav class="navbar navbar-default" role="navigation" bindonce bo-if="token">
+<div ng-class="state.current.name | stateClass" class="container-fluid">
+    <nav class="navbar navbar-default" role="navigation" ng-if="token">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" ui-sref="admin.posts.list">Панель управления</a>
@@ -10,7 +10,7 @@
                 <li ui-sref-active="active"><a ui-sref="admin.users.list"><i class="fa fa-users"></i> Пользователи</a></li>
             </ul>
 
-            <button class="btn navbar-btn btn-default pull-right"><i class="fa fa-sign-out"></i> Выйти</button>
+            <button class="btn navbar-btn btn-default pull-right" ng-click="logout()"><i class="fa fa-sign-out"></i> Выйти</button>
         </div>
     </nav>
 

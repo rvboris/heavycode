@@ -25,6 +25,10 @@ angular.module('app').controller('postCtrl', function ($rootScope, $scope, $stat
                 $timeout.cancel(cancelRefresh);
             }
         }, 1000);
+
+        $timeout(function () {
+            SyntaxHighlighter.highlight();
+        });
     });
 
     if ($stateParams.comments) {

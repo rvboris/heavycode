@@ -9,7 +9,7 @@
                         <a ui-sref="post({ id: post._id })" bo-if="post.fullText"><h1 bo-text="post.title"></h1></a>
                         <h1 bo-text="post.title" bo-if="!post.fullText"></h1>
                         <div class="text">
-                            <div bo-text="post.shortText"></div>
+                            <div bo-html="post.shortText"></div>
                             <a ui-sref="post({ id: post._id })" bo-if="post.fullText">Подробнее...</a>
                         </div>
                     </div>

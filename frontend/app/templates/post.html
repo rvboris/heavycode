@@ -7,8 +7,8 @@
             <time datetime="{{post.updated | date:'yyyy-MM-dd'}}" bo-text="post.updated | date: 'd MMMM yyyy'"></time>
         </header>
 
-        <section class="short-text" bo-if="post.shortText" bo-text="post.shortText"></section>
-        <section class="full-text" bo-if="post.fullText" bo-text="post.fullText"></section>
+        <section class="short-text" bo-if="post.shortText" bo-html="post.shortText"></section>
+        <section class="full-text" bo-if="post.fullText" bo-html="post.fullText"></section>
 
         <div class="page-footer">
             <div class="topics">

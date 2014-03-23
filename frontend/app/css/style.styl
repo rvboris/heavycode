@@ -790,21 +790,31 @@ html.site
 html.admin
   .navbar.navbar-default
     margin-top 15px
-  .admin-posts-create-section
-    #postShortText ~ .CodeMirror
-      height 200px
-      &:-webkit-full-screen
-        height 100%
-    #postFullText ~ .CodeMirror
-      height 400px
-      &:-webkit-full-screen
-        height 100%
-    .CodeMirror
-      .editor-preview
-        left 100%
-        background #ffffff
-      .editor-preview-active
-        left 0
+  .admin-posts-create-section, .admin-posts-edit-section
+    input[type="file"]
+      margin 10px 0
+    .img-container
+      width 100%
+      overflow-x auto
+      margin-bottom 10px
+      .img-wrap
+        display inline
+        position relative
+        white-space nowrap
+        min-width 200px
+        img
+          display inline
+          margin-right 10px
+          max-width 130px
+        .btn
+          position absolute
+          top 0
+          left 50%
+          margin-left -41px
+          display none
+        &:hover
+          .btn
+            display inline
   .bootstrap
     .tags
       background-color #fff

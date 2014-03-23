@@ -28,11 +28,6 @@ module.exports.validatePost = function (post, ctx) {
         return false;
     }
 
-    if (_.isEmpty(post.fullText)) {
-        ctx.body = { error: 'fullText is empty' };
-        return false;
-    }
-
     if (_.size(post.topics) < 1) {
         ctx.body = { error: 'required one or more topics' };
         return false;

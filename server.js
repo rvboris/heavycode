@@ -1,3 +1,5 @@
+Error.stackTraceLimit = Infinity;
+
 var path = require('path'),
     argv = require('optimist').argv,
     app = require('koa')(),
@@ -6,7 +8,8 @@ var path = require('path'),
     serveStatic = serve(path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'), { defer: true }),
     co = require('co'),
     thunkify = require('thunkify'),
-    helpers = require('./helpers.js');
+    helpers = require('./helpers.js'),
+    formidable = require('koa-formidable');
 
 var mongo = require('co-easymongo')({
     dbname: 'hoursofcode'
@@ -15,11 +18,15 @@ var mongo = require('co-easymongo')({
 app.posts = mongo.collection('posts');
 app.users = mongo.collection('users');
 app.tokens = mongo.collection('tokens');
+app.images = mongo.collection('images');
 
 co(function *() {
     app.postsNative = yield mongo.open('posts');
     app.postsNative.find = thunkify(app.postsNative.find);
     app.postsNative.distinct = thunkify(app.postsNative.distinct);
+
+    app.imagesNative = yield mongo.open('images');
+    app.imagesNative.find = thunkify(app.imagesNative.find);
 })();
 
 if (argv.fake) {
@@ -62,6 +69,7 @@ co(function *() {
 
 app.use(serveStatic);
 app.use(router);
+app.use(formidable());
 
 require('./routes.js')(app);
 

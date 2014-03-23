@@ -1,8 +1,9 @@
 module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
     js: {
         vendor: [
-            "vendor/bower/jquery/jquery.js",
+            "vendor/bower/jquery/dist/jquery.js",
             "vendor/bower/lodash/dist/lodash.js",
+            "vendor/bower/script.js/dist/script.js",
             "vendor/bower/jquery-mousewheel/jquery.mousewheel.js",
             "vendor/bower/isotope/jquery.isotope.js",
             "vendor/bower/fancybox/source/jquery.fancybox.js",
@@ -16,8 +17,8 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/angular-animate/angular-animate.js",
             "vendor/bower/angular-notify-toaster/toaster.js",
             "vendor/bower/ng-tags-input/ng-tags-input.js",
-            "vendor/bower/marked//lib/marked.js",
-            "vendor/leptureeditor/editor.js"
+            "vendor/bower/ng-ckeditor/ng-ckeditor.js",
+            "vendor/bower/angular-file-upload/angular-file-upload.js"
         ],
         app: [
             "app/js/app.js",
@@ -37,7 +38,7 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/bootstrap/dist/css/bootstrap.css",
             "vendor/bower/angular-notify-toaster/toaster.css",
             "vendor/bower/ng-tags-input/ng-tags-input.css",
-            "vendor/leptureeditor/editor.css"
+            "vendor/bower/ng-ckeditor/ng-ckeditor.css"
         ]
     }
 });

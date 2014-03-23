@@ -9,6 +9,23 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
         };
     });
 
+    // CKEDITOR Dynamic loading workaround
+    var ckeditorResolver = function ($q, $timeout) {
+        var deferred = $q.defer();
+
+        if (!_.isUndefined(window.CKEDITOR) && window.CKEDITOR.fake) {
+            $timeout(function () {
+                window.CKEDITOR = undefined;
+
+                $script('/ckeditor/ckeditor.js', deferred.resolve);
+            }, 150);
+        } else {
+            deferred.resolve();
+        }
+
+        return deferred.promise;
+    };
+
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider
@@ -78,7 +95,10 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
         .state('admin.posts.create', {
             url: '/create/',
             templateUrl: 'admin-posts-create.html',
-            controller: 'adminPostsCreateCtrl'
+            controller: 'adminPostsCreateCtrl',
+            resolve: {
+                ckeditor: ckeditorResolver
+            }
         })
         .state('admin.posts.edit', {
             url: '/edit/',
