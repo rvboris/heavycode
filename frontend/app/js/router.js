@@ -101,8 +101,11 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
             }
         })
         .state('admin.posts.edit', {
-            url: '/edit/',
+            url: '/edit/:id',
             templateUrl: 'admin-posts-edit.html',
-            controller: 'adminPostsEditCtrl'
+            controller: 'adminPostsEditCtrl',
+            resolve: {
+                ckeditor: ckeditorResolver
+            }
         });
 });

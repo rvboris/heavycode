@@ -1,0 +1,146 @@
+<div class="row">
+    <div class="col-lg-12">
+        <form role="form" name="form" ng-submit="save()" novalidate>
+            <div class="form-group"
+                 ng-class="{ 'has-error': form.title.$dirty && form.title.$invalid, 'has-success': form.title.$dirty && !form.title.$invalid }">
+                <label for="postTitle">Название</label>
+                <input type="text" class="form-control" id="postTitle" placeholder="Название" ng-model="post.title"
+                       name="title" required>
+            </div>
+
+            <div class="form-group"
+                 ng-class="{ 'has-error': form.shortText.$dirty && form.shortText.$invalid, 'has-success': form.shortText.$dirty && !form.shortText.$invalid }">
+                <label for="postShortText">Краткий текст</label>
+                <textarea clas="form-control" id="postShortText" ckeditor="editorOptions" ng-model="post.shortText"
+                          name="shortText" required></textarea>
+            </div>
+
+            <div class="form-group"
+                 ng-class="{ 'has-error': form.fullText.$dirty && form.fullText.$invalid, 'has-success': form.fullText.$dirty && !form.fullText.$invalid }">
+                <label for="postFullText">Текст</label>
+                <textarea clas="form-control" id="postFullText" ckeditor="editorOptions" ng-model="post.fullText"
+                          name="fullText" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Темы</label>
+                <tags-input
+                        ng-model="post.topics"
+                        allowedTagsPattern="^[а-яА-Яa-zA-Z0-9\s]+$*"
+                        minLength="2"
+                        custom-class="bootstrap"
+                        placeholder="Добавить тему">
+                    <auto-complete source="loadTopics($query)" min-length="2" max-results-to-show="5">
+                </tags-input>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Управление картинками</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-4 text-center">
+                            <h3>Доступные картинки</h3>
+
+                            <div class="well" ng-if="!images.length">К этой записи еще не загружено ни одной картинки</div>
+
+                            <div class="img-container clearfix">
+                                <div class="img-wrap text-center" ng-repeat="image in images track by image._id" ng-mouseover="activateImage(image._id)">
+                                    <img ng-src="{{'/api/images/' + image._id}}" class="thumbnail" />
+                                    <button type="button" class="btn btn-sm btn-danger" ng-click="deleteImage(image._id)"><i class="fa fa-trash-o"></i> Удалить</button>
+                                </div>
+                            </div>
+
+                            <input type="text" class="form-control" ng-value="activeImageUrl" readonly>
+                        </div>
+                        <div class="col-lg-8">
+                            <h3>Загрузка картинок</h3>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input ng-file-select type="file" multiple/>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered" ng-if="uploader.queue.length">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Картинка</th>
+                                    <th>Размер</th>
+                                    <th>Прогресс</th>
+                                    <th>Статус</th>
+                                    <th>Действия</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in uploader.queue">
+                                    <td>
+                                        <div thumb="{ file: item.file, height: 100 }"></div>
+                                    </td>
+                                    <td class="text-center" nowrap>{{ item.file.size/1024|number:2 }} КБайт</td>
+                                    <td>
+                                        <div class="progress" style="margin-bottom: 0;">
+                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span ng-show="item.isSuccess"><i class="fa fa-ok"></i></span>
+                                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                    </td>
+                                    <td class="text-center" nowrap>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                <span class="fa fa-upload"></span> Загрузить
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                                <span class="fa fa-minus-circle"></span> Отмена
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                <span class="fa fa-trash-o"></span> Удалить
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div ng-if="uploader.queue.length">
+                                <span>Прогресс:</span>
+
+                                <div class="progress" style="">
+                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                                        <span class="fa fa-upload"></span> Загрузить все
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                                        <span class="fa fa-minus-circle"></span> Отменить все
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                                        <span class="fa fa-trash-o"></span> Удалить все
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="alert alert-danger" ng-show="error === 'title is empty'">Ошибка, название обязательно для заполнения</div>
+            <div class="alert alert-danger" ng-show="error === 'shortText is empty'">Ошибка, краткий текст обязателен для заполнения</div>
+            <div class="alert alert-danger" ng-show="error === 'required one or more topics'">Ошибка, необходимо добавить хотя бы одну тему</div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Сохранить</button>
+
+                <label>
+                    <input type="checkbox" ng-model="post.draft" name="draft"> черновик
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
