@@ -239,6 +239,78 @@ module.exports = function (app) {
         this.status = 200;
     });
 
+    app.get('/api/users', auth.check, function *() {
+        this.body = yield app.users.find({});
+    });
+
+    app.post('/api/users', auth.check, function *() {
+        var user = yield parse(this, { limit: '1kb' });
+
+        if (!helpers.validateUser(user, this)) {
+            this.status = 400;
+            return;
+        }
+
+        yield app.users.save({ username: user.username, password: helpers.createHash(user.password) });
+
+        this.status = 200;
+    });
+
+    app.put('/api/users/:user', auth.check, function *() {
+        var user = yield app.users.findById(this.params.user);
+
+        if (_.isEmpty(user)) {
+            this.status = 404;
+            return;
+        }
+
+        var newData = yield parse(this, { limit: '15kb' });
+
+        if (!helpers.validateUser(newData, this)) {
+            this.status = 400;
+            return;
+        }
+
+        if (helpers.createHash(newData.currentPassword) !== user.password) {
+            this.status = 401;
+            this.body = { error: 'auth failed' };
+            return;
+        }
+
+        user.username = newData.username;
+        user.password = helpers.createHash(user.password);
+
+        yield app.users.save(user);
+
+        this.status = 200;
+    });
+
+    app.del('/api/users/:user', auth.check, function *() {
+        var user = yield app.users.findById(this.params.user);
+
+        if (_.isEmpty(user)) {
+            this.status = 404;
+            return;
+        }
+
+        var token = yield app.tokens.find({ userId: user._id });
+
+        if (!_.isEmpty(token)) {
+            token = token[0];
+
+            if (token._id === this.req.headers.token) {
+                this.status = 400;
+                this.body = { error: 'you can not remove yourself' };
+            }
+
+            yield app.tokens.removeById(token._id);
+        }
+
+        yield app.users.removeById(user._id);
+
+        this.status = 200;
+    });
+
     app.get('*', function *() {
         if (new RegExp('^\/api\/(posts|logout)\/').test(this.req.url) || this.status === 401) {
             return;

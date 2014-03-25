@@ -36,6 +36,25 @@ module.exports.validatePost = function (post, ctx) {
     return true;
 };
 
+module.exports.validateUser = function (user, ctx) {
+    if (_.isEmpty(user.username) || _.isEmpty(user.password)) {
+        ctx.body = { error: 'username and password are required' };
+        return false;
+    }
+
+    if (_.size(user.username) < 3) {
+        ctx.body = { error: 'username must contents 3 or more chars' };
+        return false;
+    }
+
+    if (_.size(user.password) < 8) {
+        ctx.body = { error: 'password must contents 8 or more chars' };
+        return false;
+    }
+
+    return true;
+};
+
 module.exports.Auth = function (app) {
     var self = this;
 
