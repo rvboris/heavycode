@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-lg-4">
+        <form role="form" name="form" ng-submit="create()" novalidate>
+            <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$invalid, 'has-success': form.username.$dirty && !form.username.$invalid }">
+                <label for="username">Имя пользователя</label>
+                <input type="text" class="form-control" id="username" placeholder="Имя пользователя" ng-model="user.username" name="username" ng-minlength="3" required>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$invalid, 'has-success': form.password.$dirty && !form.password.$invalid }">
+                <label for="password">Пароль</label>
+                <input type="text" class="form-control" id="password" placeholder="Пароль" ng-model="user.password" name="password" ng-minlength="8" required>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': form.passwordVerify.$dirty && form.passwordVerify.$invalid, 'has-success': form.passwordVerify.$dirty && !form.passwordVerify.$invalid }">
+                <label for="password-verify">Повторите пароль</label>
+                <input type="text" class="form-control" id="password-verify" placeholder="Повторите пароль" ng-model="user.passwordVerify" name="passwordVerify" ng-minlength="8" nx-equal="user.password" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Создать</button>
+            </div>
+        </form>
+
+        <div class="alert alert-danger" ng-show="error === 'title is empty'">Ошибка, пользователь с таким именем уже существует</div>
+    </div>
+</div>
