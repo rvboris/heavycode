@@ -1,0 +1,19 @@
+<h3>Список пользователей <a ui-sref="admin.users.create" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Создать пользователя</a></h3>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class="col-lg-1">Имя</th>
+        <th class="col-lg-2">Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users">
+        <td>{{user.username}}</td>
+        <td>
+            <a ui-sref="admin.users.edit({ id: user._id })" target="_blank" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> Изменить пароль</a>
+            <button class="btn btn-sm btn-default" ng-click="deleteUser(user)"><i class="fa fa-trash-o"></i> Удалить</button>
+        </td>
+    </tr>
+    </tbody>
+</table>

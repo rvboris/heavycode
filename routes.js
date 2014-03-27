@@ -240,7 +240,9 @@ module.exports = function (app) {
     });
 
     app.get('/api/users', auth.check, function *() {
-        this.body = yield app.users.find({});
+        this.body = _.map((yield app.users.find({})), function (user) {
+            return _.omit(user, 'password');
+        });
     });
 
     app.post('/api/users', auth.check, function *() {
@@ -298,9 +300,10 @@ module.exports = function (app) {
         if (!_.isEmpty(token)) {
             token = token[0];
 
-            if (token._id === this.req.headers.token) {
+            if (token._id.toString() === this.req.headers.token.toString()) {
                 this.status = 400;
                 this.body = { error: 'you can not remove yourself' };
+                return;
             }
 
             yield app.tokens.removeById(token._id);

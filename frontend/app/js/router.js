@@ -84,7 +84,6 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
         .state('admin.posts', {
             url: '/posts',
             templateUrl: 'admin-posts.html',
-            controller: 'adminPostsCtrl',
             abstact: true
         })
         .state('admin.posts.list', {
@@ -107,5 +106,25 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
             resolve: {
                 ckeditor: ckeditorResolver
             }
+        })
+        .state('admin.users', {
+            url: '/users',
+            templateUrl: 'admin-users.html',
+            abstact: true
+        })
+        .state('admin.users.list', {
+            url: '/list/',
+            templateUrl: 'admin-users-list.html',
+            controller: 'adminUsersListCtrl'
+        })
+        .state('admin.users.create', {
+            url: '/create/',
+            templateUrl: 'admin-users-create.html',
+            controller: 'adminUsersCreateCtrl'
+        })
+        .state('admin.users.edit', {
+            url: '/edit/:id',
+            templateUrl: 'admin-users-edit.html',
+            controller: 'adminUsersEditCtrl'
         });
 });
