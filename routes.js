@@ -245,11 +245,21 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/api/users/:user', auth.check, function *() {
+        this.body = _.omit((yield app.users.findById(this.params.user)), '_id', 'password');
+    });
+
     app.post('/api/users', auth.check, function *() {
         var user = yield parse(this, { limit: '1kb' });
 
         if (!helpers.validateUser(user, this)) {
             this.status = 400;
+            return;
+        }
+
+        if ((yield app.users.count({ username: user.username })) > 0) {
+            this.status = 400;
+            this.body = { error: 'user with that name already exists' };
             return;
         }
 
@@ -273,14 +283,20 @@ module.exports = function (app) {
             return;
         }
 
+        if ((yield app.users.count({ username: newData.username })) > 0) {
+            this.status = 400;
+            this.body = { error: 'user with that name already exists' };
+            return;
+        }
+
         if (helpers.createHash(newData.currentPassword) !== user.password) {
             this.status = 401;
-            this.body = { error: 'auth failed' };
+            this.body = { error: 'invalid current password' };
             return;
         }
 
         user.username = newData.username;
-        user.password = helpers.createHash(user.password);
+        user.password = helpers.createHash(newData.password);
 
         yield app.users.save(user);
 
@@ -295,18 +311,20 @@ module.exports = function (app) {
             return;
         }
 
-        var token = yield app.tokens.find({ userId: user._id });
+        var tokens = yield app.tokens.find({ userId: user._id });
 
-        if (!_.isEmpty(token)) {
-            token = token[0];
+        if (!_.isEmpty(tokens)) {
+            var selfToken = _.find(tokens, function(token) {
+                return token._id.toString() === this.req.headers.token.toString();
+            }, this);
 
-            if (token._id.toString() === this.req.headers.token.toString()) {
+            if (selfToken) {
                 this.status = 400;
                 this.body = { error: 'you can not remove yourself' };
                 return;
             }
 
-            yield app.tokens.removeById(token._id);
+            yield app.tokens.removeById(selfToken._id);
         }
 
         yield app.users.removeById(user._id);

@@ -8,10 +8,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="user in users">
+    <tr ng-repeat="user in users track by user._id">
         <td>{{user.username}}</td>
         <td>
-            <a ui-sref="admin.users.edit({ id: user._id })" target="_blank" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> Изменить пароль</a>
+            <a ui-sref="admin.users.edit({ id: user._id })" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> Изменить пароль</a>
             <button class="btn btn-sm btn-default" ng-click="deleteUser(user)"><i class="fa fa-trash-o"></i> Удалить</button>
         </td>
     </tr>

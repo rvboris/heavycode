@@ -37,6 +37,6 @@
     "co-easymongo": ">=0.2.0",
     "moment": ">=2.5.1",
     "Faker": ">=0.5.11",
-    "koa-formidable": "^0.1.0"
+    "koa-formidable": ">=0.1.0"
   }
 }

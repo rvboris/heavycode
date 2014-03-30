@@ -1,7 +1,9 @@
 <div class="container" bindonce bo-class="state.current.name | stateClass">
     <subview data="'partials/header'"></subview>
 
-    <section class="content">
+    <section class="content" bindonce="postsCount">
+        <h3 bo-if="!postsCount" class="text-center empty-header">В блоге пока нет записей, архив пуст</h3>
+
         <ol class="years">
             <li class="year" bindonce ng-repeat="(year, months) in archive track by year">
                 <h1 bo-text="year"></h1>

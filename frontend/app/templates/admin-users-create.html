@@ -8,12 +8,12 @@
 
             <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$invalid, 'has-success': form.password.$dirty && !form.password.$invalid }">
                 <label for="password">Пароль</label>
-                <input type="text" class="form-control" id="password" placeholder="Пароль" ng-model="user.password" name="password" ng-minlength="8" required>
+                <input type="password" class="form-control" id="password" placeholder="Пароль" ng-model="user.password" name="password" ng-minlength="8" required>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': form.passwordVerify.$dirty && form.passwordVerify.$invalid, 'has-success': form.passwordVerify.$dirty && !form.passwordVerify.$invalid }">
                 <label for="password-verify">Повторите пароль</label>
-                <input type="text" class="form-control" id="password-verify" placeholder="Повторите пароль" ng-model="user.passwordVerify" name="passwordVerify" ng-minlength="8" nx-equal="user.password" required>
+                <input type="password" class="form-control" id="password-verify" placeholder="Повторите пароль" ng-model="user.passwordVerify" name="passwordVerify" ng-minlength="8" nx-equal="user.password" required>
             </div>
 
             <div class="form-group">
@@ -21,6 +21,9 @@
             </div>
         </form>
 
-        <div class="alert alert-danger" ng-show="error === 'title is empty'">Ошибка, пользователь с таким именем уже существует</div>
+        <div class="alert alert-danger" ng-show="error === 'user with that name already exists'">Ошибка, пользователь с таким именем уже существует</div>
+        <div class="alert alert-danger" ng-show="error === 'username and password are required'">Ошибка, имя пользователя и пароль обязательны</div>
+        <div class="alert alert-danger" ng-show="error === 'username must contents 3 or more chars'">Ошибка, имя пользователя должно содержать не менее 3 символов</div>
+        <div class="alert alert-danger" ng-show="error === 'password must contents 8 or more chars'">Ошибка, пароль пользователя должен содержать не менее 8 символов</div>
     </div>
 </div>

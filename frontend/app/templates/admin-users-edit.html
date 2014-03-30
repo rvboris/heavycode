@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-lg-4">
+        <form role="form" name="form" ng-submit="update()" novalidate>
+            <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$invalid, 'has-success': form.username.$dirty && !form.username.$invalid }">
+                <label for="username">Имя пользователя</label>
+                <input type="text" class="form-control" id="username" placeholder="Имя пользователя" ng-model="user.username" name="username" ng-minlength="3" required>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': form.currentPassword.$dirty && form.currentPassword.$invalid, 'has-success': form.currentPassword.$dirty && !form.currentPassword.$invalid }">
+                <label for="current-password">Текущий пароль</label>
+                <input type="password" class="form-control" id="current-password" placeholder="Текущий пароль" ng-model="user.currentPassword" name="currentPassword" ng-minlength="8" required>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$invalid, 'has-success': form.password.$dirty && !form.password.$invalid }">
+                <label for="password">Новый пароль</label>
+                <input type="password" class="form-control" id="password" placeholder="Пароль" ng-model="user.password" name="password" ng-minlength="8" required>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': form.passwordVerify.$dirty && form.passwordVerify.$invalid, 'has-success': form.passwordVerify.$dirty && !form.passwordVerify.$invalid }">
+                <label for="password-verify">Повторите новый пароль</label>
+                <input type="password" class="form-control" id="password-verify" placeholder="Повторите пароль" ng-model="user.passwordVerify" name="passwordVerify" ng-minlength="8" nx-equal="user.password" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-check"></i> Обновить</button>
+            </div>
+        </form>
+
+        <div class="alert alert-danger" ng-show="error === 'user with that name already exists'">Ошибка, пользователь с таким именем уже существует</div>
+        <div class="alert alert-danger" ng-show="error === 'username and password are required'">Ошибка, имя пользователя и пароль обязательны</div>
+        <div class="alert alert-danger" ng-show="error === 'username must contents 3 or more chars'">Ошибка, имя пользователя должно содержать не менее 3 символов</div>
+        <div class="alert alert-danger" ng-show="error === 'password must contents 8 or more chars'">Ошибка, пароль пользователя должен содержать не менее 8 символов</div>
+        <div class="alert alert-danger" ng-show="error === 'invalid current password'">Ошибка, текущий пароль не верный</div>
+    </div>
+</div>

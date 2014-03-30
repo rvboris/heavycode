@@ -2,6 +2,8 @@
     <subview data="'partials/header'"></subview>
 
     <section class="content" bindonce="postsCount">
+        <h3 bo-if="!postsCount" class="text-center empty-header">В блоге пока нет записей, зайдите позже</h3>
+
         <div bindonce ng-repeat="post in posts track by post._id">
             <article class="row">
                 <div class="col-d-4-5 col-t-2-3 col-p-5-5 left">
