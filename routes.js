@@ -149,10 +149,14 @@ module.exports = function (app) {
 
         this.body = post;
 
-        (yield app.images.find({ postId: { $exists: false } })).forEach(co(function *(image) {
-            image.postId = post._id;
-            yield app.images.save(image);
-        }));
+        var findedImagesIds = helpers.findObjectIdsInPost(post);
+
+        if (_.size(findedImagesIds) > 0) {
+            (yield app.images.find({ _id: { $in: findedImagesIds } })).forEach(co(function *(image) {
+                image.postId = post._id;
+                yield app.images.save(image);
+            }));
+        }
 
         yield next;
     });
@@ -203,17 +207,30 @@ module.exports = function (app) {
 
         post = yield app.posts.save(post);
 
-        (yield app.images.find({ postId: { $exists: false } })).forEach(co(function *(image) {
-            image.postId = post._id;
-            yield app.images.save(image);
-        }));
+        var findedImagesIds = helpers.findObjectIdsInPost(post);
+        var relatedImagesIds = _.map((yield app.images.find({ postId: post._id })), function (image) {
+            return image._id;
+        });
+
+        yield app.images.update({ _id: { $in: _.difference(relatedImagesIds, findedImagesIds) } }, { $unset: { postId: true } });
+
+        if (_.size(findedImagesIds) > 0) {
+            (yield app.images.find({ _id: { $in: findedImagesIds } })).forEach(co(function *(image) {
+                image.postId = post._id;
+                yield app.images.save(image);
+            }));
+        }
 
         this.status = 200;
         yield next;
     });
 
     app.del('/api/posts/:post', auth.check, function *(next) {
-        yield app.posts.removeById(this.params.post);
+        var postToDelete = yield app.posts.findById(this.params.post);
+
+        yield app.images.update({ postId: postToDelete._id }, { $unset: { postId: true } });
+        yield app.posts.remove(postToDelete);
+
         this.status = 200;
         yield next;
     });

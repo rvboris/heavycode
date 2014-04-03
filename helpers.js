@@ -17,6 +17,24 @@ module.exports.randomDate = function (start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 };
 
+module.exports.findObjectIds = function (txt) {
+    return txt.match(/[0-9a-fA-F]{24}/g) || [];
+};
+
+module.exports.findObjectIdsInPost = function(post) {
+    var ids = [];
+
+    if (!_.isEmpty(post.shortText)) {
+        ids = _.union(ids, module.exports.findObjectIds(post.shortText));
+    }
+
+    if (!_.isEmpty(post.fullText)) {
+        ids = _.union(ids, module.exports.findObjectIds(post.fullText));
+    }
+
+    return ids;
+};
+
 module.exports.validatePost = function (post, ctx) {
     if (_.isEmpty(post.title)) {
         ctx.body = { error: 'title is empty' };

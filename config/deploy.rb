@@ -45,7 +45,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-        execute :pm2, "reload", "heavycode"
+        execute :pm2, "restart", "heavycode"
       end
     end
   end
@@ -64,6 +64,15 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
         execute :pm2, "stop", "heavycode"
+      end
+    end
+  end
+
+  desc 'Application Status'
+  task :status do
+    on roles(:app), in: :sequence, wait: 5 do
+      within current_path do
+        execute :pm2, "ls"
       end
     end
   end
