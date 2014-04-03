@@ -17,7 +17,7 @@ set :deploy_to, '/var/www/heavycode.ru/stages/production'
 # set :format, :pretty
 
 # Default value for :log_level is :debug
-# set :log_level, :debug
+set :log_level, :info
 
 # Default value for :pty is false
 # set :pty, true
@@ -45,7 +45,8 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-        execute :pm2, "restart", "heavycode"
+        execute :pm2, "delete", "heavycode"
+        execute :pm2, "start", "heavycode"
       end
     end
   end
@@ -54,7 +55,7 @@ namespace :deploy do
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-        execute :pm2, "start", "server.js", "--name", "heavycode", "--", "--port", "7878", "--env", "production"
+        execute :pm2, "start", "server.js", "--name", "heavycode", "-i", "max", "--", "--port", "7878", "--env", "production"
       end
     end
   end
@@ -63,16 +64,7 @@ namespace :deploy do
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-        execute :pm2, "stop", "heavycode"
-      end
-    end
-  end
-
-  desc 'Application Status'
-  task :status do
-    on roles(:app), in: :sequence, wait: 5 do
-      within current_path do
-        execute :pm2, "ls"
+        execute :pm2, "delete", "heavycode"
       end
     end
   end
@@ -81,7 +73,7 @@ namespace :deploy do
   task :npm_install do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-      	execute :npm, "cache" "clean"
+      	execute :npm, "cache", "clean"
         execute :npm, "install"
       end
       within current_path + "frontend" do

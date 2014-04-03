@@ -1,4 +1,4 @@
-angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $scope, $state, $stateParams, $fileUploader, postsFactory, imagesFactory) {
+angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $scope, $state, $stateParams, $q, $fileUploader, postsFactory, imagesFactory) {
     var topicsResourceAdapter = function (query) {
         var deferred = $q.defer();
 
