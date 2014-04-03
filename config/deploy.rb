@@ -54,7 +54,7 @@ namespace :deploy do
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-        execute :pm2, "start", "server.js", "--name", "heavycode", "-i", "max", "--", "--port", "7878", "--env", "production"
+        execute :pm2, "start", "server.js", "--name", "heavycode", "--", "--port", "7878", "--env", "production"
       end
     end
   end

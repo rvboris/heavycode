@@ -3,7 +3,7 @@
         <form role="form" name="form" ng-submit="update()" novalidate>
             <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$invalid, 'has-success': form.username.$dirty && !form.username.$invalid }">
                 <label for="username">Имя пользователя</label>
-                <input type="text" class="form-control" id="username" placeholder="Имя пользователя" ng-model="user.username" name="username" ng-minlength="3" required>
+                <input type="text" class="form-control" id="username" placeholder="Имя пользователя" ng-model="user.username" name="username" ng-minlength="3" readonly required>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': form.currentPassword.$dirty && form.currentPassword.$invalid, 'has-success': form.currentPassword.$dirty && !form.currentPassword.$invalid }">

@@ -1,4 +1,4 @@
-var parse = require('co-body'),
+var body = require('koa-body')(),
     crypto = require('crypto'),
     thunkify = require('thunkify'),
     moment = require('moment'),
@@ -16,28 +16,29 @@ fs.unlink = thunkify(fs.unlink);
 module.exports = function (app) {
     var auth = new helpers.Auth(app);
 
-    app.post('/api/login', function *() {
-        var authData = yield parse.json(this, { limit: '1kb' });
-
-        if (_.isEmpty(authData.username) || _.isEmpty(authData.password)) {
+    app.post('/api/login', body, function *(next) {
+        if (_.isEmpty(this.request.body.username) || _.isEmpty(this.request.body.password)) {
             this.status = 400;
             this.body = { error: 'username and password is required' };
+            yield next;
             return;
         }
 
-        var user = yield app.users.find({ username: authData.username });
+        var user = yield app.users.find({ username: this.request.body.username });
 
         if (_.size(user) === 0) {
             this.status = 401;
             this.body = { error: 'user not found' };
+            yield next;
             return;
         }
 
         user = user[0];
 
-        if (helpers.createHash(authData.password) !== user.password) {
+        if (helpers.createHash(this.request.body.password) !== user.password) {
             this.status = 401;
             this.body = { error: 'auth failed' };
+            yield next;
             return;
         }
 
@@ -50,18 +51,21 @@ module.exports = function (app) {
             token.updated = new Date();
             token = yield app.tokens.save(token);
             this.body = { token: token._id };
+            yield next;
             return;
         }
 
         this.body = { token: (yield app.tokens.save({ created: new Date(), updated: new Date(), userId: user._id }))._id };
+        yield next;
     });
 
-    app.get('/api/logout', auth.check, function *() {
+    app.get('/api/logout', auth.check, function *(next) {
         yield app.tokens.removeById(this.req.headers.token);
         this.status = 200;
+        yield next;
     });
 
-    app.get('/api/posts', function *() {
+    app.get('/api/posts', function *(next) {
         var find = {};
 
         if (!_.isUndefined(this.query.topic)) {
@@ -73,9 +77,10 @@ module.exports = function (app) {
         }
 
         this.body = yield app.posts.find(find, { limit: 10, skip: (this.query.page - 1 || 0) * 10, sort: { updated: -1 } });
+        yield next;
     });
 
-    app.get('/api/posts/count', function *() {
+    app.get('/api/posts/count', function *(next) {
         var find = {};
 
         if (!_.isUndefined(this.query.topic)) {
@@ -87,11 +92,13 @@ module.exports = function (app) {
         }
 
         this.body = { count: (yield app.posts.count(find)) };
+        yield next;
     });
 
-    app.get('/api/posts/topics', function *() {
+    app.get('/api/posts/topics', function *(next) {
         if (_.isUndefined(this.query.query) || _.size(this.query.query) < 2) {
             this.status = 400;
+            yield next;
             return;
         }
 
@@ -100,9 +107,10 @@ module.exports = function (app) {
                 return topic.match(new RegExp('^' + this.query.query + '.+'));
             }, this)
         };
+        yield next;
     });
 
-    app.get('/api/posts/archive', function *() {
+    app.get('/api/posts/archive', function *(next) {
         var find = {};
 
         if (!(yield auth.checkToken(this.req.headers.token))) {
@@ -122,13 +130,15 @@ module.exports = function (app) {
         });
 
         this.body = posts;
+        yield next;
     });
 
-    app.post('/api/posts', auth.check, function *() {
-        var post = yield parse(this, { limit: '15kb' });
+    app.post('/api/posts', auth.check, body, function *(next) {
+        var post = this.request.body;
 
         if (!helpers.validatePost(post, this)) {
             this.status = 400;
+            yield next;
             return;
         }
 
@@ -143,11 +153,14 @@ module.exports = function (app) {
             image.postId = post._id;
             yield app.images.save(image);
         }));
+
+        yield next;
     });
 
-    app.get('/api/posts/:post', function *() {
+    app.get('/api/posts/:post', function *(next) {
         if (_.isEmpty(this.params.post)) {
             this.status = 400;
+            yield next;
             return;
         }
 
@@ -155,33 +168,36 @@ module.exports = function (app) {
 
         if (_.isEmpty(post)) {
             this.status = 404;
+            yield next;
             return;
         }
 
         if (!(yield auth.checkToken(this.req.headers.token)) && post.draft) {
             this.status = 403;
+            yield next;
             return;
         }
 
         this.body = post;
+        yield next;
     });
 
-    app.put('/api/posts/:post', auth.check, function *() {
+    app.put('/api/posts/:post', auth.check, body, function *(next) {
         var post = yield app.posts.findById(this.params.post);
 
         if (_.isEmpty(post)) {
             this.status = 404;
+            yield next;
             return;
         }
 
-        var newData = yield parse(this, { limit: '15kb' });
-
-        if (!helpers.validatePost(newData, this)) {
+        if (!helpers.validatePost(this.request.body, this)) {
             this.status = 400;
+            yield next;
             return;
         }
 
-        _.assign(post, newData);
+        _.assign(post, this.request.body);
 
         post.updated = new Date();
 
@@ -193,27 +209,32 @@ module.exports = function (app) {
         }));
 
         this.status = 200;
+        yield next;
     });
 
-    app.del('/api/posts/:post', auth.check, function *() {
+    app.del('/api/posts/:post', auth.check, function *(next) {
         yield app.posts.removeById(this.params.post);
         this.status = 200;
+        yield next;
     });
 
-    app.post('/api/images', auth.check, function *() {
+    app.post('/api/images', auth.check, function *(next) {
         var image = (yield formidable.parse(this)).files.file;
         app.images.save({ data: (yield fs.readFile(image.path)), type: image.type });
         yield fs.unlink(image.path);
         this.status = 200;
+        yield next;
     });
 
-    app.get('/api/images', auth.check, function *() {
+    app.get('/api/images', auth.check, function *(next) {
         this.body = yield thunkify((yield app.imagesNative.find({ postId: { $exists: false } }, { data: 0, type: 0 })).toArray)();
+        yield next;
     });
 
-    app.get('/api/images/:image', function *() {
+    app.get('/api/images/:image', function *(next) {
         if (_.isEmpty(this.params.image)) {
             this.status = 404;
+            yield next;
             return;
         }
 
@@ -221,93 +242,96 @@ module.exports = function (app) {
 
         if (_.isEmpty(image)) {
             this.status = 404;
+            yield next;
             return;
         }
 
         this.body = image.data.buffer;
         this.type = image.type;
+        yield next;
     });
 
-    app.del('/api/images/:image', auth.check, function *() {
+    app.del('/api/images/:image', auth.check, function *(next) {
         if (_.isEmpty(this.params.image)) {
             this.status = 404;
+            yield next;
             return;
         }
 
         yield app.images.removeById(this.params.image);
-
         this.status = 200;
+        yield next;
     });
 
-    app.get('/api/users', auth.check, function *() {
+    app.get('/api/users', auth.check, function *(next) {
         this.body = _.map((yield app.users.find({})), function (user) {
             return _.omit(user, 'password');
         });
+        yield next;
     });
 
-    app.get('/api/users/:user', auth.check, function *() {
+    app.get('/api/users/:user', auth.check, function *(next) {
         this.body = _.omit((yield app.users.findById(this.params.user)), '_id', 'password');
+        yield next;
     });
 
-    app.post('/api/users', auth.check, function *() {
-        var user = yield parse(this, { limit: '1kb' });
+    app.post('/api/users', auth.check, body, function *(next) {
+        var user = this.request.body;
 
         if (!helpers.validateUser(user, this)) {
             this.status = 400;
+            yield next;
             return;
         }
 
         if ((yield app.users.count({ username: user.username })) > 0) {
             this.status = 400;
             this.body = { error: 'user with that name already exists' };
+            yield next;
             return;
         }
 
         yield app.users.save({ username: user.username, password: helpers.createHash(user.password) });
-
         this.status = 200;
+        yield next;
     });
 
-    app.put('/api/users/:user', auth.check, function *() {
+    app.put('/api/users/:user', auth.check, body, function *(next) {
         var user = yield app.users.findById(this.params.user);
 
         if (_.isEmpty(user)) {
             this.status = 404;
+            yield next;
             return;
         }
 
-        var newData = yield parse(this, { limit: '15kb' });
-
-        if (!helpers.validateUser(newData, this)) {
+        if (!helpers.validateUser(this.request.body, this)) {
             this.status = 400;
+            yield next;
             return;
         }
 
-        if ((yield app.users.count({ username: newData.username })) > 0) {
-            this.status = 400;
-            this.body = { error: 'user with that name already exists' };
-            return;
-        }
-
-        if (helpers.createHash(newData.currentPassword) !== user.password) {
+        if (helpers.createHash(this.request.body.currentPassword) !== user.password) {
             this.status = 401;
             this.body = { error: 'invalid current password' };
+            yield next;
             return;
         }
 
-        user.username = newData.username;
-        user.password = helpers.createHash(newData.password);
+        user.password = helpers.createHash(this.request.body.password);
 
         yield app.users.save(user);
 
         this.status = 200;
+        yield next;
     });
 
-    app.del('/api/users/:user', auth.check, function *() {
+    app.del('/api/users/:user', auth.check, function *(next) {
         var user = yield app.users.findById(this.params.user);
 
         if (_.isEmpty(user)) {
             this.status = 404;
+            yield next;
             return;
         }
 
@@ -321,6 +345,7 @@ module.exports = function (app) {
             if (selfToken) {
                 this.status = 400;
                 this.body = { error: 'you can not remove yourself' };
+                yield next;
                 return;
             }
 
@@ -330,15 +355,6 @@ module.exports = function (app) {
         yield app.users.removeById(user._id);
 
         this.status = 200;
-    });
-
-    app.get('*', function *(next) {
-        if (new RegExp('^\/api\/(posts|logout)\/').test(this.req.url) || this.status === 401) {
-            return;
-        }
-
-        this.path = '/index.html';
-
-        yield app.static;
+        yield next;
     });
 };

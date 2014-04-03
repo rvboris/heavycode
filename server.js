@@ -4,18 +4,14 @@ var path = require('path'),
     argv = require('optimist').argv,
     app = require('koa')(),
     router = require('koa-router')(app),
-    serve = require('koa-static'),
-    serveStatic = serve(path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'), { defer: false }),
+    serve = require('koa-file-server')(path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated')).send,
     co = require('co'),
     thunkify = require('thunkify'),
-    helpers = require('./helpers.js'),
-    formidable = require('koa-formidable');
+    helpers = require('./helpers.js');
 
 var mongo = require('co-easymongo')({
     dbname: 'hoursofcode'
 });
-
-app.static = serveStatic;
 
 app.posts = mongo.collection('posts');
 app.users = mongo.collection('users');
@@ -69,9 +65,24 @@ co(function *() {
     }
 })();
 
-app.use(app.static);
-app.use(formidable());
 app.use(router);
+
+// HTML5 Pushstate
+app.use(function* (next) {
+    if (this.response.status) {
+        return;
+    }
+
+    yield serve.call(this);
+
+    if (!this.response.status) {
+        this.path = '/index.html';
+    }
+
+    yield serve.call(this);
+    yield next;
+});
+
 
 require('./routes.js')(app);
 
