@@ -314,7 +314,7 @@ module.exports = function (app) {
         var tokens = yield app.tokens.find({ userId: user._id });
 
         if (!_.isEmpty(tokens)) {
-            var selfToken = _.find(tokens, function(token) {
+            var selfToken = _.find(tokens, function (token) {
                 return token._id.toString() === this.req.headers.token.toString();
             }, this);
 
@@ -332,11 +332,13 @@ module.exports = function (app) {
         this.status = 200;
     });
 
-    app.get('*', function *() {
+    app.get('*', function *(next) {
         if (new RegExp('^\/api\/(posts|logout)\/').test(this.req.url) || this.status === 401) {
             return;
         }
 
         this.path = '/index.html';
+
+        yield app.static;
     });
 };

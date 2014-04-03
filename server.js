@@ -5,7 +5,7 @@ var path = require('path'),
     app = require('koa')(),
     router = require('koa-router')(app),
     serve = require('koa-static'),
-    serveStatic = serve(path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'), { defer: true }),
+    serveStatic = serve(path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'), { defer: false }),
     co = require('co'),
     thunkify = require('thunkify'),
     helpers = require('./helpers.js'),
@@ -14,6 +14,8 @@ var path = require('path'),
 var mongo = require('co-easymongo')({
     dbname: 'hoursofcode'
 });
+
+app.static = serveStatic;
 
 app.posts = mongo.collection('posts');
 app.users = mongo.collection('users');
@@ -67,9 +69,9 @@ co(function *() {
     }
 })();
 
-app.use(serveStatic);
-app.use(router);
+app.use(app.static);
 app.use(formidable());
+app.use(router);
 
 require('./routes.js')(app);
 

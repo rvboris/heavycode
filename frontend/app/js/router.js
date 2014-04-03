@@ -1,5 +1,5 @@
 angular.module('app').config(function ($provide, $locationProvider, $stateProvider, $urlRouterProvider) {
-    $provide.decorator('$exceptionHandler', function ($delegate, $injector) {
+    $provide.decorator('$exceptionHandler', ['$delegate', '$injector', function ($delegate, $injector) {
         var toaster;
 
         return function (exception, cause) {
@@ -7,7 +7,7 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
             toaster.pop('error', 'Ошибка', exception.message);
             $delegate(exception, cause);
         };
-    });
+    }]);
 
     // CKEDITOR Dynamic loading workaround
     var ckeditorResolver = function ($q, $timeout) {
@@ -25,6 +25,8 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
 
         return deferred.promise;
     };
+
+    ckeditorResolver.$inject = ['$q', '$timeout'];
 
     $locationProvider.html5Mode(true);
 
