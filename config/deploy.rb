@@ -41,21 +41,11 @@ role :app, "deploy@heavycode.ru"
 
 namespace :deploy do
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      within current_path do
-        execute :pm2, "delete", "heavycode"
-        execute :pm2, "start", "heavycode"
-      end
-    end
-  end
-
   desc 'Start application'
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-        execute :pm2, "start", "server.js", "--name", "heavycode", "-i", "max", "--", "--port", "7878", "--env", "production"
+        execute :pm2, "start", "server.js", "--name", "heavycode", "--", "--port", "7878", "--env", "production"
       end
     end
   end
@@ -68,6 +58,14 @@ namespace :deploy do
       end
     end
   end
+
+  desc 'Restart application'
+  task :restart do
+
+  end
+
+  before :restart, :stop
+  after :restart, :start
 
   desc 'NPM Install'
   task :npm_install do

@@ -3,7 +3,9 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
         var deferred = $q.defer();
 
         postsFactory.topics({ query: query }).$promise.then(function (result) {
-            deferred.resolve(result.topics);
+            deferred.resolve(_.map(result.topics, function(topic) {
+                return { text: topic };
+            }));
         });
 
         return deferred.promise;
@@ -13,10 +15,21 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
         return topicsResourceAdapter(query);
     };
 
-    $scope.post = postsFactory.get({ id: $stateParams.id });
+    postsFactory.get({ id: $stateParams.id }, function (post) {
+        post.topics = _.map(post.topics, function (topic) {
+            return { text: topic };
+        });
+        $scope.post = post;
+    });
 
     $scope.save = function () {
-        postsFactory.update({ id: $scope.post._id }, _.omit($scope.post, '_id', 'created', 'updated'), function () {
+        var postToSave = $scope.post;
+
+        postToSave.topics = _.map(postToSave.topics, function(topic) {
+            return topic.text;
+        });
+
+        postsFactory.update({ id: $scope.post._id }, _.omit(postToSave, '_id', 'created', 'updated'), function () {
             $state.go('post', { id: $scope.post._id });
         }, function (result) {
             $scope.error = result.data.error;

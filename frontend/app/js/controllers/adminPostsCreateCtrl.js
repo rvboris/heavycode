@@ -3,7 +3,9 @@ angular.module('app').controller('adminPostsCreateCtrl', function ($rootScope, $
         var deferred = $q.defer();
 
         postsFactory.topics({ query: query }).$promise.then(function (result) {
-            deferred.resolve(result.topics);
+            deferred.resolve(_.map(result.topics, function(topic) {
+                return { text: topic };
+            }));
         });
 
         return deferred.promise;
@@ -16,7 +18,13 @@ angular.module('app').controller('adminPostsCreateCtrl', function ($rootScope, $
     $scope.post = {};
 
     $scope.create = function () {
-        postsFactory.save($scope.post, function () {
+        var postToSave = $scope.post;
+
+        postToSave.topics = _.map(postToSave.topics, function(topic) {
+            return topic.text;
+        });
+
+        postsFactory.save(postToSave, function () {
             $state.go('admin.posts.list', { page: 1 });
         }, function (result) {
             $scope.error = result.data.error;

@@ -83,6 +83,9 @@ app.use(function* (next) {
     yield next;
 });
 
+app.on('error', function (err) {
+    console.log(err.message);
+});
 
 require('./routes.js')(app);
 

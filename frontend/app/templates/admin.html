@@ -10,7 +10,11 @@
                 <li ui-sref-active="active"><a ui-sref="admin.users.list"><i class="fa fa-users"></i> Пользователи</a></li>
             </ul>
 
-            <button class="btn navbar-btn btn-default pull-right" ng-click="logout()"><i class="fa fa-sign-out"></i> Выйти</button>
+            <div class="btn-group pull-right">
+
+                <a class="btn navbar-btn btn-default" ui-sref="blog">Вернуться к сайту</a>
+                <button class="btn navbar-btn btn-default" ng-click="logout()"><i class="fa fa-sign-out"></i> Выйти</button>
+            </div>
         </div>
     </nav>
 
