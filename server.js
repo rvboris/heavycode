@@ -10,7 +10,7 @@ var path = require('path'),
     helpers = require('./helpers.js');
 
 var mongo = require('co-easymongo')({
-    dbname: 'hoursofcode'
+    dbname: 'heavycode'
 });
 
 app.posts = mongo.collection('posts');
