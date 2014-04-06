@@ -17,7 +17,7 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/angular-animate/angular-animate.js",
             "vendor/bower/angular-notify-toaster/toaster.js",
             "vendor/bower/ng-tags-input/ng-tags-input.js",
-            "vendor/bower/ng-ckeditor/ng-ckeditor.js",
+            "vendor/bower/ng-ckeditor/ng-ckeditor.src.js",
             "vendor/bower/angular-file-upload/angular-file-upload.js"
         ],
         app: [

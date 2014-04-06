@@ -29,6 +29,10 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
             return topic.text;
         });
 
+        if (_.isEmpty(postToSave.fullText)) {
+            delete postToSave.fullText;
+        }
+
         postsFactory.update({ id: $scope.post._id }, _.omit(postToSave, '_id', 'created', 'updated'), function () {
             $state.go('post', { id: $scope.post._id });
         }, function (result) {

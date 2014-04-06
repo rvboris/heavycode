@@ -9,6 +9,9 @@
     <meta http-equiv="content-type" content="text/html;UTF-8">
     <meta http-equiv="content-language" content="ru">
 
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+
     <meta property="og:type" content="{{meta.ogType}}" />
 
     <meta property="og:article:published_time" content="{{meta.ogPublishedTime}}" ng-if="meta.ogPublishedTime" />
@@ -22,7 +25,6 @@
 
     <meta property="og:url" content="{{meta.location}}" />
     <meta property="og:title" content="{{meta.title}}" />
-    <meta property="og:image" content="http://habrahabr.ru/i/habralogo.jpg" />
     <meta property="og:description" content="{{meta.description}}" />
     <meta property="og:site_name" content="HeavyCode" />
     <meta property="og:description" content="{{meta.description}}" />

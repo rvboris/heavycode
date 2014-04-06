@@ -24,6 +24,10 @@ angular.module('app').controller('adminPostsCreateCtrl', function ($rootScope, $
             return topic.text;
         });
 
+        if (_.isEmpty(postToSave.fullText)) {
+            delete postToSave.fullText;
+        }
+
         postsFactory.save(postToSave, function () {
             $state.go('admin.posts.list', { page: 1 });
         }, function (result) {

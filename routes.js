@@ -204,7 +204,6 @@ module.exports = function (app) {
         _.assign(post, this.request.body);
 
         post.updated = new Date();
-
         post = yield app.posts.save(post);
 
         var findedImagesIds = helpers.findObjectIdsInPost(post);
