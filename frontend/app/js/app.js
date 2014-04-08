@@ -1,5 +1,4 @@
-window.CKEDITOR = { on: function () {
-}, status: 'loaded', fake: true }; // Dynamic loading workaround
+window.CKEDITOR = { on: function () {}, status: 'loaded', fake: true }; // Dynamic loading workaround
 SyntaxHighlighter.defaults.toolbar = false;
 
 angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'pasvaz.bindonce', 'iso.directives', 'LocalStorageModule', 'toaster', 'ngTagsInput', 'ngCkeditor', 'angularFileUpload'])

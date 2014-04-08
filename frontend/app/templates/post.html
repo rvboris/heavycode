@@ -2,13 +2,13 @@
     <subview data="'partials/header'"></subview>
 
     <section class="content" bindonce="post">
-        <header>
+        <header flowtype="{{ { fontRatio : 65, minFont: 10, maxFont: 15 } }}">
             <h1 class="title" bo-text="post.title"></h1>
             <time datetime="{{post.updated | date:'yyyy-MM-dd'}}" bo-text="post.updated | date: 'd MMMM yyyy'"></time>
         </header>
 
-        <section class="short-text" bo-if="post.shortText" bo-html="post.shortText"></section>
-        <section class="full-text" bo-if="post.fullText" bo-html="post.fullText"></section>
+        <section class="short-text" bo-if="post.shortText" bo-html="post.shortText" flowtype="{{ { fontRatio : 55, minFont: 16} }}"></section>
+        <section class="full-text" bo-if="post.fullText" bo-html="post.fullText" flowtype="{{ { fontRatio : 55, minFont: 16 } }}"></section>
 
         <div class="page-footer">
             <div class="topics">

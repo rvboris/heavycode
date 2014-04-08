@@ -18,7 +18,8 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/angular-notify-toaster/toaster.js",
             "vendor/bower/ng-tags-input/ng-tags-input.js",
             "vendor/bower/ng-ckeditor/ng-ckeditor.src.js",
-            "vendor/bower/angular-file-upload/angular-file-upload.js"
+            "vendor/bower/angular-file-upload/angular-file-upload.js",
+            "vendor/bower/FlowType.JS/flowtype.js"
         ],
         app: [
             "app/js/app.js",
