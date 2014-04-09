@@ -7,7 +7,7 @@
         <div bindonce ng-repeat="post in posts track by post._id">
             <article class="row">
                 <div class="col-d-4-5 col-t-2-3 col-p-5-5 left">
-                    <div class="wrap" flowtype="{{ { fontRatio : 55, minimum: 750 } }}">
+                    <div class="wrap" flowtype="{{ { fontRatio : 55, minimum: 750, maxFont: 15.2 } }}">
                         <a ui-sref="post({ id: post._id })" bo-if="post.fullText" ><h1 bo-text="post.title"></h1></a>
                         <h1 bo-text="post.title" bo-if="!post.fullText"></h1>
                         <div class="text">

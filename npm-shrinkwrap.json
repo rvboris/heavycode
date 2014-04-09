@@ -260,6 +260,18 @@
           }
         }
       }
+    },
+    "feed": {
+      "version": "0.2.6",
+      "from": "feed@",
+      "resolved": "https://registry.npmjs.org/feed/-/feed-0.2.6.tgz",
+      "dependencies": {
+        "xml": {
+          "version": "0.0.12",
+          "from": "xml@>= 0.0.5",
+          "resolved": "https://registry.npmjs.org/xml/-/xml-0.0.12.tgz"
+        }
+      }
     }
   }
 }

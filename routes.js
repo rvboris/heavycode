@@ -6,7 +6,8 @@ var body = require('koa-body')(),
     _ = require('lodash'),
     co = require('co'),
     formidable = require('koa-formidable'),
-    fs = require('fs');
+    fs = require('fs'),
+    Feed = require('feed');
 
 moment.lang('ru');
 crypto.randomBytes = thunkify(crypto.randomBytes);
@@ -371,6 +372,43 @@ module.exports = function (app) {
         yield app.users.removeById(user._id);
 
         this.status = 200;
+        yield next;
+    });
+
+    app.get('/feed', function *(next) {
+        var posts = yield app.posts.find({}, { limit: 10, skip: (this.query.page - 1 || 0) * 10, sort: { created: -1 } });
+
+        var feed = new Feed({
+            title: 'HeavyCode',
+            description: 'Делюсь мыслями о фронтенд разработке и технологиях',
+            link: 'http://heavycode.ru',
+            updated: _.isUndefined(posts[0]) ? new Date() : posts[0].created,
+            author: {
+                name: 'Борис Рябов',
+                link: 'https://heavycode.ru/contact/'
+            }
+        });
+
+        var topics = [];
+
+        _.each(posts, function (post) {
+            feed.addItem({
+                title: post.title,
+                link: 'http://heavycode.ru/posts/' + post._id + '/',
+                description: post.shortText,
+                date: post.created
+            });
+
+            topics = _.union(topics, post.topics);
+        });
+
+        _.each(topics, function (topic) {
+            feed.addCategory(topic);
+        });
+
+        this.body = feed.render(this.query.type === 'rss' ? 'rss-2.0' : 'atom-1.0');
+        this.set('Content-Type', 'text/xml');
+
         yield next;
     });
 };
