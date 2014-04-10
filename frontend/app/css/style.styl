@@ -38,6 +38,15 @@ link-transition()
   transition color 300ms ease-in-out
 
 -webkit-font-smoothing antialiased
+#loading-bar .bar
+  background #f33
+
+#loading-bar .peg
+  box-shadow 0 0 10px #f33, 0 0 5px #f33
+
+#loading-bar-spinner .spinner-icon
+  border-top-color #f33
+  border-left-color #f33
 
 .comments
   .hc_footer
@@ -598,7 +607,7 @@ html.site
           content attr(data-hover)
           position absolute
           opacity 0
-          text-shadow 0 0 1px rgba(255,255,255,0.3)
+          text-shadow 0 0 1px rgba(255, 255, 255, 0.3)
           -webkit-transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
           -moz-transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
           transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
@@ -813,11 +822,11 @@ html.admin
       background-color #fff
       border 1px solid #ccc
       border-radius 4px
-      box-shadow inset 0 1px 1px rgba(0,0,0,0.075)
+      box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
       transition border-color ease-in-out .15s, box-shadow ease-in-out .15s
       &.focused
         border-color #66afe9
-        box-shadow inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(102,175,233,0.6)
+        box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)
       .tag-item
         background #428bca
         border 1px solid #357ebd

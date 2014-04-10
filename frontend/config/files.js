@@ -19,7 +19,9 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/ng-tags-input/ng-tags-input.js",
             "vendor/bower/ng-ckeditor/ng-ckeditor.src.js",
             "vendor/bower/angular-file-upload/angular-file-upload.js",
-            "vendor/bower/FlowType.JS/flowtype.js"
+            "vendor/bower/FlowType.JS/flowtype.js",
+            "vendor/bower/moment/moment.js",
+            "vendor/bower/angular-loading-bar/src/loading-bar.js",
         ],
         app: [
             "app/js/app.js",
@@ -39,7 +41,8 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "vendor/bower/bootstrap/dist/css/bootstrap.css",
             "vendor/bower/angular-notify-toaster/toaster.css",
             "vendor/bower/ng-tags-input/ng-tags-input.css",
-            "vendor/bower/ng-ckeditor/ng-ckeditor.css"
+            "vendor/bower/ng-ckeditor/ng-ckeditor.css",
+            "vendor/bower/angular-loading-bar/src/loading-bar.css"
         ]
     }
 });

@@ -1,7 +1,8 @@
-window.CKEDITOR = { on: function () {}, status: 'loaded', fake: true }; // Dynamic loading workaround
+window.CKEDITOR = { on: function () {
+}, status: 'loaded', fake: true }; // Dynamic loading workaround
 SyntaxHighlighter.defaults.toolbar = false;
 
-angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'pasvaz.bindonce', 'iso.directives', 'LocalStorageModule', 'toaster', 'ngTagsInput', 'ngCkeditor', 'angularFileUpload'])
+angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'pasvaz.bindonce', 'iso.directives', 'LocalStorageModule', 'toaster', 'ngTagsInput', 'ngCkeditor', 'angularFileUpload', 'chieffancypants.loadingBar'])
     .run(function ($rootScope, $state, $location, $anchorScroll, meta, localStorageService, $http) {
         $rootScope.state = $state;
 
@@ -13,10 +14,9 @@ angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'pasvaz.bindonce'
                     return;
                 }
 
-                var now = new Date().getTime();
-                var tokenTime = new Date(token.time).getTime();
+                var now = moment();
 
-                if (_.parseInt((now - tokenTime) / (24 * 3600 * 1000)) === 0) {
+                if (now < moment(token.time).add('days', 1)) {
                     token.time = now;
                     localStorageService.add('token', token);
                     $rootScope.token = token.token;

@@ -376,7 +376,13 @@ module.exports = function (app) {
     });
 
     app.get('/feed', function *(next) {
-        var posts = yield app.posts.find({}, { limit: 10, skip: (this.query.page - 1 || 0) * 10, sort: { created: -1 } });
+        var find = {};
+
+        if (!(yield auth.checkToken(this.req.headers.token))) {
+            find.draft = false;
+        }
+
+        var posts = yield app.posts.find(find, { limit: 10, skip: (this.query.page - 1 || 0) * 10, sort: { created: -1 } });
 
         var feed = new Feed({
             title: 'HeavyCode',
