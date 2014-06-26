@@ -34,8 +34,12 @@ set :log_level, :info
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :ssh_options, {:forward_agent => true}
-set :user, "deploy"
+set :user, 'deploy'
+
+set :ssh_options, {
+   #verbose: :debug,
+   user: fetch(:user)
+}
 
 role :app, "deploy@heavycode.ru"
 

@@ -13,7 +13,7 @@
       "web": "http://heavycode.ru"
     }
   ],
-  "repositories": [
+  "repository": [
     {
       "type": "git",
       "url": "https://github.com/rvboris/heavycode.git"
