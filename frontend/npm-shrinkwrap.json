@@ -14,12 +14,12 @@
       "dependencies": {
         "async": {
           "version": "0.1.22",
-          "from": "async@~0.1.22",
+          "from": "async@0.1.22",
           "resolved": "https://registry.npmjs.org/async/-/async-0.1.22.tgz"
         },
         "coffee-script": {
           "version": "1.3.3",
-          "from": "coffee-script@~1.3.3",
+          "from": "coffee-script@1.3.3",
           "resolved": "https://registry.npmjs.org/coffee-script/-/coffee-script-1.3.3.tgz"
         },
         "colors": {
@@ -44,7 +44,7 @@
           "dependencies": {
             "glob": {
               "version": "3.2.11",
-              "from": "glob@~3.2.9",
+              "from": "glob@3.2.11",
               "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz",
               "dependencies": {
                 "inherits": {
@@ -80,7 +80,7 @@
         },
         "glob": {
           "version": "3.1.21",
-          "from": "glob@~3.1.21",
+          "from": "glob@3.1.21",
           "resolved": "https://registry.npmjs.org/glob/-/glob-3.1.21.tgz",
           "dependencies": {
             "graceful-fs": {
@@ -102,12 +102,12 @@
         },
         "iconv-lite": {
           "version": "0.2.11",
-          "from": "iconv-lite@~0.2.11",
+          "from": "iconv-lite@0.2.11",
           "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.2.11.tgz"
         },
         "minimatch": {
           "version": "0.2.14",
-          "from": "minimatch@~0.2.12",
+          "from": "minimatch@0.2.14",
           "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-0.2.14.tgz",
           "dependencies": {
             "lru-cache": {
@@ -124,7 +124,7 @@
         },
         "nopt": {
           "version": "1.0.10",
-          "from": "nopt@~1.0.10",
+          "from": "nopt@1.0.10",
           "resolved": "https://registry.npmjs.org/nopt/-/nopt-1.0.10.tgz",
           "dependencies": {
             "abbrev": {
@@ -141,12 +141,12 @@
         },
         "lodash": {
           "version": "0.9.2",
-          "from": "lodash@~0.9.2",
+          "from": "lodash@0.9.2",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-0.9.2.tgz"
         },
         "underscore.string": {
           "version": "2.2.1",
-          "from": "underscore.string@~2.2.1",
+          "from": "underscore.string@2.2.1",
           "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-2.2.1.tgz"
         },
         "which": {
@@ -156,7 +156,7 @@
         },
         "js-yaml": {
           "version": "2.0.5",
-          "from": "js-yaml@~2.0.5",
+          "from": "js-yaml@2.0.5",
           "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-2.0.5.tgz",
           "dependencies": {
             "argparse": {
@@ -196,7 +196,24 @@
         "grunt-legacy-util": {
           "version": "0.2.0",
           "from": "grunt-legacy-util@~0.2.0",
-          "resolved": "https://registry.npmjs.org/grunt-legacy-util/-/grunt-legacy-util-0.2.0.tgz"
+          "resolved": "https://registry.npmjs.org/grunt-legacy-util/-/grunt-legacy-util-0.2.0.tgz",
+          "dependencies": {
+            "async": {
+              "version": "0.1.22",
+              "from": "async@0.1.22",
+              "resolved": "https://registry.npmjs.org/async/-/async-0.1.22.tgz"
+            },
+            "lodash": {
+              "version": "0.9.2",
+              "from": "lodash@0.9.2",
+              "resolved": "https://registry.npmjs.org/lodash/-/lodash-0.9.2.tgz"
+            },
+            "underscore.string": {
+              "version": "2.2.1",
+              "from": "underscore.string@2.2.1",
+              "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-2.2.1.tgz"
+            }
+          }
         },
         "grunt-legacy-log": {
           "version": "0.1.1",
@@ -256,7 +273,7 @@
             },
             "glob": {
               "version": "3.2.11",
-              "from": "glob@3.2.x",
+              "from": "glob@~3.2.1",
               "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz",
               "dependencies": {
                 "inherits": {
@@ -564,7 +581,7 @@
               "dependencies": {
                 "optimist": {
                   "version": "0.3.7",
-                  "from": "optimist@~0.3.5",
+                  "from": "optimist@~0.3",
                   "resolved": "https://registry.npmjs.org/optimist/-/optimist-0.3.7.tgz",
                   "dependencies": {
                     "wordwrap": {
@@ -660,7 +677,7 @@
                 },
                 "minimatch": {
                   "version": "0.3.0",
-                  "from": "minimatch@0.3",
+                  "from": "minimatch@0.x.x",
                   "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-0.3.0.tgz",
                   "dependencies": {
                     "lru-cache": {
@@ -852,7 +869,7 @@
                 },
                 "mkdirp": {
                   "version": "0.3.5",
-                  "from": "mkdirp@~0.3.4",
+                  "from": "mkdirp@~0.3",
                   "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
                 },
                 "ycssmin": {
@@ -900,7 +917,7 @@
             },
             "grunt-lib-contrib": {
               "version": "0.6.1",
-              "from": "grunt-lib-contrib@~0.6.1",
+              "from": "grunt-lib-contrib@~0.6.0",
               "resolved": "https://registry.npmjs.org/grunt-lib-contrib/-/grunt-lib-contrib-0.6.1.tgz",
               "dependencies": {
                 "zlib-browserify": {
@@ -929,7 +946,7 @@
                 },
                 "source-map": {
                   "version": "0.1.34",
-                  "from": "source-map@~0.1.33",
+                  "from": "source-map@~0.1.7",
                   "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.34.tgz",
                   "dependencies": {
                     "amdefine": {
@@ -984,7 +1001,7 @@
               "dependencies": {
                 "minimatch": {
                   "version": "0.2.14",
-                  "from": "minimatch@~0.2.9",
+                  "from": "minimatch@~0.2.6",
                   "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-0.2.14.tgz",
                   "dependencies": {
                     "lru-cache": {
@@ -1732,7 +1749,7 @@
             },
             "mkdirp": {
               "version": "0.3.5",
-              "from": "mkdirp@0.3.x",
+              "from": "mkdirp@0.3.5",
               "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
             },
             "cookie": {
@@ -1876,7 +1893,7 @@
             },
             "underscore": {
               "version": "1.4.4",
-              "from": "underscore@~1.4.3",
+              "from": "underscore@1.4.x",
               "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.4.4.tgz"
             },
             "commander": {
@@ -1893,7 +1910,7 @@
             },
             "async": {
               "version": "0.2.10",
-              "from": "async@~0.2.6",
+              "from": "async@0.2.x",
               "resolved": "https://registry.npmjs.org/async/-/async-0.2.10.tgz"
             },
             "tq": {
@@ -2018,7 +2035,7 @@
                 },
                 "esprima": {
                   "version": "1.0.4",
-                  "from": "esprima@~1.0.2",
+                  "from": "esprima@~ 1.0.2",
                   "resolved": "https://registry.npmjs.org/esprima/-/esprima-1.0.4.tgz"
                 },
                 "commander": {
@@ -2300,7 +2317,7 @@
                         },
                         "inherits": {
                           "version": "2.0.1",
-                          "from": "inherits@2",
+                          "from": "inherits@~2.0.1",
                           "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
                         }
                       }
@@ -2324,12 +2341,12 @@
                   "dependencies": {
                     "graceful-fs": {
                       "version": "3.0.2",
-                      "from": "graceful-fs@~3.0.1",
+                      "from": "graceful-fs@~3.0.2",
                       "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-3.0.2.tgz"
                     },
                     "inherits": {
                       "version": "2.0.1",
-                      "from": "inherits@~2.0.0",
+                      "from": "inherits@2",
                       "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
                     }
                   }
@@ -2346,7 +2363,7 @@
                     },
                     "minimatch": {
                       "version": "0.3.0",
-                      "from": "minimatch@0.3",
+                      "from": "minimatch@^0.3.0",
                       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-0.3.0.tgz",
                       "dependencies": {
                         "sigmund": {
@@ -2360,7 +2377,7 @@
                 },
                 "glob": {
                   "version": "3.2.11",
-                  "from": "glob@~3.2",
+                  "from": "glob@~3.2.1",
                   "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz",
                   "dependencies": {
                     "inherits": {
@@ -2442,7 +2459,7 @@
                     },
                     "async": {
                       "version": "0.2.10",
-                      "from": "async@~0.2.8",
+                      "from": "async@0.2.10",
                       "resolved": "https://registry.npmjs.org/async/-/async-0.2.10.tgz"
                     },
                     "cli-color": {
@@ -2488,7 +2505,7 @@
                 },
                 "mkdirp": {
                   "version": "0.3.5",
-                  "from": "mkdirp@~0.3.5",
+                  "from": "mkdirp@0.3.x",
                   "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
                 },
                 "mout": {
@@ -2733,7 +2750,7 @@
                     },
                     "inherits": {
                       "version": "2.0.1",
-                      "from": "inherits@~2.0.1",
+                      "from": "inherits@2",
                       "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
                     }
                   }
@@ -3035,12 +3052,12 @@
           "dependencies": {
             "async": {
               "version": "0.1.22",
-              "from": "async@~0.1.22",
+              "from": "async@0.1.22",
               "resolved": "https://registry.npmjs.org/async/-/async-0.1.22.tgz"
             },
             "coffee-script": {
               "version": "1.3.3",
-              "from": "coffee-script@~1.3.3",
+              "from": "coffee-script@1.3.3",
               "resolved": "https://registry.npmjs.org/coffee-script/-/coffee-script-1.3.3.tgz"
             },
             "colors": {
@@ -3065,7 +3082,7 @@
               "dependencies": {
                 "glob": {
                   "version": "3.2.11",
-                  "from": "glob@~3.2.9",
+                  "from": "glob@3.2.11",
                   "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz",
                   "dependencies": {
                     "inherits": {
@@ -3101,7 +3118,7 @@
             },
             "glob": {
               "version": "3.1.21",
-              "from": "glob@~3.1.21",
+              "from": "glob@3.1.21",
               "resolved": "https://registry.npmjs.org/glob/-/glob-3.1.21.tgz",
               "dependencies": {
                 "graceful-fs": {
@@ -3123,12 +3140,12 @@
             },
             "iconv-lite": {
               "version": "0.2.11",
-              "from": "iconv-lite@~0.2.11",
+              "from": "iconv-lite@0.2.11",
               "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.2.11.tgz"
             },
             "minimatch": {
               "version": "0.2.14",
-              "from": "minimatch@~0.2.12",
+              "from": "minimatch@0.2.14",
               "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-0.2.14.tgz",
               "dependencies": {
                 "lru-cache": {
@@ -3145,7 +3162,7 @@
             },
             "nopt": {
               "version": "1.0.10",
-              "from": "nopt@~1.0.10",
+              "from": "nopt@1.0.10",
               "resolved": "https://registry.npmjs.org/nopt/-/nopt-1.0.10.tgz",
               "dependencies": {
                 "abbrev": {
@@ -3162,12 +3179,12 @@
             },
             "lodash": {
               "version": "0.9.2",
-              "from": "lodash@~0.9.2",
+              "from": "lodash@0.9.2",
               "resolved": "https://registry.npmjs.org/lodash/-/lodash-0.9.2.tgz"
             },
             "underscore.string": {
               "version": "2.2.1",
-              "from": "underscore.string@~2.2.1",
+              "from": "underscore.string@2.2.1",
               "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-2.2.1.tgz"
             },
             "which": {
@@ -3177,7 +3194,7 @@
             },
             "js-yaml": {
               "version": "2.0.5",
-              "from": "js-yaml@~2.0.5",
+              "from": "js-yaml@2.0.5",
               "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-2.0.5.tgz",
               "dependencies": {
                 "argparse": {
@@ -3199,7 +3216,7 @@
                 },
                 "esprima": {
                   "version": "1.0.4",
-                  "from": "esprima@~1.0.4",
+                  "from": "esprima@~ 1.0.2",
                   "resolved": "https://registry.npmjs.org/esprima/-/esprima-1.0.4.tgz"
                 }
               }
@@ -3217,7 +3234,24 @@
             "grunt-legacy-util": {
               "version": "0.2.0",
               "from": "grunt-legacy-util@~0.2.0",
-              "resolved": "https://registry.npmjs.org/grunt-legacy-util/-/grunt-legacy-util-0.2.0.tgz"
+              "resolved": "https://registry.npmjs.org/grunt-legacy-util/-/grunt-legacy-util-0.2.0.tgz",
+              "dependencies": {
+                "async": {
+                  "version": "0.1.22",
+                  "from": "async@0.1.22",
+                  "resolved": "https://registry.npmjs.org/async/-/async-0.1.22.tgz"
+                },
+                "lodash": {
+                  "version": "0.9.2",
+                  "from": "lodash@0.9.2",
+                  "resolved": "https://registry.npmjs.org/lodash/-/lodash-0.9.2.tgz"
+                },
+                "underscore.string": {
+                  "version": "2.2.1",
+                  "from": "underscore.string@2.2.1",
+                  "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-2.2.1.tgz"
+                }
+              }
             },
             "grunt-legacy-log": {
               "version": "0.1.1",
@@ -3257,7 +3291,7 @@
             },
             "mkdirp": {
               "version": "0.3.5",
-              "from": "mkdirp@~0.3.5",
+              "from": "mkdirp@0.3.x",
               "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
             },
             "debug": {
@@ -3595,12 +3629,12 @@
             },
             "oauth-sign": {
               "version": "0.3.0",
-              "from": "oauth-sign@~0.3.0",
+              "from": "oauth-sign@0.3.0",
               "resolved": "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.3.0.tgz"
             },
             "hawk": {
               "version": "1.0.0",
-              "from": "hawk@~1.0.0",
+              "from": "hawk@1.0.0",
               "resolved": "https://registry.npmjs.org/hawk/-/hawk-1.0.0.tgz",
               "dependencies": {
                 "hoek": {
@@ -3654,7 +3688,7 @@
         },
         "glob": {
           "version": "3.2.11",
-          "from": "glob@3.x",
+          "from": "glob@3.2.11",
           "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz",
           "dependencies": {
             "inherits": {
@@ -3698,7 +3732,7 @@
             },
             "minimist": {
               "version": "0.0.10",
-              "from": "minimist@~0.0.1",
+              "from": "minimist@0.0.10",
               "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz"
             }
           }

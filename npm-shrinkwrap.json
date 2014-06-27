@@ -19,7 +19,7 @@
       "dependencies": {
         "thunkify": {
           "version": "1.0.0",
-          "from": "thunkify@1.0.x",
+          "from": "thunkify@1.0.0",
           "resolved": "https://registry.npmjs.org/thunkify/-/thunkify-1.0.0.tgz"
         },
         "easymongo": {
@@ -39,7 +39,7 @@
                   "dependencies": {
                     "nan": {
                       "version": "1.0.0",
-                      "from": "nan@~1.0.0",
+                      "from": "nan@1.0.0",
                       "resolved": "https://registry.npmjs.org/nan/-/nan-1.0.0.tgz"
                     }
                   }
@@ -65,9 +65,9 @@
                       "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
                     },
                     "string_decoder": {
-                      "version": "0.10.25-1",
-                      "from": "string_decoder@~0.10.x",
-                      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.25-1.tgz"
+                      "version": "0.10.25",
+                      "from": "string_decoder@0.10.25",
+                      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.25.tgz"
                     },
                     "inherits": {
                       "version": "2.0.1",
@@ -334,7 +334,7 @@
         },
         "debug": {
           "version": "0.7.4",
-          "from": "debug@~0.7.4",
+          "from": "debug@0.7.4",
           "resolved": "https://registry.npmjs.org/debug/-/debug-0.7.4.tgz"
         },
         "koa-compose": {
@@ -366,7 +366,7 @@
         },
         "minimist": {
           "version": "0.0.10",
-          "from": "minimist@~0.0.1",
+          "from": "minimist@0.0.10",
           "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz"
         }
       }

@@ -4,7 +4,10 @@ var path = require('path'),
     argv = require('optimist').argv,
     app = require('koa')(),
     router = require('koa-router')(app),
-    serve = require('koa-file-server')(path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated')).send,
+    serve = require('koa-file-server')({
+        root: path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'),
+        index: true
+    }),
     co = require('co'),
     thunkify = require('thunkify'),
     helpers = require('./helpers.js');
@@ -66,20 +69,18 @@ co(function *() {
 })();
 
 app.use(router);
+app.use(serve);
 
 // HTML5 Pushstate
 app.use(function* (next) {
-    if (this.response.status) {
-        return;
+    yield serve.send.call(this);
+
+    if (this.response.status === 404) {
+        this.path = '/';
     }
 
-    yield serve.call(this);
+    yield serve.send.call(this);
 
-    if (!this.response.status) {
-        this.path = '/index.html';
-    }
-
-    yield serve.call(this);
     yield next;
 });
 
