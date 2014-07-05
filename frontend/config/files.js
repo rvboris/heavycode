@@ -46,6 +46,7 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
 
     css: {
         vendor: [
+            "vendor/bower/normalize-css/normalize.css",
             "vendor/bower/angular-notify-toaster/toaster.css",
             "vendor/bower/ng-tags-input/ng-tags-input.css",
             "vendor/bower/ng-ckeditor/ng-ckeditor.css",
