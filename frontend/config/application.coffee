@@ -11,14 +11,7 @@ module.exports = lineman.config.extend("application",
 
   bump:
     options:
-      files: ["package.json"]
-      updateConfigs: []
-      commit: true
-      commitMessage: "Release v%VERSION%"
+      files: ["package.json", "bower.jspn", "../package.json"]
       commitFiles: ["-a"]
-      createTag: true
-      tagName: "v%VERSION%"
-      tagMessage: "Version %VERSION%"
       push: false
-      gitDescribeOptions: ""
 )

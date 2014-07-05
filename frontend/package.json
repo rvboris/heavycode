@@ -1,7 +1,7 @@
 {
     "name": "lineman-angular-template",
     "title": "An HTML/JS/CSS app using Angular.JS",
-    "version": "0.0.18",
+    "version": "0.0.20",
     "private": true,
     "author": {
         "name": "David Mosher",
