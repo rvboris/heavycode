@@ -28,6 +28,15 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
             "app/js/**/*.js"
         ]
     },
+
+    less: {
+        compile: {
+            options: {
+                paths: ["vendor/bower/bootstrap/less/bootstrap.less"]
+            }
+        }
+    },
+
     stylus: {
         generatedVendor: 'generated/css/vendor.styl.css',
         generatedApp: 'generated/css/style.css',
@@ -37,8 +46,6 @@ module.exports = require(process.env.LINEMAN_MAIN).config.extend('files', {
 
     css: {
         vendor: [
-            "vendor/bower/normalize-css/normalize.css",
-            "vendor/bower/bootstrap/dist/css/bootstrap.css",
             "vendor/bower/angular-notify-toaster/toaster.css",
             "vendor/bower/ng-tags-input/ng-tags-input.css",
             "vendor/bower/ng-ckeditor/ng-ckeditor.css",

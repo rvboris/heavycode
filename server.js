@@ -1,16 +1,25 @@
 Error.stackTraceLimit = Infinity;
 
-var path = require('path'),
+var _ = require('lodash'),
+    path = require('path'),
     argv = require('optimist').argv,
     app = require('koa')(),
     router = require('koa-router')(app),
+    moment = require('moment'),
+    userAgent = require('koa-useragent')(),
     serve = require('koa-file-server')({
         root: path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'),
         index: true
     }),
     co = require('co'),
     thunkify = require('thunkify'),
-    helpers = require('./helpers.js');
+    phridge = require('phridge'),
+    helpers = require('./helpers.js'),
+    phantom;
+
+phridge.spawn({ loadImages: false }).done(function (instance) {
+    phantom = instance;
+});
 
 var mongo = require('co-easymongo')({
     dbname: 'heavycode'
@@ -20,6 +29,7 @@ app.posts = mongo.collection('posts');
 app.users = mongo.collection('users');
 app.tokens = mongo.collection('tokens');
 app.images = mongo.collection('images');
+app.cache = mongo.collection('cache');
 
 co(function *() {
     app.postsNative = yield mongo.open('posts');
@@ -67,6 +77,48 @@ co(function *() {
         yield app.users.save({ username: 'root', password: helpers.createHash('password') });
     }
 })();
+
+app.use(userAgent);
+
+// Prerender for spiders
+app.use(function *(next) {
+    if (!this.req.userAgent.isBot || _.isUndefined(phantom)) {
+        yield next;
+        return;
+    }
+
+    if (this.path[this.path.length - 1] === '/' || this.path.indexOf('.html') >= 0) {
+        var cachedPage = yield app.cache.find({ url: this.path });
+
+        if (_.isEmpty(cachedPage)) {
+            cachedPage = { url: this.path };
+        } else {
+            cachedPage = cachedPage[0];
+        }
+
+        if (!_.isUndefined(cachedPage.updated) && moment().diff(moment(cachedPage.updated)) <= (24 * 3600 * 1000)) {
+            this.body = cachedPage.body;
+        } else {
+            var page = yield phantom.openPage('http://localhost:' + (argv.port || 3000) + this.path);
+
+            this.body = yield page.run(function () {
+                return this.frameContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            });
+
+            cachedPage.body = this.body;
+
+            yield page.run(function () {
+                return this.close();
+            });
+        }
+
+        cachedPage.updated = new Date();
+
+        app.cache.save(cachedPage); // defer saving
+    } else {
+        yield next;
+    }
+});
 
 app.use(router);
 app.use(serve);

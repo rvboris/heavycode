@@ -58,7 +58,11 @@ namespace :deploy do
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-        execute :pm2, "delete", "heavycode"
+        begin
+          execute :pm2, "delete", "heavycode"
+        rescue
+          print "App instance not running, continue"
+        end
       end
     end
   end

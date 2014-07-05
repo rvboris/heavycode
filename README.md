@@ -1,4 +1,4 @@
-HeavyCode
+[HeavyCode](http://heavycode.ru)
 =========
 
-Personal blog (Koa &amp; Angular based)
+Personal blog ([Koa](http://koajs.com/) &amp; [Angular](http://angularjs.org/) based)
