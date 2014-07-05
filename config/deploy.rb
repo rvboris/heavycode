@@ -38,6 +38,7 @@ set :user, 'deploy'
 
 set :ssh_options, {
    #verbose: :debug,
+   #:keys => %w(E:\keys\home-deploy),
    user: fetch(:user)
 }
 

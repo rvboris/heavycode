@@ -1,26 +1,26 @@
 {
-  "name": "lineman-angular-template",
-  "title": "An HTML/JS/CSS app using Angular.JS",
-  "version": "0.0.3",
-  "private": true,
-  "author": {
-    "name": "David Mosher",
-    "company": "DAVEMO Consulting"
-  },
-  "devDependencies": {
-    "coffee-script": "~1.6.3",
-    "grunt": "~0.4.1",
-    "grunt-bump": "0.0.14",
-    "grunt-contrib-stylus": "~0.12.0",
-    "jasmine-given": "~2.1.0",
-    "lineman": "~0.23.0",
-    "lineman-angular": ">= 0.1.0",
-    "lineman-bower": "~0.0.3",
-    "lineman-stylus": "~0.0.2",
-    "protractor": ">=0.8.0"
-  },
-  "engines": {
-    "node": "~>0.10.5",
-    "npm": "~>1.2.18"
-  }
+    "name": "lineman-angular-template",
+    "title": "An HTML/JS/CSS app using Angular.JS",
+    "version": "0.0.18",
+    "private": true,
+    "author": {
+        "name": "David Mosher",
+        "company": "DAVEMO Consulting"
+    },
+    "devDependencies": {
+        "coffee-script": "~1.6.3",
+        "grunt": "~0.4.1",
+        "grunt-bump": "git://github.com/vojtajina/grunt-bump",
+        "grunt-contrib-stylus": "~0.12.0",
+        "jasmine-given": "~2.1.0",
+        "lineman": "~0.23.0",
+        "lineman-angular": ">= 0.1.0",
+        "lineman-bower": "~0.0.3",
+        "lineman-stylus": "~0.0.2",
+        "protractor": ">=0.8.0"
+    },
+    "engines": {
+        "node": "~>0.10.5",
+        "npm": "~>1.2.18"
+    }
 }
