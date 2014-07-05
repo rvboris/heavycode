@@ -36,9 +36,9 @@
     "angular-loading-bar": "0.4.3",
     "angular-ui-router": "0.2.10",
     "moment": "2.7.0",
-    "angular-latest": "~1.2.18"
+    "angular": ">=1.2.19"
   },
   "resolutions": {
-    "angular": "~1.2.11"
+    "angular": ">=1.2.19"
   }
 }
