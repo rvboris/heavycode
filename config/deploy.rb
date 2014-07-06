@@ -80,7 +80,7 @@ namespace :deploy do
   task :npm_install do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path do
-      	#execute :npm, "cache", "clean"
+      	execute :npm, "cache", "clean"
         execute :npm, "install"
       end
       within current_path + "frontend" do
@@ -93,7 +93,7 @@ namespace :deploy do
   task :bower_install do
     on roles(:app), in: :sequence, wait: 5 do
       within current_path + "frontend" do
-      	#execute :bower, "cache", "clean"
+      	execute :bower, "cache", "clean"
         execute :bower, "install"
       end
     end
