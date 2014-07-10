@@ -77,7 +77,9 @@ module.exports.Auth = function (app) {
     var self = this;
 
     this.removeOldTokens = function *() {
-        (yield app.tokens.find({ $lt: moment().subtract('days', 1).toDate() })).forEach(co(function *(token) {
+        (yield app.tokens.find({
+            updated: { $lt: moment().subtract('days', 1).toDate() }
+        })).forEach(co(function *(token) {
             yield app.tokens.removeById(token._id);
         }));
     };

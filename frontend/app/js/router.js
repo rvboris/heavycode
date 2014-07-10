@@ -17,7 +17,9 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
             $timeout(function () {
                 window.CKEDITOR = undefined;
 
-                $script('/ckeditor/ckeditor.js', deferred.resolve);
+                $script('/ckeditor/ckeditor.js', function() {
+                    $script('/ckeditor/config.js', deferred.resolve);
+                });
             }, 150);
         } else {
             deferred.resolve();
