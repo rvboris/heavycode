@@ -17,22 +17,18 @@ border-box()
   box-sizing border-box
 
 link-transition()
-  -webkit-transition color 300ms ease-in-out
-  -moz-transition color 300ms ease-in-out
-  -ms-transition color 300ms ease-in-out
-  -o-transition color 300ms ease-in-out
   transition color 300ms ease-in-out
 
 #loading-bar .bar
-  background #f33
-  height 3px
+  background #f33 !important
+  height 3px !important
 
 #loading-bar .peg
-  box-shadow 0 0 10px #f33, 0 0 5px #f33
+  box-shadow 0 0 10px #f33, 0 0 5px #f33 !important
 
 #loading-bar-spinner .spinner-icon
-  border-top-color #f33
-  border-left-color #f33
+  border-top-color #f33 !important
+  border-left-color #f33 !important
 
 .comments
   .hc_footer
@@ -194,9 +190,9 @@ html.site
               color #000
               font-family 'PT Sans', sans-serif
               font-style italic
+              text-decoration underline
               &:hover
                 color #FF3333
-                text-decoration none
         .right
           @media media-phone
             display none
@@ -249,10 +245,6 @@ html.site
                   line-height 50%
                   top 25%
                   right 25%
-                  -webkit-transform: rotate(90deg)
-                  -moz-transform: rotate(90deg);
-                  -ms-transform: rotate(90deg);
-                  -o-transform: rotate(90deg);
                   transform: rotate(90deg);
 
             .comments
@@ -459,9 +451,9 @@ html.site
           color #000
           font-family 'PT Sans', sans-serif
           font-style italic
+          text-decoration underline
           &:hover
             color #FF3333
-            text-decoration none
       .page-footer
         text-align right
         padding 0 20px
@@ -613,18 +605,12 @@ html.site
           position absolute
           opacity 0
           text-shadow 0 0 1px rgba(255, 255, 255, 0.3)
-          -webkit-transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
-          -moz-transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
           transform scale(1.1) translateX(10px) translateY(-10px) rotate(4deg)
-          -webkit-transition -webkit-transform 0.3s, opacity 0.3s
-          -moz-transition -moz-transform 0.3s, opacity 0.3s
           transition transform 0.3s, opacity 0.3s
           pointer-events none
           border-bottom 2px solid #F13349
         &:hover, &:focus
           &::before
-            -webkit-transform scale(1) translateX(0px) translateY(0px) rotate(0deg)
-            -moz-transform scale(1) translateX(0px) translateY(0px) rotate(0deg)
             transform scale(1) translateX(0px) translateY(0px) rotate(0deg)
             opacity 1
     section.works

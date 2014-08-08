@@ -78,6 +78,7 @@ module.exports = function (app) {
         }
 
         this.body = yield app.posts.find(find, { limit: 10, skip: (this.query.page - 1 || 0) * 10, sort: { updated: -1 } });
+
         yield next;
     });
 

@@ -9,7 +9,8 @@ var _ = require('lodash'),
     userAgent = require('koa-useragent')(),
     serve = require('koa-file-server')({
         root: path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'),
-        index: true
+        index: true,
+        maxage: 43200 // 12 Hours
     }),
     co = require('co'),
     thunkify = require('thunkify'),
@@ -30,6 +31,8 @@ app.users = mongo.collection('users');
 app.tokens = mongo.collection('tokens');
 app.images = mongo.collection('images');
 app.cache = mongo.collection('cache');
+
+mongo.open = thunkify(mongo.open);
 
 co(function *() {
     app.postsNative = yield mongo.open('posts');

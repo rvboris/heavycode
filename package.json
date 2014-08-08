@@ -1,49 +1,48 @@
 {
-    "name": "HeavyCode",
-    "description": "Personal blog & Portfolio",
-    "version": "0.1.10",
-    "keywords": [
-        "blog",
-        "portfolio"
-    ],
-    "maintainers": [
-        {
-            "name": "Ryabov Boris",
-            "email": "rbs@anontalk.org",
-            "web": "http://heavycode.ru"
-        }
-    ],
-    "repository": [
-        {
-            "type": "git",
-            "url": "https://github.com/rvboris/heavycode.git"
-        }
-    ],
-    "licenses": [
-        {
-            "name": "MIT",
-            "url": "http://opensource.org/licenses/MIT"
-        }
-    ],
-
-    "dependencies": {
-        "Faker": ">=0.5.11",
-        "co": ">=3.0.2",
-        "co-easymongo": ">=0.2.0",
-        "feed": "~0.2.6",
-        "koa": ">=0.2.1",
-        "koa-body": "0.0.4",
-        "koa-file-server": "~1.0.0",
-        "koa-formidable": ">=0.1.0",
-        "koa-router": ">=2.3.0",
-        "koa-useragent": "0.0.2",
-        "lodash": ">=2.4.1",
-        "moment": ">=2.5.1",
-        "optimist": ">=0.6.0",
-        "phridge": "^0.1.2",
-        "thunkify": ">=0.0.1"
-    },
-    "engines": {
-        "node": ">=0.11.11"
+  "name": "HeavyCode",
+  "description": "Personal blog & Portfolio",
+  "version": "0.1.11",
+  "keywords": [
+    "blog",
+    "portfolio"
+  ],
+  "maintainers": [
+    {
+      "name": "Ryabov Boris",
+      "email": "rbs@anontalk.org",
+      "web": "http://heavycode.ru"
     }
+  ],
+  "repository": [
+    {
+      "type": "git",
+      "url": "https://github.com/rvboris/heavycode.git"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "dependencies": {
+    "Faker": ">=0.5.11",
+    "co": ">=3.0.2",
+    "co-easymongo": ">=0.2.0",
+    "feed": "~0.2.6",
+    "koa": ">=0.2.1",
+    "koa-body": "0.0.4",
+    "koa-file-server": "~1.0.0",
+    "koa-formidable": ">=0.1.0",
+    "koa-router": ">=2.3.0",
+    "koa-useragent": "0.0.2",
+    "lodash": ">=2.4.1",
+    "moment": ">=2.5.1",
+    "optimist": ">=0.6.0",
+    "phridge": "^0.1.2",
+    "thunkify": ">=0.0.1"
+  },
+  "engines": {
+    "node": ">=0.11.11"
+  }
 }
