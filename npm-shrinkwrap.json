@@ -1,6 +1,6 @@
 {
   "name": "HeavyCode",
-  "version": "0.1.10",
+  "version": "0.1.13",
   "dependencies": {
     "Faker": {
       "version": "0.7.2",
@@ -60,9 +60,9 @@
                       "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
                     },
                     "string_decoder": {
-                      "version": "0.10.25",
-                      "from": "string_decoder@0.10.25",
-                      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.25.tgz"
+                      "version": "0.10.25-1",
+                      "from": "string_decoder@~0.10.x",
+                      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.25-1.tgz"
                     },
                     "inherits": {
                       "version": "2.0.1",

@@ -3,7 +3,7 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
         var deferred = $q.defer();
 
         postsFactory.topics({ query: query }).$promise.then(function (result) {
-            deferred.resolve(_.map(result.topics, function(topic) {
+            deferred.resolve(_.map(result.topics, function (topic) {
                 return { text: topic };
             }));
         });
@@ -25,7 +25,7 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
     $scope.save = function () {
         var postToSave = $scope.post;
 
-        postToSave.topics = _.map(postToSave.topics, function(topic) {
+        postToSave.topics = _.map(postToSave.topics, function (topic) {
             return topic.text;
         });
 
@@ -47,7 +47,7 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
         allowedContent: true
     };
 
-    $scope.uploader = new FileUploader({
+    var uploader = $scope.uploader = new FileUploader({
         scope: $scope,
         url: '/api/images',
         headers: {
@@ -55,17 +55,17 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
         }
     });
 
-    $scope.uploader.filters.push({
+    uploader.filters.push({
         name: 'imageFilter',
-        fn: function(item) {
+        fn: function (item) {
             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
             return '|jpg|png|jpeg|gif|'.indexOf(type) !== -1;
         }
     });
 
-    $scope.uploader.onSuccessItem(function () {
+    uploader.onCompleteItem = function () {
         $scope.images = imagesFactory.query();
-    });
+    };
 
     $scope.activateImage = function (imageId) {
         $scope.activeImageUrl = '/api/images/' + imageId;

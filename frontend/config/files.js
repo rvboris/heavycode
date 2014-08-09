@@ -1,4 +1,4 @@
-module.exports = function (lineman) {
+module.exports = function () {
     return {
         js: {
             vendor: [
@@ -32,6 +32,10 @@ module.exports = function (lineman) {
             generatedApp: "generated/css/style.css",
             vendor: "vendor/css/**/*.styl",
             app: "app/css/style.styl"
+        },
+
+        imagemin: {
+            src: '{,*/}{,*/}*.{png,jpg,jpeg,gif}'
         },
 
         less: {

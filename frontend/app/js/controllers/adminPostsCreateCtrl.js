@@ -42,7 +42,7 @@ angular.module('app').controller('adminPostsCreateCtrl', function ($rootScope, $
         allowedContent: true
     };
 
-    $scope.uploader = new FileUploader({
+    var uploader = $scope.uploader = new FileUploader({
         scope: $scope,
         url: '/api/images',
         headers: {
@@ -50,17 +50,17 @@ angular.module('app').controller('adminPostsCreateCtrl', function ($rootScope, $
         }
     });
 
-    $scope.uploader.filters.push({
+    uploader.filters.push({
         name: 'imageFilter',
-        fn: function(item) {
+        fn: function (item) {
             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
             return '|jpg|png|jpeg|gif|'.indexOf(type) !== -1;
         }
     });
 
-    $scope.uploader.onSuccessItem(function () {
+    uploader.onCompleteItem = function () {
         $scope.images = imagesFactory.query();
-    });
+    };
 
     $scope.activateImage = function (imageId) {
         $scope.activeImageUrl = '/api/images/' + imageId;
