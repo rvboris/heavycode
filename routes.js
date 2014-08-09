@@ -9,7 +9,7 @@ var body = require('koa-body')(),
     fs = require('fs'),
     Feed = require('feed');
 
-moment.lang('ru');
+moment.locale('ru');
 crypto.randomBytes = thunkify(crypto.randomBytes);
 fs.readFile = thunkify(fs.readFile);
 fs.unlink = thunkify(fs.unlink);
@@ -78,7 +78,6 @@ module.exports = function (app) {
         }
 
         this.body = yield app.posts.find(find, { limit: 10, skip: (this.query.page - 1 || 0) * 10, sort: { updated: -1 } });
-
         yield next;
     });
 

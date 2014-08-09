@@ -32,14 +32,14 @@ app.tokens = mongo.collection('tokens');
 app.images = mongo.collection('images');
 app.cache = mongo.collection('cache');
 
-mongo.open = thunkify(mongo.open);
+var mongoNativeOpen = thunkify(mongo.open);
 
 co(function *() {
-    app.postsNative = yield mongo.open('posts');
+    app.postsNative = yield mongoNativeOpen.apply(mongo, ['posts']);
     app.postsNative.find = thunkify(app.postsNative.find);
     app.postsNative.distinct = thunkify(app.postsNative.distinct);
 
-    app.imagesNative = yield mongo.open('images');
+    app.imagesNative = yield mongoNativeOpen.apply(mongo, ['images']);
     app.imagesNative.find = thunkify(app.imagesNative.find);
 })();
 
