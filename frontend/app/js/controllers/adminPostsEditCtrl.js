@@ -1,4 +1,4 @@
-angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $scope, $state, $stateParams, $q, $fileUploader, postsFactory, imagesFactory) {
+angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $scope, $state, $stateParams, $q, FileUploader, postsFactory, imagesFactory) {
     var topicsResourceAdapter = function (query) {
         var deferred = $q.defer();
 
@@ -47,21 +47,23 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
         allowedContent: true
     };
 
-    var uploader = $scope.uploader = $fileUploader.create({
+    $scope.uploader = new FileUploader({
         scope: $scope,
-        url: '/api/images/',
+        url: '/api/images',
         headers: {
             token: $rootScope.token
         }
     });
 
-    uploader.filters.push(function (item) {
-        var type = uploader.isHTML5 ? item.type : '/' + item.value.slice(item.value.lastIndexOf('.') + 1);
-        type = '|' + type.toLowerCase().slice(type.lastIndexOf('/') + 1) + '|';
-        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+    $scope.uploader.filters.push({
+        name: 'imageFilter',
+        fn: function(item) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|gif|'.indexOf(type) !== -1;
+        }
     });
 
-    uploader.bind('success', function () {
+    $scope.uploader.onSuccessItem(function () {
         $scope.images = imagesFactory.query();
     });
 
