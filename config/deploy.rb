@@ -48,7 +48,7 @@ namespace :deploy do
 
   desc 'Start application'
   task :start do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence do
       within current_path do
         execute :pm2, "start", "server.js", "--name", "heavycode", "--", "--port", "7878", "--env", "production"
       end
@@ -57,7 +57,7 @@ namespace :deploy do
 
   desc 'Stop application'
   task :stop do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence do
       within current_path do
         begin
           execute :pm2, "delete", "heavycode"
@@ -78,7 +78,7 @@ namespace :deploy do
 
   desc 'NPM Install'
   task :npm_install do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence do
       within current_path do
       	#execute :npm, "cache", "clean"
         execute :npm, "install"
@@ -91,7 +91,7 @@ namespace :deploy do
 
   desc 'Bower Install'
   task :bower_install do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence do
       within current_path + "frontend" do
       	#execute :bower, "cache", "clean"
         execute :bower, "install"
@@ -101,7 +101,7 @@ namespace :deploy do
 
   desc 'Lineman Build'
   task :lineman_build do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence do
       within current_path + "frontend" do
       	execute :lineman, "build"
       end
