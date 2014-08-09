@@ -27,7 +27,7 @@ angular.module('app').controller('postCtrl', function ($rootScope, $scope, $stat
         }, 1000);
 
         $timeout(function () {
-            SyntaxHighlighter.highlight();
+            SyntaxHighlighter.smartLoad();
         });
     });
 

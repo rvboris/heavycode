@@ -27,7 +27,7 @@ angular.module('app').controller('blogCtrl', function ($scope, $state, $statePar
         }, 1000);
 
         $timeout(function () {
-            SyntaxHighlighter.highlight();
+            SyntaxHighlighter.smartLoad();
         });
     });
 
