@@ -237,7 +237,7 @@ module.exports = function (app) {
 
     app.post('/api/images', auth.check, function *(next) {
         var image = (yield formidable.parse(this)).files.file;
-        app.images.save({ data: (yield fs.readFile(image.path)), type: image.type });
+        yield app.images.save({ data: (yield fs.readFile(image.path)), type: image.type });
         yield fs.unlink(image.path);
         this.status = 200;
         yield next;
