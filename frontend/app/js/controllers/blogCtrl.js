@@ -25,10 +25,6 @@ angular.module('app').controller('blogCtrl', function ($scope, $state, $statePar
                 $timeout.cancel(cancelRefresh);
             }
         }, 1000);
-
-        $timeout(function () {
-            SyntaxHighlighter.smartLoad();
-        });
     });
 
     postsFactory.count({ topic: $scope.currentTopic }).$promise.then(function (result) {

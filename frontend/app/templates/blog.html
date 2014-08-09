@@ -10,7 +10,7 @@
                     <div class="wrap" flowtype="{{ { fontRatio : 55, minimum: 750, maxFont: 15.2 } }}">
                         <a ui-sref="post({ id: post._id })" bo-if="post.fullText" ><h1 bo-text="post.title"></h1></a>
                         <h1 bo-text="post.title" bo-if="!post.fullText"></h1>
-                        <div class="text">
+                        <div class="text" highlight>
                             <div bo-html="post.shortText"></div>
                             <a ui-sref="post({ id: post._id })" bo-if="post.fullText">Подробнее...</a>
                         </div>
