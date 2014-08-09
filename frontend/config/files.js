@@ -16,6 +16,8 @@ module.exports = function () {
                 "vendor/bower/angular-isotope/dist/angular-isotope.js",
                 "vendor/bower/angular-local-storage/angular-local-storage.js",
                 "vendor/bower/angular-animate/angular-animate.js",
+                "vendor/bower/angulartics/dist/angulartics.min.js",
+                "vendor/bower/angulartics/dist/angulartics-ga.min.js",
                 "vendor/bower/angular-notify-toaster/toaster.js",
                 "vendor/bower/ng-tags-input/ng-tags-input.js",
                 "vendor/bower/ng-ckeditor/ng-ckeditor.js",

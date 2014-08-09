@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "homepage": "https://github.com/davemo/lineman-angular-template",
   "license": "MIT",
   "private": true,
@@ -36,7 +36,8 @@
     "angular-loading-bar": "0.4.3",
     "angular-ui-router": "0.2.10",
     "moment": "2.7.0",
-    "angular": ">=1.2.19"
+    "angular": ">=1.2.19",
+    "angulartics": "~0.16.1"
   },
   "resolutions": {
     "angular": ">=1.2.19"
