@@ -91,17 +91,19 @@ app.use(function* (next) {
         yield serve.send.call(this);
     }
 
-    var originalPath = this.path;
+    this.originalStatus = this.response.status;
+
+    var tmpPath = this.path;
 
     if (this.response.status === 404) {
         this.path = '/';
     }
 
-    if (originalPath.indexOf('/api/') < 0) {
+    if (tmpPath.indexOf('/api/') < 0) {
         yield serve.send.call(this);
     }
 
-    this.path = originalPath;
+    this.path = tmpPath;
 
     yield next;
 });
@@ -113,7 +115,7 @@ app.use(function *(next) {
         return;
     }
 
-    if (this.response.status !== 200 && this.response.status !== 304) {
+    if (this.originalStatus !== 200 && this.originalStatus !== 304) {
         yield next;
         return;
     }
