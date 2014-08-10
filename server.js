@@ -87,13 +87,21 @@ app.use(serve);
 
 // HTML5 Pushstate
 app.use(function* (next) {
-    yield serve.send.call(this);
+    if (this.path.indexOf('/api/') < 0) {
+        yield serve.send.call(this);
+    }
+
+    var originalPath = this.path;
 
     if (this.response.status === 404) {
         this.path = '/';
     }
 
-    yield serve.send.call(this);
+    if (originalPath.indexOf('/api/') < 0) {
+        yield serve.send.call(this);
+    }
+
+    this.path = originalPath;
 
     yield next;
 });
