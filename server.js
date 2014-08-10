@@ -82,47 +82,6 @@ co(function *() {
 })();
 
 app.use(userAgent);
-
-// Prerender for spiders
-app.use(function *(next) {
-    if (!this.req.userAgent.isBot || _.isUndefined(phantom)) {
-        yield next;
-        return;
-    }
-
-    if (this.path[this.path.length - 1] === '/' || this.path.indexOf('.html') >= 0) {
-        var cachedPage = yield app.cache.find({ url: this.path });
-
-        if (_.isEmpty(cachedPage)) {
-            cachedPage = { url: this.path };
-        } else {
-            cachedPage = cachedPage[0];
-        }
-
-        if (!_.isUndefined(cachedPage.updated) && moment().diff(moment(cachedPage.updated)) <= (24 * 3600 * 1000)) {
-            this.body = cachedPage.body;
-        } else {
-            var page = yield phantom.openPage('http://localhost:' + (argv.port || 3000) + this.path);
-
-            this.body = yield page.run(function () {
-                return this.frameContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-            });
-
-            cachedPage.body = this.body;
-
-            yield page.run(function () {
-                return this.close();
-            });
-        }
-
-        cachedPage.updated = new Date();
-
-        app.cache.save(cachedPage); // defer saving
-    } else {
-        yield next;
-    }
-});
-
 app.use(router);
 app.use(serve);
 
@@ -137,6 +96,57 @@ app.use(function* (next) {
     yield serve.send.call(this);
 
     yield next;
+});
+
+// Prerender for spiders
+app.use(function *(next) {
+    if (!this.req.userAgent.isBot || _.isUndefined(phantom)) {
+        yield next;
+        return;
+    }
+
+    if (this.response.status !== 200 && this.response.status !== 304) {
+        yield next;
+        return;
+    }
+
+    if (this.path[this.path.length - 1] === '/' || this.path.indexOf('.html') >= 0) {
+        var cachedPage = yield app.cache.find({ url: this.path });
+
+        if (_.isEmpty(cachedPage)) {
+            cachedPage = { url: this.path };
+        } else {
+            cachedPage = cachedPage[0];
+        }
+
+        var createCache = function *() {
+            var page = yield phantom.openPage('http://localhost:' + (argv.port || 3000) + this.path);
+
+            this.body = yield page.run(function () {
+                return this.frameContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            });
+
+            cachedPage.body = this.body;
+
+            yield page.run(function () {
+                return this.close();
+            });
+        };
+
+        if (_.isUndefined(cachedPage.updated)) {
+            yield createCache.apply(this);
+        } else if (moment().diff(moment(cachedPage.updated)) <= (24 * 3600 * 1000)) {
+            this.body = cachedPage.body;
+        } else {
+            yield createCache.apply(this);
+        }
+
+        cachedPage.updated = new Date();
+
+        yield app.cache.save(cachedPage);
+    } else {
+        yield next;
+    }
 });
 
 app.on('error', function (err) {
