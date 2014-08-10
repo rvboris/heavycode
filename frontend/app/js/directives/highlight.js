@@ -27,44 +27,59 @@ angular.module('app')
             'xml xhtml xslt html	/syntaxhighlighter/scripts/shBrushXml.js'
         ];
 
+        var brushes = {};
+        var scripts = {};
+
+        function addBrush(aliases, url) {
+            for (var i = 0; i < aliases.length; i++) {
+                brushes[aliases[i]] = url;
+            }
+        }
+
+        function getAliases(item) {
+            return item.pop ? item : item.split(/\s+/);
+        }
+
+        _.each(list, function (element) {
+            var aliases = getAliases(element);
+            addBrush(aliases, aliases.pop());
+        });
+
+        function reloadBrushes() {
+            var shBrushes = {};
+
+            for (var brush in SyntaxHighlighter.brushes) {
+                var info = SyntaxHighlighter.brushes[brush];
+                var aliases = info.aliases;
+
+                if (_.isNull(aliases)) {
+                    continue;
+                }
+
+                info.brushName = brush.toLowerCase();
+
+                for (var i = 0, l = aliases.length; i < l; i++) {
+                    shBrushes[aliases[i]] = brush;
+                }
+            }
+
+            SyntaxHighlighter.vars.discoveredBrushes = shBrushes;
+        }
 
         return {
             restrict: 'A',
             link: function () {
                 $timeout(function () {
                     var elements = SyntaxHighlighter.findElements();
-                    var brushes = {};
-                    var scripts = {};
-
-                    function addBrush(aliases, url) {
-                        for (var i = 0; i < aliases.length; i++) {
-                            brushes[aliases[i]] = url;
-                        }
-                    }
-
-                    function getAliases(item) {
-                        return item.pop ? item : item.split(/\s+/);
-                    }
-
-                    _.each(list, function (element) {
-                        var aliases = getAliases(element);
-                        addBrush(aliases, aliases.pop());
-                    });
 
                     _.each(elements, function (element) {
                         var url = brushes[element.params.brush];
 
-                        if (url && _.isUndefined(scripts[url])) {
-                            if (element.params['html-script'] === 'true') {
-                                if (_.isUndefined(scripts[brushes['xml']])) {
-                                    loadScript(brushes['xml']);
-                                    scripts[url] = false;
-                                }
-                            }
-
+                        if (_.isUndefined(scripts[url])) {
                             scripts[url] = false;
-                            loadScript(url);
                         }
+
+                        loadScript(url);
                     });
 
                     function loadScript(url) {
@@ -76,6 +91,8 @@ angular.module('app')
                                     return;
                                 }
                             }
+
+                            reloadBrushes();
 
                             SyntaxHighlighter.highlight();
                         });
