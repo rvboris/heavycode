@@ -81,6 +81,29 @@ co(function *() {
 })();
 
 app.use(userAgent);
+
+// Prerender for spiders
+app.use(function *(next) {
+    if (!this.req.userAgent.isBot || _.isUndefined(phantom)) {
+        yield next;
+        return;
+    }
+
+    if (this.path[this.path.length - 1] === '/' || this.path.indexOf('.html') >= 0) {
+        var page = yield phantom.openPage('http://localhost:' + (argv.port || 3000) + this.path);
+
+        this.body = yield page.run(function () {
+            return this.frameContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        });
+
+        yield page.run(function () {
+            return this.close();
+        });
+    } else {
+        yield next;
+    }
+});
+
 app.use(router);
 app.use(serve);
 
@@ -103,28 +126,6 @@ app.use(function* (next) {
     this.path = tmpPath;
 
     yield next;
-});
-
-// Prerender for spiders
-app.use(function *(next) {
-    if (!this.req.userAgent.isBot || _.isUndefined(phantom)) {
-        yield next;
-        return;
-    }
-
-    if (this.path[this.path.length - 1] === '/' || this.path.indexOf('.html') >= 0) {
-        var page = yield phantom.openPage('http://localhost:' + (argv.port || 3000) + this.path);
-
-        this.body = yield page.run(function () {
-            return this.frameContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-        });
-
-        yield page.run(function () {
-            return this.close();
-        });
-    } else {
-        yield next;
-    }
 });
 
 app.on('error', function (err) {
