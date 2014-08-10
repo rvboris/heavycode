@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "homepage": "https://github.com/davemo/lineman-angular-template",
   "license": "MIT",
   "private": true,
@@ -20,7 +20,7 @@
     "angular-resource": "^1.2.9",
     "angular-bindonce": "^0.3.0",
     "angular-i18n": "^1.2.9",
-    "angular-isotope": "*",
+    "angular-isotope": "^0.1.14",
     "isotope": "^1.5.26",
     "fancybox": "^2.1.5",
     "jquery-mousewheel": "^3.1.9",
@@ -40,6 +40,8 @@
     "angulartics": "~0.16.1"
   },
   "resolutions": {
-    "angular": "^1.2.19"
+    "angular": "^1.2.19",
+    "jquery": "^2.0.3",
+    "isotope": "2.0.0"
   }
 }
