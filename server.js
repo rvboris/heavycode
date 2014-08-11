@@ -6,7 +6,6 @@ var _ = require('lodash'),
     app = require('koa')(),
     router = require('koa-router')(app),
     moment = require('moment'),
-    userAgent = require('koa-useragent')(),
     serve = require('koa-file-server')({
         root: path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'),
         index: true,
