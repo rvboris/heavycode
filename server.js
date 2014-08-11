@@ -14,13 +14,7 @@ var _ = require('lodash'),
     }),
     co = require('co'),
     thunkify = require('thunkify'),
-    phridge = require('phridge'),
-    helpers = require('./helpers.js'),
-    phantom;
-
-phridge.spawn({ loadImages: false }).done(function (instance) {
-    phantom = instance;
-});
+    helpers = require('./helpers.js');
 
 var mongo = require('co-easymongo')({
     dbname: 'heavycode'
@@ -80,30 +74,7 @@ co(function *() {
     }
 })();
 
-app.use(userAgent);
-
-// Prerender for spiders
-app.use(function *(next) {
-    if (!this.req.userAgent.isBot || _.isUndefined(phantom)) {
-        yield next;
-        return;
-    }
-
-    if (this.path[this.path.length - 1] === '/' || this.path.indexOf('.html') >= 0) {
-        var page = yield phantom.openPage('http://localhost:' + (argv.port || 3000) + this.path);
-
-        this.body = yield page.run(function () {
-            return this.frameContent.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-        });
-
-        yield page.run(function () {
-            return this.close();
-        });
-    } else {
-        yield next;
-    }
-});
-
+app.use(require('koa-prerender')({ prerender: 'http://localhost:3000/' }));
 app.use(router);
 app.use(serve);
 
