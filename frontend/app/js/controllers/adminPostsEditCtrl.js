@@ -42,7 +42,6 @@ angular.module('app').controller('adminPostsEditCtrl', function ($rootScope, $sc
 
     $scope.editorOptions = {
         language: 'ru',
-        extraPlugins: 'syntaxhighlight,base64image',
         toolbar: CKEDITOR.config.toolbar,
         allowedContent: true
     };

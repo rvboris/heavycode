@@ -1,5 +1,4 @@
 window.CKEDITOR = { on: function () {}, status: 'loaded', fake: true }; // Dynamic loading workaround
-SyntaxHighlighter.defaults.toolbar = false;
 
 angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'pasvaz.bindonce', 'iso.directives', 'LocalStorageModule', 'toaster', 'ngTagsInput', 'ngCkeditor', 'angularFileUpload', 'chieffancypants.loadingBar', 'angulartics', 'angulartics.google.analytics'])
     .run(function ($rootScope, $state, $location, $anchorScroll, meta, localStorageService, $http) {
@@ -15,7 +14,7 @@ angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'pasvaz.bindonce'
 
                 var now = moment();
 
-                if (now < moment(token.time).add('days', 1)) {
+                if (now < moment(token.time).add(1, 'days')) {
                     token.time = now;
                     localStorageService.add('token', token);
                     $rootScope.token = token.token;

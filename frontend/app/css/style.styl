@@ -3,6 +3,7 @@
 @import isotope
 @import fancybox
 @import nib
+@import hybrid
 
 @font-face
   font-family 'Pragmatic'
@@ -29,9 +30,6 @@ link-transition()
 #loading-bar-spinner .spinner-icon
   border-top-color #f33 !important
   border-left-color #f33 !important
-
-.syntaxhighlighter table .container:before
-  display none !important
 
 .comments
   .hc_footer
@@ -189,6 +187,11 @@ html.site
             > a
               display inline-block
               margin-top 10px
+            pre
+              background #1d1f21
+              border 0
+              border-radius 0
+              font-size 14px
             a
               color #000
               font-family 'PT Sans', sans-serif
@@ -450,6 +453,11 @@ html.site
         word-wrap break-word
         p:first-line
           text-indent 20px
+        pre
+          background #1d1f21
+          border 0
+          border-radius 0
+          font-size 14px
         a
           color #000
           font-family 'PT Sans', sans-serif
