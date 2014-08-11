@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "homepage": "https://github.com/davemo/lineman-angular-template",
   "license": "MIT",
   "private": true,
@@ -30,18 +30,17 @@
     "angular-animate": "^1.2.13",
     "ng-tags-input": "^1.1.1",
     "script.js": "^2.5.2",
-    "angular-file-upload": "^0.3.1",
+    "angular-file-upload": "^1.1.0",
     "ng-ckeditor": "*",
     "FlowType.JS": "*",
     "angular-loading-bar": "^0.4.3",
     "angular-ui-router": "^0.2.10",
     "moment": "^2.7.0",
     "angular": "^1.2.19",
-    "angulartics": "~0.16.1"
+    "angulartics": "^0.16.1"
   },
   "resolutions": {
     "angular": "^1.2.19",
-    "jquery": "^2.0.3",
     "isotope": "2.0.0"
   }
 }
