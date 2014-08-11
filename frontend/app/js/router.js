@@ -31,6 +31,7 @@ angular.module('app').config(function ($provide, $locationProvider, $stateProvid
     ckeditorResolver.$inject = ['$q', '$timeout'];
 
     $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
 
     $urlRouterProvider
         .otherwise('/')

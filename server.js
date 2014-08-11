@@ -6,6 +6,7 @@ var _ = require('lodash'),
     app = require('koa')(),
     router = require('koa-router')(app),
     moment = require('moment'),
+    compress = require('koa-compress'),
     serve = require('koa-file-server')({
         root: path.join(__dirname, 'frontend', argv.env === 'production' ? 'dist' : 'generated'),
         index: true,
@@ -75,32 +76,35 @@ co(function *() {
 
 app.use(require('koa-prerender')({ prerender: 'http://localhost:3000/' }));
 app.use(router);
-app.use(serve);
 
-// HTML5 Pushstate
+// For native 404 status detection
+var clientRoutes = [
+    '/topic',
+    '/post',
+    '/archive',
+    '/contact',
+    '/portfolio',
+    '/admin'
+];
+
 app.use(function* (next) {
-    if (this.path.indexOf('/api/') < 0) {
-        yield serve.send.call(this);
+    yield serve.send(this);
+
+    var isClientRoute = _.find(clientRoutes, _.bind(function (route) {
+        return this.request.url.indexOf(route) >= 0 && !(/^\/api/).test(this.request.url);
+    }, this));
+
+    if (this.response.status === 404 && isClientRoute) {
+        yield serve.send(this, 'index.html'); // HTML5 Pushstate
     }
-
-    var tmpPath = this.path;
-
-    if (this.response.status === 404) {
-        this.path = '/';
-    }
-
-    if (tmpPath.indexOf('/api/') < 0) {
-        yield serve.send.call(this);
-    }
-
-    this.path = tmpPath;
 
     yield next;
 });
 
-app.on('error', function (err) {
-    console.trace(err);
-});
+app.use(compress({
+    threshold: 2048,
+    flush: require('zlib').Z_SYNC_FLUSH
+}));
 
 require('./routes.js')(app);
 

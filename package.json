@@ -1,7 +1,7 @@
 {
   "name": "HeavyCode",
   "description": "Personal blog & Portfolio",
-  "version": "0.1.37",
+  "version": "0.1.38",
   "keywords": [
     "blog",
     "portfolio"
@@ -31,15 +31,17 @@
     "co-easymongo": "^0.2.6",
     "feed": "^0.2.6",
     "koa": "^0.9.0",
-    "koa-body": "^0.0.4",
-    "koa-file-server": "^1.0.1",
+    "koa-body": "^0.2.0",
+    "koa-compress": "^1.0.7",
+    "koa-file-server": "^2.2.2",
     "koa-formidable": "^1.0.0",
     "koa-prerender": "^1.0.2",
     "koa-router": "^3.2.3",
     "lodash": "^2.4.1",
     "moment": "^2.8.1",
     "optimist": "^0.6.1",
-    "thunkify": "^2.1.2"
+    "thunkify": "^2.1.2",
+    "zlib": "^1.0.5"
   },
   "engines": {
     "node": "^0.11.11"
