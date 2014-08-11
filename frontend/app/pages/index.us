@@ -13,6 +13,7 @@
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
 
     <meta name="fragment" content="!">
+    <meta name="prerender-status-code" content="{{pageStatus || 200}}">
 
     <meta property="og:type" content="{{meta.ogType}}" />
 
