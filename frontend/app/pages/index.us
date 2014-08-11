@@ -42,12 +42,16 @@
 
     <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
+    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/highlight.min.js" defer></script>
+    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/javascript.min.js" defer></script>
+    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/css.min.js" defer></script>
+    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/bash.min.js" defer></script>
+    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/cs.min.js" defer></script>
+    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/markdown.min.js" defer></script>
+    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/nginx.min.js" defer></script>
+    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/ini.min.js" defer></script>
+
     <script type="text/javascript" src="//w.hypercomments.com/widget/hc/6177/ru/widget.js" async></script>
-    
-    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/highlight.min.js" async></script>
-    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/javascript.min.js" async></script>
-    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/css.min.js" async></script>
-    <script type="text/javascript" src="//yandex.st/highlightjs/8.0/languages/bash.min.js" async></script>
     
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -78,7 +78,7 @@ angular.module('app').factory('meta', function ($filter, $location) {
 
         var meta = metaData[stateName](stateParams);
 
-        meta.location = $window.location.protocol + '//heavycode.ru';
+        meta.location = $location.protocol() + '://heavycode.ru';
 
         return meta;
     };
