@@ -18,11 +18,11 @@
                 </div>
                 <div class="col-d-1-5 col-t-1-3 right">
                     <div class="wrap">
-                        <time datetime="{{post.updated | date:'yyyy-MM-dd'}}">
-                            <div class="day" bo-text="post.updated | date:'dd'" flowtype="{{ { fontRatio : 1.4 } }}"></div>
-                            <div class="month" bo-text="post.updated | monthFormat" flowtype="{{ { fontRatio : 2 } }}"></div>
+                        <time datetime="{{post.created | date:'yyyy-MM-dd'}}">
+                            <div class="day" bo-text="post.created | date:'dd'" flowtype="{{ { fontRatio : 1.4 } }}"></div>
+                            <div class="month" bo-text="post.created | monthFormat" flowtype="{{ { fontRatio : 2 } }}"></div>
                             <div class="year-wrap">
-                                <div class="year" bo-text="post.updated | date:'yyyy'" flowtype="{{ { fontRatio : 2.2 } }}"></div>
+                                <div class="year" bo-text="post.created | date:'yyyy'" flowtype="{{ { fontRatio : 2.2 } }}"></div>
                             </div>
                         </time>
                         <div class="comments"><a ng-show="commentsIsReady" ui-sref="post({ id: post._id, comments: true })" data-xid="{{post._id}}" class="comments-count">Комментарии</a></div>
