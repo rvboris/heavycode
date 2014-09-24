@@ -50,7 +50,7 @@ namespace :deploy do
   task :start do
     on roles(:app), in: :sequence do
       within current_path do
-        execute :pm2, "start", "server.js", "--name", "heavycode", "--", "--port", "7878", "--env", "production"
+        execute :pm2, "start", "server.js", "--name", "heavycode", "--node-args=\"--harmony\"", "--", "--port", "7878", "--env", "production"
       end
     end
   end
